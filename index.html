@@ -3,31 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090711">
-<title>For Yoya | Beyond Every Universe</title>
+<meta name="theme-color" content="#080611">
+<title>Date404 | A Universe for Yoya</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg:#090711;
+  --bg:#080611;
   --panel:#151020;
-  --pink:#e9a6c4;
-  --purple:#a98bd8;
-  --gold:#d9bd91;
-  --white:#f8eff7;
-  --muted:#b6a8bd;
+  --pink:#edafd0;
+  --purple:#b49ae8;
+  --gold:#dfc69c;
+  --white:#fff5fc;
+  --muted:#b9abc7;
+  --line:#d8b4e044;
 }
 
-* { box-sizing:border-box; margin:0; padding:0; }
+* {margin:0;padding:0;box-sizing:border-box}
 
-html { scroll-behavior:smooth; }
+html {scroll-behavior:smooth}
 
 body {
   background:var(--bg);
   color:var(--white);
-  font-family:'Montserrat',sans-serif;
+  font-family:Montserrat,sans-serif;
   overflow-x:hidden;
 }
 
@@ -35,294 +36,489 @@ body::before {
   content:"";
   position:fixed;
   inset:0;
-  z-index:-2;
+  z-index:-3;
   background:
-    radial-gradient(ellipse at 15% 20%,#39204d55,transparent 45%),
-    radial-gradient(ellipse at 85% 65%,#54203e44,transparent 45%),
-    linear-gradient(145deg,#090711,#100c1d 55%,#090711);
+    radial-gradient(ellipse at 20% 20%,#48215d66,transparent 45%),
+    radial-gradient(ellipse at 85% 70%,#5b204c55,transparent 45%),
+    linear-gradient(140deg,#080611,#100a20 55%,#080611);
 }
 
-#stars {
+button,a {font:inherit}
+button {cursor:pointer}
+a {color:inherit;text-decoration:none}
+
+#universe {
   position:fixed;
   inset:0;
-  z-index:-1;
+  z-index:-2;
   pointer-events:none;
   overflow:hidden;
 }
 
 .star {
   position:absolute;
-  width:2px;
-  height:2px;
-  background:#fff;
   border-radius:50%;
-  animation:twinkle 3s infinite alternate;
+  background:white;
+  box-shadow:0 0 7px #fff;
+  animation:twinkle var(--duration) ease-in-out infinite alternate;
 }
 
 @keyframes twinkle {
-  from {opacity:.15;transform:scale(.7)}
+  from {opacity:.15;transform:scale(.6)}
   to {opacity:1;transform:scale(1.5)}
 }
 
-a { color:inherit; text-decoration:none; }
-
-button { font-family:inherit; cursor:pointer; }
-
-section {
-  width:min(1100px,90%);
-  margin:auto;
-  padding:95px 0;
-}
-
-.eyebrow {
-  color:var(--pink);
-  text-transform:uppercase;
-  letter-spacing:4px;
-  font-size:10px;
-  margin-bottom:17px;
-}
-
-.section-title {
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(38px,7vw,65px);
-  font-weight:400;
-  line-height:1.1;
-  margin-bottom:18px;
-}
-
-.section-subtitle {
-  color:var(--muted);
-  line-height:1.9;
-  font-size:13px;
-  max-width:550px;
-  margin:auto;
-}
-
-.center { text-align:center; }
-
-/* Music player */
-
-.music-player {
+.nebula {
   position:fixed;
-  z-index:20;
-  top:20px;
-  right:20px;
+  width:500px;
+  height:500px;
+  border-radius:50%;
+  filter:blur(100px);
+  opacity:.13;
+  z-index:-2;
+  pointer-events:none;
+  animation:nebulaFloat 18s ease-in-out infinite alternate;
+}
+
+.nebula.one {background:#b45bd8;top:5%;left:-250px}
+.nebula.two {background:#b44781;bottom:0;right:-250px;animation-delay:-8s}
+
+@keyframes nebulaFloat {
+  to {transform:translate(120px,-80px) scale(1.3)}
+}
+
+/* TOP NAV */
+
+.topbar {
+  position:fixed;
+  z-index:50;
+  top:0;
+  left:0;
+  width:100%;
+  padding:16px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:linear-gradient(#080611dd,transparent);
+  pointer-events:none;
+}
+
+.brand {
+  pointer-events:auto;
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;
+  letter-spacing:2px;
+  color:var(--pink);
+}
+
+.top-actions {
   display:flex;
   align-items:center;
   gap:10px;
-  padding:10px 15px;
-  border:1px solid #ffffff20;
-  border-radius:50px;
-  background:#120d20dd;
-  backdrop-filter:blur(15px);
+  pointer-events:auto;
 }
 
-.music-btn {
-  width:34px;
-  height:34px;
+.music-btn,.nav-toggle {
+  width:42px;
+  height:42px;
+  border:1px solid #e9b4d966;
   border-radius:50%;
-  border:1px solid #e9a6c4aa;
+  background:#150e23cc;
   color:var(--pink);
-  background:transparent;
-  font-size:14px;
-}
-
-.music-label {
-  font-size:9px;
-  letter-spacing:2px;
-  color:#e8d8e9;
+  backdrop-filter:blur(12px);
 }
 
 .music-bars {
   display:flex;
   gap:3px;
-  height:15px;
   align-items:center;
+  justify-content:center;
+  height:15px;
 }
 
 .music-bars span {
+  display:block;
   width:2px;
   height:5px;
   background:var(--pink);
-  border-radius:5px;
 }
 
 .music-bars.playing span {
   animation:equalize .7s infinite alternate;
 }
 
-.music-bars span:nth-child(2) {animation-delay:.2s}
-.music-bars span:nth-child(3) {animation-delay:.4s}
-.music-bars span:nth-child(4) {animation-delay:.1s}
+.music-bars span:nth-child(2){animation-delay:.2s}
+.music-bars span:nth-child(3){animation-delay:.4s}
+.music-bars span:nth-child(4){animation-delay:.1s}
 
-@keyframes equalize {
-  to {height:15px}
+@keyframes equalize {to{height:15px}}
+
+.nav-panel {
+  position:fixed;
+  z-index:60;
+  top:75px;
+  right:5%;
+  width:220px;
+  padding:15px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#110d20ee;
+  backdrop-filter:blur(20px);
+  display:none;
 }
 
-/* Hero */
+.nav-panel.open {display:block}
 
-.hero {
+.nav-panel a {
+  display:block;
+  padding:12px;
+  color:var(--muted);
+  font-size:11px;
+  border-bottom:1px solid #ffffff0d;
+  transition:.3s;
+}
+
+.nav-panel a:hover {color:var(--pink);padding-left:18px}
+
+/* COMMON */
+
+section {
+  width:min(1100px,90%);
+  margin:auto;
+  padding:110px 0;
+  scroll-margin-top:55px;
+}
+
+.center {text-align:center}
+
+.eyebrow {
+  font-size:10px;
+  color:var(--pink);
+  letter-spacing:4px;
+  text-transform:uppercase;
+  margin-bottom:16px;
+}
+
+.section-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(40px,8vw,68px);
+  font-weight:400;
+  line-height:1.1;
+  margin-bottom:15px;
+}
+
+.section-subtitle {
+  max-width:550px;
+  margin:auto;
+  color:var(--muted);
+  font-size:12px;
+  line-height:2;
+}
+
+.glow-line {
+  width:80px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--pink),transparent);
+  margin:25px auto;
+  box-shadow:0 0 15px var(--pink);
+}
+
+/* INTRO */
+
+#intro {
   min-height:100vh;
   display:flex;
-  flex-direction:column;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
+  flex-direction:column;
   text-align:center;
   position:relative;
-  padding:100px 20px 60px;
+  padding:100px 20px;
 }
 
-.orbit {
-  width:180px;
-  height:180px;
-  border:1px solid #d8b4d355;
-  border-radius:50%;
+.portal {
+  width:210px;
+  height:210px;
   position:relative;
   display:grid;
   place-items:center;
-  margin-bottom:35px;
-  box-shadow:0 0 50px #b18ac522,inset 0 0 40px #b18ac511;
+  margin-bottom:40px;
 }
 
-.orbit::before {
+.portal-ring {
+  position:absolute;
+  inset:0;
+  border:1px solid #d6a5e077;
+  border-radius:50%;
+  box-shadow:0 0 35px #b47ad533,inset 0 0 35px #b47ad522;
+  animation:spin 22s linear infinite;
+}
+
+.portal-ring::before {
   content:"";
   position:absolute;
-  width:220px;
-  height:75px;
-  border:1px solid #d9bd9170;
+  inset:15px;
+  border:1px dashed #d9bd9177;
   border-radius:50%;
-  transform:rotate(-28deg);
 }
 
-.planet {
-  width:100px;
-  height:100px;
-  border-radius:50%;
-  background:radial-gradient(circle at 30% 25%,#f4c9dc,#a46d9f 45%,#36234e 85%);
-  box-shadow:0 0 50px #d69ac777;
+.portal-ring.two {
+  inset:25px -30px;
+  transform:rotate(-30deg);
+  animation:spin 30s linear infinite reverse;
+  border-color:#edafd066;
 }
 
-.orbit-heart {
+@keyframes spin {to{transform:rotate(360deg)}}
+
+.portal-core {
+  width:115px;
+  height:115px;
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 25%,#ffe5f3,#c078b2 35%,#52366f 75%,#151020);
+  box-shadow:0 0 65px #d98fca88;
+  animation:breathe 4s ease-in-out infinite alternate;
+}
+
+@keyframes breathe {
+  to {transform:scale(1.1);box-shadow:0 0 90px #d98fca99}
+}
+
+.portal-star {
   position:absolute;
-  right:2px;
-  top:15px;
-  font-size:24px;
-  color:var(--pink);
+  top:10px;
+  right:5px;
+  color:var(--gold);
+  font-size:25px;
 }
 
-.hero h1 {
+#intro h1 {
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(60px,13vw,110px);
+  font-size:clamp(70px,15vw,125px);
   font-weight:500;
-  letter-spacing:3px;
-  background:linear-gradient(110deg,#fff1f7,#e7a6c7,#d8c0f5);
+  letter-spacing:5px;
+  background:linear-gradient(110deg,#fff,#e8a9cc,#c7aaf4);
   -webkit-background-clip:text;
   color:transparent;
 }
 
-.hero .subtitle {
-  font-size:11px;
-  letter-spacing:5px;
-  text-transform:uppercase;
+.intro-tag {
   color:var(--gold);
-  margin:10px 0 25px;
-}
-
-.hero p {
-  color:var(--muted);
-  max-width:500px;
-  line-height:2;
-  font-size:13px;
-}
-
-.primary-btn {
-  display:inline-block;
-  margin-top:32px;
-  padding:15px 30px;
-  border:1px solid #e9a6c477;
-  border-radius:40px;
-  background:linear-gradient(120deg,#9b577d44,#a98bd822);
-  color:#fff;
-  letter-spacing:2px;
   font-size:10px;
+  letter-spacing:5px;
+  margin:8px 0 25px;
+}
+
+#intro p {
+  max-width:490px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:2.2;
+}
+
+.enter-btn {
+  margin-top:32px;
+  border:1px solid #e9a6c477;
+  padding:15px 32px;
+  border-radius:40px;
+  background:linear-gradient(120deg,#9b577d55,#a98bd822);
+  color:white;
+  font-size:10px;
+  letter-spacing:3px;
   transition:.3s;
 }
 
-.primary-btn:hover {
+.enter-btn:hover {
   background:#b36b91;
-  box-shadow:0 0 30px #d68bb755;
-  transform:translateY(-3px);
+  box-shadow:0 0 35px #d68bb777;
+  transform:translateY(-4px);
 }
 
-.scroll-note {
+.scroll-hint {
   position:absolute;
   bottom:25px;
+  color:#8d8198;
   font-size:9px;
   letter-spacing:3px;
-  color:#8d8198;
 }
 
-/* Letter */
+/* SOLAR SYSTEM */
 
-.letter-card {
-  max-width:780px;
+#solar {
+  padding-top:90px;
+  text-align:center;
+}
+
+.solar-system {
+  position:relative;
+  width:min(650px,95vw);
+  height:min(650px,95vw);
+  margin:60px auto 0;
+  display:grid;
+  place-items:center;
+}
+
+.sun {
+  position:absolute;
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;
+  background:radial-gradient(circle at 35% 30%,#fff2cc,#e8a6c4 45%,#9a528e 80%);
+  box-shadow:0 0 35px #e8a6c4,0 0 100px #a85dba77;
+  z-index:2;
+}
+
+.orbit-path {
+  position:absolute;
+  border:1px solid #d5b4e033;
+  border-radius:50%;
+  transform:rotate(-25deg);
+}
+
+.orbit-path.one {width:220px;height:150px}
+.orbit-path.two {width:350px;height:245px}
+.orbit-path.three {width:500px;height:355px}
+.orbit-path.four {width:640px;height:455px}
+
+.planet {
+  position:absolute;
+  display:grid;
+  place-items:center;
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  border:1px solid #ffffff44;
+  color:white;
+  font-size:23px;
+  background:radial-gradient(circle at 30% 25%,#f1c4e4,#805b9e 55%,#21152f);
+  box-shadow:0 0 25px #b68be455;
+  transition:.35s;
+  z-index:4;
+}
+
+.planet:hover {
+  transform:scale(1.2);
+  box-shadow:0 0 45px var(--pink);
+}
+
+.planet small {
+  position:absolute;
+  top:83px;
+  white-space:nowrap;
+  font-size:9px;
+  letter-spacing:1px;
+  color:var(--pink);
+}
+
+.p1 {top:10%;left:48%}
+.p2 {top:30%;right:3%}
+.p3 {bottom:15%;right:17%}
+.p4 {bottom:8%;left:22%}
+.p5 {top:22%;left:8%}
+
+.solar-note {
+  margin-top:30px;
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+/* SECTIONS AS PLANETS */
+
+.planet-section {
+  position:relative;
+}
+
+.planet-heading {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  margin-bottom:25px;
+}
+
+.planet-icon {
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  border:1px solid #e9a6c466;
+  color:var(--pink);
+  box-shadow:0 0 25px #e9a6c422;
+  font-size:21px;
+}
+
+.content-card {
+  max-width:790px;
   margin:35px auto 0;
   padding:clamp(25px,6vw,55px);
-  border:1px solid #ffffff16;
-  background:linear-gradient(135deg,#ffffff09,#ffffff03);
-  border-radius:8px;
+  background:linear-gradient(135deg,#ffffff0c,#ffffff03);
+  border:1px solid #ffffff19;
+  border-radius:12px;
+  box-shadow:0 25px 70px #0005;
   position:relative;
-  box-shadow:0 20px 70px #0004;
+  overflow:hidden;
 }
 
-.letter-card::before {
-  content:"✦";
+.content-card::before {
+  content:"";
   position:absolute;
-  top:18px;
-  right:22px;
-  color:var(--gold);
+  width:200px;
+  height:200px;
+  right:-100px;
+  top:-100px;
+  border-radius:50%;
+  background:#c27ac522;
+  filter:blur(30px);
 }
 
-.letter-card p {
+.letter-text {
+  position:relative;
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(19px,3vw,25px);
+  font-size:clamp(19px,3vw,26px);
   line-height:1.8;
-  color:#e9dce9;
+  color:#f1e3ef;
 }
 
 .signature {
-  margin-top:28px;
-  color:var(--pink);
+  position:relative;
+  margin-top:25px;
   font-family:'Cormorant Garamond',serif;
-  font-size:27px;
+  font-size:28px;
   font-style:italic;
+  color:var(--pink);
 }
 
-/* Memories */
+/* GALLERY */
 
 .gallery {
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:17px;
+  gap:16px;
   margin-top:45px;
 }
 
 .memory {
   position:relative;
   overflow:hidden;
-  border-radius:7px;
   border:1px solid #ffffff20;
-  background:var(--panel);
+  border-radius:9px;
+  background:#151020;
   min-height:260px;
+  cursor:pointer;
   transition:.4s;
 }
 
-.memory:nth-child(even) { transform:translateY(22px); }
+.memory:nth-child(even) {transform:translateY(22px)}
 
 .memory:hover {
-  transform:translateY(-5px);
-  border-color:#e9a6c488;
-  box-shadow:0 15px 40px #0006;
+  border-color:var(--pink);
+  box-shadow:0 15px 45px #c47aaa33;
 }
 
 .memory img {
@@ -334,23 +530,67 @@ section {
   transition:transform .6s;
 }
 
-.memory:hover img { transform:scale(1.07); }
+.memory:hover img {transform:scale(1.08)}
 
 .memory figcaption {
   position:absolute;
-  bottom:0;
   left:0;
   right:0;
-  padding:30px 13px 15px;
-  background:linear-gradient(transparent,#090711eF);
+  bottom:0;
+  padding:35px 12px 15px;
+  background:linear-gradient(transparent,#090711ed);
   font-family:'Cormorant Garamond',serif;
   font-size:19px;
-  color:#fff;
+  color:white;
 }
 
-/* Story */
+.lightbox {
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:#05030cf2;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  padding:20px;
+  backdrop-filter:blur(15px);
+}
 
-.story-list {
+.lightbox.show {display:flex}
+
+.lightbox img {
+  max-width:min(850px,95vw);
+  max-height:75vh;
+  object-fit:contain;
+  border:1px solid #e9a6c477;
+  box-shadow:0 0 60px #a76a9a44;
+  border-radius:5px;
+}
+
+.lightbox p {
+  font-family:'Cormorant Garamond',serif;
+  color:var(--pink);
+  font-size:25px;
+  margin-top:15px;
+}
+
+.close-lightbox {
+  position:absolute;
+  top:25px;
+  right:25px;
+  border:1px solid #ffffff55;
+  background:#151020;
+  color:white;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  font-size:20px;
+}
+
+/* STORY */
+
+.story {
   max-width:650px;
   margin:45px auto 0;
   border-left:1px solid #d9bd9166;
@@ -359,26 +599,23 @@ section {
 
 .story-item {
   position:relative;
-  padding:0 0 35px;
+  padding:0 0 38px;
 }
 
 .story-item::before {
-  content:"";
+  content:"✦";
   position:absolute;
-  width:9px;
-  height:9px;
-  background:var(--pink);
-  border-radius:50%;
-  left:-35px;
-  top:7px;
-  box-shadow:0 0 15px var(--pink);
+  left:-39px;
+  color:var(--pink);
+  font-size:15px;
+  text-shadow:0 0 12px var(--pink);
 }
 
 .story-item h3 {
   font-family:'Cormorant Garamond',serif;
-  font-size:25px;
-  font-weight:500;
+  font-size:27px;
   color:var(--gold);
+  font-weight:500;
   margin-bottom:8px;
 }
 
@@ -388,7 +625,7 @@ section {
   line-height:1.9;
 }
 
-/* Reasons */
+/* CONSTELLATIONS */
 
 .reasons {
   display:grid;
@@ -399,200 +636,341 @@ section {
 
 .reason {
   padding:25px;
-  border:1px solid #ffffff16;
-  background:#ffffff06;
-  border-radius:8px;
+  border:1px solid #ffffff18;
+  border-radius:10px;
+  background:#ffffff07;
+  transition:.3s;
+}
+
+.reason:hover {
+  transform:translateY(-5px);
+  border-color:#d9a9d077;
+  box-shadow:0 10px 35px #b47ad522;
 }
 
 .reason .symbol {
   color:var(--pink);
-  font-size:23px;
+  font-size:24px;
   margin-bottom:12px;
 }
 
 .reason h3 {
   font-family:'Cormorant Garamond',serif;
-  font-size:24px;
+  font-size:25px;
   font-weight:500;
-  margin-bottom:7px;
+  margin-bottom:8px;
 }
 
 .reason p {
   font-size:11px;
   color:var(--muted);
-  line-height:1.8;
+  line-height:1.9;
 }
 
-/* Date invitation */
+/* SECRET MESSAGE */
+
+.secret-box {
+  max-width:600px;
+  margin:40px auto 0;
+  text-align:center;
+  padding:35px 20px;
+  border:1px solid #ffffff20;
+  border-radius:12px;
+  background:#ffffff06;
+}
+
+.secret-heart {
+  border:0;
+  background:none;
+  font-size:65px;
+  filter:drop-shadow(0 0 20px #ef9fc4);
+  transition:.3s;
+  animation:heartBeat 2s infinite;
+}
+
+@keyframes heartBeat {
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.12)}
+}
+
+.secret-heart:hover {transform:scale(1.2)}
+
+.secret-message {
+  display:none;
+  margin-top:25px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:25px;
+  line-height:1.7;
+  color:var(--pink);
+}
+
+.secret-message.show {display:block}
+
+/* DATE */
 
 .date-box {
-  margin:35px auto 0;
   max-width:650px;
+  margin:35px auto 0;
   padding:clamp(25px,6vw,45px);
+  border:1px solid #d9bd9155;
+  border-radius:12px;
   background:linear-gradient(145deg,#28182f,#140f20);
-  border:1px solid #d9bd9144;
-  border-radius:10px;
   box-shadow:0 20px 60px #0005;
 }
 
 .date-box label {
   display:block;
+  text-align:left;
+  margin:18px 0 8px;
   color:var(--gold);
   font-size:10px;
   letter-spacing:2px;
-  margin:18px 0 8px;
-  text-align:left;
 }
 
-.date-box input,
-.date-box select,
-.date-box textarea {
+.date-box input,.date-box select,.date-box textarea {
   width:100%;
   padding:14px;
+  border:1px solid #ffffff25;
+  border-radius:6px;
   background:#090711;
-  border:1px solid #ffffff22;
-  border-radius:5px;
-  color:#fff;
+  color:white;
   outline:none;
-  font-family:inherit;
+  font-family:Montserrat,sans-serif;
   font-size:12px;
 }
 
-.date-box input:focus,
-.date-box select:focus,
-.date-box textarea:focus {
-  border-color:var(--pink);
-}
+.date-box textarea {min-height:85px;resize:vertical}
 
-.date-box textarea {
-  resize:vertical;
-  min-height:80px;
+.date-box input:focus,.date-box select:focus,.date-box textarea:focus {
+  border-color:var(--pink);
 }
 
 .date-submit {
   width:100%;
   padding:16px;
-  border:0;
-  border-radius:5px;
   margin-top:25px;
-  color:#160d1c;
+  border:0;
+  border-radius:6px;
   background:linear-gradient(100deg,#e9a6c4,#d9bd91);
+  color:#160d1c;
   font-weight:600;
   letter-spacing:2px;
   font-size:11px;
   transition:.3s;
 }
 
-.date-submit:hover { filter:brightness(1.1); }
+.date-submit:hover {filter:brightness(1.1);transform:translateY(-2px)}
 
-/* Footer */
+/* FOOTER */
 
 footer {
   text-align:center;
-  padding:45px 20px;
+  padding:50px 20px;
   border-top:1px solid #ffffff12;
-  color:#8e8195;
+  color:#94869b;
   font-size:10px;
   letter-spacing:2px;
-  line-height:2;
+  line-height:2.2;
 }
 
-footer span { color:var(--pink); }
+footer span {color:var(--pink)}
 
 @media(max-width:700px) {
-  section {padding:75px 0}
+  section {padding:80px 0}
   .gallery {grid-template-columns:repeat(2,1fr);gap:11px}
-  .memory,.memory img {min-height:220px}
+  .memory,.memory img {min-height:210px}
   .memory:nth-child(even) {transform:none}
   .reasons {grid-template-columns:1fr}
-  .music-player {top:12px;right:12px}
-  .music-label {font-size:8px}
+  .solar-system {width:95vw;height:95vw}
+  .orbit-path.one {width:34%;height:23%}
+  .orbit-path.two {width:54%;height:38%}
+  .orbit-path.three {width:77%;height:55%}
+  .orbit-path.four {width:98%;height:72%}
+  .planet {width:58px;height:58px;font-size:18px}
+  .planet small {top:64px;font-size:8px}
+  .sun {width:75px;height:75px;font-size:16px}
+  .p1 {top:10%;left:46%}
+  .p2 {top:29%;right:0}
+  .p3 {bottom:15%;right:15%}
+  .p4 {bottom:7%;left:18%}
+  .p5 {top:24%;left:0}
 }
 
 @media(max-width:380px) {
   .gallery {grid-template-columns:1fr 1fr}
-  .memory,.memory img {min-height:180px}
+  .memory,.memory img {min-height:175px}
+  .planet {width:48px;height:48px}
+  .planet small {top:53px;font-size:7px}
 }
 </style>
 </head>
 
 <body>
 
-<div id="stars"></div>
+<div id="universe"></div>
+<div class="nebula one"></div>
+<div class="nebula two"></div>
 
-<!-- MUSIC PLAYER -->
-<div class="music-player">
-  <button class="music-btn" id="musicToggle" aria-label="Play music">▶</button>
-  <div>
-    <div class="music-label">OUR LITTLE UNIVERSE</div>
-    <div class="music-bars" id="musicBars">
-      <span></span><span></span><span></span><span></span>
-    </div>
+<header class="topbar">
+  <a href="#intro" class="brand">Date404 ✦</a>
+  <div class="top-actions">
+    <button class="music-btn" id="musicToggle" aria-label="Toggle music">
+      <div class="music-bars" id="musicBars">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </button>
+    <button class="nav-toggle" id="navToggle" aria-label="Open navigation">☰</button>
   </div>
-</div>
+</header>
+
+<nav class="nav-panel" id="navPanel">
+  <a href="#intro">Home / Portal</a>
+  <a href="#solar">Our Solar System</a>
+  <a href="#letter">Love Message</a>
+  <a href="#memories">Memory Planet</a>
+  <a href="#story">Our Story</a>
+  <a href="#reasons">Constellations</a>
+  <a href="#secret">Secret Heart</a>
+  <a href="#date">Our Next Date</a>
+</nav>
 
 <audio id="bgMusic" loop preload="none">
   <source src="music/romantic-space.mp3" type="audio/mpeg">
 </audio>
 
-<!-- HERO -->
-<header class="hero">
-  <div class="orbit">
-    <div class="planet"></div>
-    <div class="orbit-heart">♥</div>
+<!-- ENTRY PORTAL -->
+
+<header id="intro">
+  <div class="portal">
+    <div class="portal-ring"></div>
+    <div class="portal-ring two"></div>
+    <div class="portal-core"></div>
+    <div class="portal-star">✦</div>
   </div>
 
-  <div class="eyebrow">A LITTLE UNIVERSE MADE FOR YOU</div>
+  <div class="eyebrow">WELCOME TO A DIFFERENT UNIVERSE</div>
   <h1>Yoya</h1>
-  <div class="subtitle">My favorite person in every universe</div>
+  <div class="intro-tag">MY FAVORITE STAR IN EVERY GALAXY</div>
 
   <p>
-    Somewhere between a million galaxies,
-    countless stars and endless possibilities...
-    I found the one person I would choose every single time.
+    Out of all the stars, all the galaxies and all the possible universes,
+    this little universe was made for one person.
+    And that person is you.
   </p>
 
-  <a href="#letter" class="primary-btn">ENTER OUR UNIVERSE ✦</a>
+  <a href="#solar" class="enter-btn">START EXPLORING ✦</a>
 
-  <div class="scroll-note">SCROLL TO DISCOVER OUR STORY ↓</div>
+  <div class="scroll-hint">YOUR UNIVERSE IS WAITING ↓</div>
 </header>
 
-<!-- LOVE LETTER -->
-<section id="letter">
+<!-- SOLAR SYSTEM -->
+
+<section id="solar">
   <div class="center">
-    <div class="eyebrow">A MESSAGE FROM MY HEART</div>
-    <h2 class="section-title">To My Yoya</h2>
-    <p class="section-subtitle">There are things that words can never fully explain.</p>
+    <div class="eyebrow">A UNIVERSE OF OUR OWN</div>
+    <h2 class="section-title">Our Little Galaxy</h2>
+    <p class="section-subtitle">
+      Every planet holds a piece of our story.
+      Choose one and discover what is waiting for you.
+    </p>
   </div>
 
-  <div class="letter-card">
-    <p>
-      If I could travel across every galaxy, cross every star
-      and explore every universe, I would still hope to find you.
+  <div class="solar-system">
+    <div class="orbit-path one"></div>
+    <div class="orbit-path two"></div>
+    <div class="orbit-path three"></div>
+    <div class="orbit-path four"></div>
+
+    <div class="sun">Y + Y</div>
+
+    <a href="#letter" class="planet p1" aria-label="Love message">
+      ♡<small>LOVE</small>
+    </a>
+
+    <a href="#memories" class="planet p2" aria-label="Memories">
+      ✧<small>MEMORIES</small>
+    </a>
+
+    <a href="#story" class="planet p3" aria-label="Our story">
+      ☾<small>OUR STORY</small>
+    </a>
+
+    <a href="#reasons" class="planet p4" aria-label="Reasons">
+      ∞<small>REASONS</small>
+    </a>
+
+    <a href="#date" class="planet p5" aria-label="Date">
+      🚀<small>OUR DATE</small>
+    </a>
+  </div>
+
+  <p class="solar-note">✦ TAP ANY PLANET TO EXPLORE ✦</p>
+</section>
+
+<!-- LOVE MESSAGE -->
+
+<section id="letter" class="planet-section">
+  <div class="center">
+    <div class="planet-heading">
+      <div class="planet-icon">♡</div>
+      <div>
+        <div class="eyebrow">PLANET ONE</div>
+        <h2 class="section-title">A Message From My Heart</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <div class="letter-text">
+      My Yoya,
+
       <br><br>
+
+      If I could travel across every galaxy,
+      cross every star and explore every universe,
+      I would still hope to find you.
+
+      <br><br>
+
       You are not just someone I love.
-      You are the calm in my chaos, the warmth in my coldest days,
-      and the beautiful thought that makes an ordinary day feel special.
+      You are the calm in my chaos,
+      the warmth in my coldest days,
+      and the beautiful thought that makes
+      an ordinary day feel special.
+
       <br><br>
+
       I don't need a perfect universe.
       I just need one where I get to hold your hand,
-      laugh with you, grow with you, and keep choosing you.
+      laugh with you, grow with you,
+      and keep choosing you.
+
       <br><br>
-      And if life gave me a thousand chances,
-      I would find you and choose you in every single one.
-    </p>
+
+      If life gave me a thousand chances,
+      I would find you and choose you
+      in every single one.
+    </div>
+
     <div class="signature">Forever yours, with love ♥</div>
   </div>
 </section>
 
-<!-- PHOTO GALLERY -->
-<section id="memories">
+<!-- MEMORY PLANET -->
+
+<section id="memories" class="planet-section">
   <div class="center">
-    <div class="eyebrow">OUR LITTLE COLLECTION</div>
-    <h2 class="section-title">Little Moments, Forever Memories</h2>
+    <div class="planet-heading">
+      <div class="planet-icon">✧</div>
+      <div>
+        <div class="eyebrow">PLANET TWO</div>
+        <h2 class="section-title">Our Memory Galaxy</h2>
+      </div>
+    </div>
+
     <p class="section-subtitle">
       Eight little windows into the memories I never want to forget.
-      Every picture has a story, and every story has you.
+      Tap a memory to explore it.
     </p>
   </div>
 
@@ -634,24 +1012,38 @@ footer span { color:var(--pink); }
     </figure>
 
     <figure class="memory">
-      <img src="images/memory8.jpeg" alt="my little Yoya " loading="lazy">
+      <img src="images/memory8.jpeg" alt="my little Yoya" loading="lazy">
       <figcaption>To many more memories ♥</figcaption>
     </figure>
 
   </div>
 </section>
 
+<!-- IMAGE LIGHTBOX -->
+
+<div class="lightbox" id="lightbox">
+  <button class="close-lightbox" id="closeLightbox">×</button>
+  <img src="" alt="Memory enlarged" id="lightboxImage">
+  <p id="lightboxCaption"></p>
+</div>
+
 <!-- OUR STORY -->
-<section>
+
+<section id="story" class="planet-section">
   <div class="center">
-    <div class="eyebrow">WRITTEN IN THE STARS</div>
-    <h2 class="section-title">Our Little Story</h2>
+    <div class="planet-heading">
+      <div class="planet-icon">☾</div>
+      <div>
+        <div class="eyebrow">PLANET THREE</div>
+        <h2 class="section-title">Written in the Stars</h2>
+      </div>
+    </div>
     <p class="section-subtitle">
-      Maybe the universe had its own beautiful way of bringing us together.
+      A little story that keeps finding new chapters.
     </p>
   </div>
 
-  <div class="story-list">
+  <div class="story">
     <div class="story-item">
       <h3>The Beginning</h3>
       <p>
@@ -661,43 +1053,48 @@ footer span { color:var(--pink); }
     </div>
 
     <div class="story-item">
-      <h3>The Little Things</h3>
+      <h3>The First Walk</h3>
       <p>
-        The conversations, the laughter, the silly moments...
-        all those little things became precious to me.
+        A simple walk became a memory I would love
+        to revisit a thousand times.
       </p>
     </div>
 
     <div class="story-item">
-      <h3>My Favorite Person</h3>
+      <h3>Our First Date</h3>
       <p>
-        Somewhere along the way, you became the person
-        I want to share the little and big things with.
+        One little adventure, countless feelings,
+        and a moment worth keeping forever.
       </p>
     </div>
 
     <div class="story-item">
       <h3>To Be Continued...</h3>
       <p>
-        This isn't the end of our story.
-        It's just another chapter in a universe full of possibilities.
+        The universe is still expanding,
+        and our story has so many beautiful chapters left.
       </p>
     </div>
   </div>
 </section>
 
-<!-- REASONS -->
-<section>
+<!-- REASONS CONSTELLATION -->
+
+<section id="reasons" class="planet-section">
   <div class="center">
-    <div class="eyebrow">A MILLION LITTLE REASONS</div>
-    <h2 class="section-title">Why You're Special</h2>
+    <div class="planet-heading">
+      <div class="planet-icon">∞</div>
+      <div>
+        <div class="eyebrow">PLANET FOUR</div>
+        <h2 class="section-title">My Constellation</h2>
+      </div>
+    </div>
     <p class="section-subtitle">
-      I could write a thousand reasons, but these are just a few.
+      A thousand little stars, and each one reminds me of you.
     </p>
   </div>
 
   <div class="reasons">
-
     <div class="reason">
       <div class="symbol">✧</div>
       <h3>Your Smile</h3>
@@ -721,43 +1118,81 @@ footer span { color:var(--pink); }
       <h3>Simply You</h3>
       <p>Not because you're perfect, but because you're you. And that's enough.</p>
     </div>
-
   </div>
 </section>
 
-<!-- DATE INVITATION -->
-<section id="date">
+<!-- SECRET HEART -->
+
+<section id="secret" class="planet-section">
   <div class="center">
-    <div class="eyebrow">A SPECIAL INVITATION</div>
-    <h2 class="section-title">One More Beautiful Memory?</h2>
+    <div class="eyebrow">A SECRET SIGNAL FROM MY HEART</div>
+    <h2 class="section-title">One Last Little Secret</h2>
     <p class="section-subtitle">
-      I have a little question for you, Yoya...
-      Would you let me take you on a date?
+      There is something hidden in this universe.
+      Only you can unlock it.
+    </p>
+  </div>
+
+  <div class="secret-box">
+    <button class="secret-heart" id="secretHeart" aria-label="Reveal secret">♥</button>
+    <p style="font-size:10px;letter-spacing:2px;color:var(--muted);margin-top:15px">
+      TOUCH THE HEART TO UNLOCK
+    </p>
+
+    <div class="secret-message" id="secretMessage">
+      If I had to choose one place in the entire universe
+      to call home...
+
+      <br><br>
+
+      It would be wherever you are, Yoya.
+
+      <br><br>
+
+      You are my favorite destination. ♥
+    </div>
+  </div>
+</section>
+
+<!-- DATE STATION -->
+
+<section id="date" class="planet-section">
+  <div class="center">
+    <div class="planet-heading">
+      <div class="planet-icon">🚀</div>
+      <div>
+        <div class="eyebrow">FINAL DESTINATION</div>
+        <h2 class="section-title">Our Next Adventure</h2>
+      </div>
+    </div>
+
+    <p class="section-subtitle">
+      I have one more question, Yoya...
+      Would you let me make another beautiful memory with you?
     </p>
   </div>
 
   <div class="date-box">
     <div class="center">
-      <div style="font-size:35px;margin-bottom:15px">🌙</div>
-      <h2 style="font-family:'Cormorant Garamond';font-size:35px;font-weight:400">
-        Let's make a memory
+      <div style="font-size:38px;margin-bottom:12px">🌙</div>
+      <h2 style="font-family:'Cormorant Garamond';font-size:36px;font-weight:400">
+        Mission: A Date With Yoya
       </h2>
       <p style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.8">
-        Pick the details, my love. The rest is on me.
+        Choose our destination. The universe will handle the rest.
       </p>
     </div>
 
     <form id="dateForm">
-
-      <label for="dateDay">CHOOSE OUR DAY</label>
+      <label for="dateDay">MISSION DATE</label>
       <input type="date" id="dateDay" required>
 
-      <label for="dateTime">CHOOSE THE TIME</label>
+      <label for="dateTime">LAUNCH TIME</label>
       <input type="time" id="dateTime" required>
 
-      <label for="datePlace">WHERE SHOULD WE GO?</label>
+      <label for="datePlace">DESTINATION</label>
       <select id="datePlace" required>
-        <option value="">Choose our destination...</option>
+        <option value="">Choose a destination...</option>
         <option>Somewhere romantic 🌹</option>
         <option>A cozy cafe ☕</option>
         <option>A walk under the stars ✨</option>
@@ -765,9 +1200,9 @@ footer span { color:var(--pink); }
         <option>Surprise me ❤️</option>
       </select>
 
-      <label for="dateFood">WHAT SHOULD WE EAT?</label>
+      <label for="dateFood">FUEL FOR OUR ADVENTURE</label>
       <select id="dateFood">
-        <option value="Your favorite food">Your favorite food ❤️</option>
+        <option>Your favorite food ❤️</option>
         <option>Pizza 🍕</option>
         <option>Pasta 🍝</option>
         <option>Burgers 🍔</option>
@@ -775,13 +1210,12 @@ footer span { color:var(--pink); }
         <option>Anything you want!</option>
       </select>
 
-      <label for="dateNote">A LITTLE MESSAGE FOR ME (OPTIONAL)</label>
+      <label for="dateNote">A MESSAGE FOR YOUR CAPTAIN</label>
       <textarea id="dateNote" placeholder="Tell me what you're thinking..."></textarea>
 
       <button class="date-submit" type="submit">
-        SEND MY ANSWER ON WHATSAPP ♥
+        SEND OUR MISSION DETAILS ♥
       </button>
-
     </form>
   </div>
 </section>
@@ -789,75 +1223,122 @@ footer span { color:var(--pink); }
 <footer>
   MADE WITH LOVE, JUST FOR <span>YOYA</span>
   <br>
-  SOMEWHERE IN THIS INFINITE UNIVERSE, IT WILL ALWAYS BE YOU.
+  ONE GALAXY. TWO HEARTS. INFINITE MEMORIES.
   <br><br>
-  © OUR LITTLE UNIVERSE
+  © DATE404 — OUR LITTLE UNIVERSE
 </footer>
 
 <script>
-// Create the stars
-const stars = document.getElementById('stars');
+// STAR FIELD
+const universe = document.getElementById('universe');
 
-for(let i=0; i<130; i++) {
-  const star = document.createElement('div');
-  star.className = 'star';
-  star.style.left = Math.random()*100 + '%';
-  star.style.top = Math.random()*100 + '%';
-  star.style.animationDelay = Math.random()*4 + 's';
-  star.style.animationDuration = (2+Math.random()*4) + 's';
-  stars.appendChild(star);
+for(let i=0;i<190;i++){
+  const star=document.createElement('i');
+  star.className='star';
+  const size=Math.random()*2+1;
+  star.style.width=size+'px';
+  star.style.height=size+'px';
+  star.style.left=Math.random()*100+'%';
+  star.style.top=Math.random()*100+'%';
+  star.style.setProperty('--duration',(2+Math.random()*5)+'s');
+  star.style.animationDelay=Math.random()*5+'s';
+  universe.appendChild(star);
 }
 
-// Background music controls
-const music = document.getElementById('bgMusic');
-const musicToggle = document.getElementById('musicToggle');
-const musicBars = document.getElementById('musicBars');
+// NAVIGATION
+const navToggle=document.getElementById('navToggle');
+const navPanel=document.getElementById('navPanel');
 
-musicToggle.addEventListener('click', async () => {
-  if(music.paused) {
-    try {
+navToggle.addEventListener('click',()=>{
+  navPanel.classList.toggle('open');
+});
+
+document.querySelectorAll('.nav-panel a').forEach(link=>{
+  link.addEventListener('click',()=>{
+    navPanel.classList.remove('open');
+  });
+});
+
+// MUSIC
+const music=document.getElementById('bgMusic');
+const musicToggle=document.getElementById('musicToggle');
+const musicBars=document.getElementById('musicBars');
+
+musicToggle.addEventListener('click',async()=>{
+  if(music.paused){
+    try{
       await music.play();
-      musicToggle.textContent = 'Ⅱ';
       musicBars.classList.add('playing');
-    } catch(error) {
-      alert('Please add your music file to the music folder first.');
+    }catch(error){
+      alert('Please add your romantic-space.mp3 file inside the music folder.');
     }
-  } else {
+  }else{
     music.pause();
-    musicToggle.textContent = '▶';
     musicBars.classList.remove('playing');
   }
 });
 
-music.addEventListener('ended', () => {
-  musicToggle.textContent = '▶';
-  musicBars.classList.remove('playing');
+// GALLERY LIGHTBOX
+const lightbox=document.getElementById('lightbox');
+const lightboxImage=document.getElementById('lightboxImage');
+const lightboxCaption=document.getElementById('lightboxCaption');
+
+document.querySelectorAll('.memory').forEach(memory=>{
+  memory.addEventListener('click',()=>{
+    const img=memory.querySelector('img');
+    const caption=memory.querySelector('figcaption');
+
+    lightboxImage.src=img.src;
+    lightboxImage.alt=img.alt;
+    lightboxCaption.textContent=caption.textContent;
+    lightbox.classList.add('show');
+  });
 });
 
-// WhatsApp date invitation
-document.getElementById('dateForm').addEventListener('submit', function(e) {
-  e.preventDefault();
+function closeLightbox(){
+  lightbox.classList.remove('show');
+  lightboxImage.src='';
+}
 
-  const day = document.getElementById('dateDay').value;
-  const time = document.getElementById('dateTime').value;
-  const place = document.getElementById('datePlace').value;
-  const food = document.getElementById('dateFood').value;
-  const note = document.getElementById('dateNote').value;
+document.getElementById('closeLightbox').addEventListener('click',closeLightbox);
 
-  if(!day || !time || !place) {
-    alert('Please fill in the required details ❤️');
+lightbox.addEventListener('click',event=>{
+  if(event.target===lightbox) closeLightbox();
+});
+
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape') closeLightbox();
+});
+
+// SECRET HEART
+document.getElementById('secretHeart').addEventListener('click',()=>{
+  document.getElementById('secretMessage').classList.toggle('show');
+});
+
+// WHATSAPP DATE MISSION
+document.getElementById('dateForm').addEventListener('submit',event=>{
+  event.preventDefault();
+
+  const day=document.getElementById('dateDay').value;
+  const time=document.getElementById('dateTime').value;
+  const place=document.getElementById('datePlace').value;
+  const food=document.getElementById('dateFood').value;
+  const note=document.getElementById('dateNote').value;
+
+  if(!day || !time || !place){
+    alert('Complete your mission details first ❤️');
     return;
   }
 
-  const message =
-`Hey Youssef! ❤️
+  const message=`Hey Youssef! ❤️
 
 I have an answer to your invitation!
 
-Our Date:
-📅 Day: ${day}
+OUR NEXT ADVENTURE 🚀
+
+📅 Date: ${day}
 ⏰ Time: ${time}
-📍 Place: ${place}
+📍 Destination: ${place}
 🍰 Food: ${food}
 
 A little message:
@@ -865,10 +1346,19 @@ ${note || 'I cannot wait to see you! ❤️'}
 
 From your Yoya, with love. 🌙`;
 
-  const phone = '201224745669';
-  const whatsappURL = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(message);
+  const phone='201224745669';
+  const url='https://wa.me/'+phone+'?text='+encodeURIComponent(message);
 
-  window.open(whatsappURL, '_blank');
+  window.open(url,'_blank');
+});
+
+// GENTLE PARALLAX ON THE INTRO
+const intro=document.getElementById('intro');
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
+  if(y<window.innerHeight){
+    intro.style.backgroundPosition=`center ${y*.15}px`;
+  }
 });
 </script>
 
