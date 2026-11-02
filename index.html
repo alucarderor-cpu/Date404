@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#100817">
 <title>Yoya ✦ 404 — Lost in Your Universe</title>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Tajawal:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 
+<style>
 :root{
   --pink:#ed9acb;
   --gold:#e8d3a1;
@@ -17,10 +19,10 @@
 }
 *{box-sizing:border-box}
 html,body{
-  margin:0;width:100%;min-height:100%;
+  margin:0;width:100%;height:100%;
   background:#100817;color:var(--white);
-  font-family:'DM Sans',sans-serif;
-  overflow:hidden;
+  font-family:'DM Sans','Tajawal',sans-serif;
+  overflow:hidden;overscroll-behavior:none;
 }
 button{font:inherit;cursor:pointer}
 #stars{
@@ -33,8 +35,9 @@ button{font:inherit;cursor:pointer}
     radial-gradient(ellipse at 50% 45%,#64236940,transparent 55%),
     radial-gradient(ellipse at 15% 90%,#381e6430,transparent 45%);
 }
+/* topbar sits ABOVE the game so the star counter + music button stay visible */
 .topbar{
-  position:fixed;top:0;left:0;right:0;z-index:30;
+  position:fixed;top:0;left:0;right:0;z-index:60;
   padding:14px 16px;display:flex;
   justify-content:space-between;align-items:center;
   pointer-events:none;
@@ -52,10 +55,11 @@ button{font:inherit;cursor:pointer}
 }
 .screen{
   display:none;position:relative;z-index:2;
-  min-height:100dvh;width:100%;
+  height:100dvh;width:100%;
   padding:90px 20px 55px;
   align-items:center;justify-content:center;
   flex-direction:column;text-align:center;
+  overflow-y:auto;
 }
 .screen.active{display:flex!important}
 .content{
@@ -76,14 +80,25 @@ h2{font-size:clamp(34px,8vw,54px)}
 p{
   color:#fff8ffb8;line-height:1.9;font-size:14px;
 }
+p.ar{
+  font-family:'Tajawal',sans-serif;direction:rtl;
+  font-size:16px;color:#f3d9ecd0;margin-top:-4px;
+}
 .accent{color:var(--pink)}
 .gold{color:var(--gold)}
 .main-btn{
+  display:inline-block;text-decoration:none;
   border:1px solid #e8d3a1aa;color:#211324;
   background:linear-gradient(120deg,#f0dcae,#d99fc8);
   border-radius:30px;padding:14px 27px;
   letter-spacing:1px;font-size:12px;font-weight:700;
   margin-top:20px;box-shadow:0 8px 35px #d99fc833;
+}
+.ghost{
+  display:inline-block;text-decoration:none;
+  background:transparent;border:0;color:#cdb7cf;
+  font-size:12px;margin-top:16px;padding:8px 12px;
+  font-family:'Tajawal','DM Sans',sans-serif;
 }
 .heart{
   font-size:38px;color:var(--pink);
@@ -92,23 +107,45 @@ p{
 }
 .small-note{font-size:10px;letter-spacing:2px;color:#a99aaa}
 
+/* chips (date screen) */
+.chip-label{
+  margin:18px 0 8px;color:var(--gold);font-size:12px;
+  font-family:'Tajawal',sans-serif;
+}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chip{
+  background:#ffffff0d;border:1px solid #ffffff35;color:white;
+  border-radius:24px;padding:10px 15px;font-size:13px;
+  font-family:'Tajawal','DM Sans',sans-serif;
+  transition:.2s;
+}
+.chip.sel{
+  background:linear-gradient(120deg,#f0dcae,#d99fc8);
+  color:#211324;border-color:#e8d3a1;font-weight:700;
+}
+.hidden-input{display:none}
+.hidden-input.show{display:block}
+
 /* GAME */
 #game{
-  display:none!important;
-  position:fixed!important;inset:0!important;
-  width:100%!important;height:100vh!important;
-  height:100dvh!important;min-height:0!important;
-  padding:0!important;margin:0!important;
-  z-index:50!important;overflow:hidden!important;
-  background:#090611!important;touch-action:none;
+  display:none;
+  position:fixed;inset:0;
+  width:100%;height:100vh;height:100dvh;
+  padding:0;margin:0;
+  z-index:50;overflow:hidden;
+  background:#090611;touch-action:none;
 }
-#game.active{display:block!important}
+#game.active{display:block}
 
 #universe{
   position:absolute;inset:0;overflow:hidden;
   background:
     radial-gradient(ellipse at 50% 50%,#32163d 0%,#190d27 43%,#080611 100%);
   touch-action:none;
+}
+#fx{
+  position:absolute;inset:0;width:100%;height:100%;
+  z-index:9;pointer-events:none;
 }
 
 /* World is anchored to the actual center of the game viewport */
@@ -117,36 +154,21 @@ p{
   width:1800px;height:1800px;
   left:50%;top:50%;
   transform-origin:0 0;
-  will-change:transform;
+  will-change:transform;z-index:2;
 }
-.nebula{
-  position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse at 35% 40%,#a13c8c38,transparent 35%),
-    radial-gradient(ellipse at 70% 60%,#593c9c38,transparent 35%),
-    radial-gradient(ellipse at 50% 15%,#9c5d9230,transparent 30%),
-    radial-gradient(ellipse at 20% 80%,#375a9c25,transparent 35%);
-  filter:blur(3px);
-  pointer-events:none;
+#nebulaBg{
+  position:absolute;left:50%;top:50%;
+  width:2400px;height:2400px;
+  z-index:0;pointer-events:none;
+  will-change:transform;opacity:.95;
 }
-.nebula:after{
-  content:"";position:absolute;inset:0;
-  background-image:
-    radial-gradient(2px 2px at 20% 25%,#ffffff88,transparent),
-    radial-gradient(2px 2px at 70% 35%,#ffffff77,transparent),
-    radial-gradient(2px 2px at 55% 75%,#ffffff88,transparent),
-    radial-gradient(1px 1px at 85% 85%,#ffffff99,transparent);
-  background-size:350px 350px;
-  opacity:.8;
+#sky{
+  position:absolute;inset:0;width:100%;height:100%;
+  z-index:1;pointer-events:none;
 }
-
-/* Decorative cosmic dust */
-.dust{
-  position:absolute;border-radius:50%;
-  background:#fff8dc;
-  box-shadow:0 0 8px #fff;
-  pointer-events:none;
-  animation:twinkle 2.5s infinite alternate;
+#vignette{
+  position:absolute;inset:0;z-index:10;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 52%,#05030cb8 100%);
 }
 .ship{
   position:absolute;left:900px;top:900px;
@@ -172,41 +194,45 @@ p{
 }
 .planet-ball{
   width:var(--size);height:var(--size);
-  border-radius:50%;display:block;
-  box-shadow:inset -15px -10px 25px #0008,
-    0 0 35px var(--glow),0 0 70px var(--glow);
-  background:var(--planet);
-  border:1px solid #ffffff50;
-  position:relative;
+  display:block;position:relative;
 }
-.planet-ball:after{
-  content:"";position:absolute;inset:20% -12%;
-  border-top:3px solid #ffffff40;
-  border-bottom:3px solid #ffffff30;
-  transform:rotate(-25deg);border-radius:50%;
+.planet-ball:before{
+  content:"";position:absolute;inset:-32%;border-radius:50%;
+  background:radial-gradient(circle,var(--glow) 0%,transparent 64%);
+  opacity:.5;transition:opacity .8s;
+}
+.planet-ball canvas{
+  position:absolute;left:50%;top:50%;
+  width:calc(var(--size) * var(--pad,1.4));
+  height:calc(var(--size) * var(--pad,1.4));
+  transform:translate(-50%,-50%);
+  pointer-events:none;
 }
 .planet-name{
   font-family:'Cormorant Garamond',serif;
   font-size:17px;white-space:nowrap;color:#f9e6f6;
   text-shadow:0 2px 8px black;
 }
-.planet.discovered .planet-ball{
-  box-shadow:0 0 45px var(--glow),0 0 90px var(--glow);
-}
+.planet.discovered .planet-ball:before{opacity:1}
 .planet.discovered .planet-name{color:var(--gold)}
+.planet.discovered .planet-name:after{content:" ✓";font-size:13px}
 
-/* Collectible stars */
 .collectible{
   position:absolute;z-index:6;
   width:30px;height:30px;
   display:grid;place-items:center;
-  color:#fff3a8;font-size:23px;
-  text-shadow:0 0 9px #ffe8a3,0 0 22px #f7c96a;
   animation:starFloat 2s ease-in-out infinite alternate;
   pointer-events:none;
+  margin:-15px 0 0 -15px;
 }
-.collectible.collected{
-  animation:collectFlash .35s forwards;
+.collectible:before{
+  content:"";position:absolute;inset:-16px;border-radius:50%;
+  background:radial-gradient(circle,#ffe9a899 0%,#f7c96a2a 45%,transparent 70%);
+}
+.collectible:after{
+  content:"";position:relative;width:24px;height:24px;
+  background:linear-gradient(135deg,#fffbe0,#ffd36b 55%,#f0a640);
+  clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);
 }
 #hud{
   position:absolute;top:62px;left:15px;right:15px;
@@ -236,6 +262,7 @@ p{
   color:white;background:transparent;border:0;
   padding:10px 4px;border-bottom:1px solid #ffffff15;
 }
+.map-item.reset{color:#b9a3bc;font-size:12px;border-bottom:0}
 #controls{
   position:absolute;inset:0;z-index:120;
   pointer-events:none;
@@ -245,7 +272,7 @@ p{
   width:130px;height:130px;border-radius:50%;
   border:1px solid #ffffff55;background:#ffffff12;
   backdrop-filter:blur(5px);
-  display:flex!important;align-items:center;justify-content:center;
+  display:flex;align-items:center;justify-content:center;
   pointer-events:auto;touch-action:none;
   user-select:none;-webkit-user-select:none;
 }
@@ -259,7 +286,7 @@ p{
 #boostBtn{
   position:absolute;right:22px;bottom:55px;
   width:78px;height:78px;border-radius:50%;
-  display:grid!important;place-items:center;
+  display:grid;place-items:center;
   border:1px solid #f2d4a988;
   background:linear-gradient(145deg,#7650a5dd,#321b4cdd);
   color:#ffe6bc;font-size:11px;letter-spacing:1px;
@@ -270,6 +297,13 @@ p{
 #boostBtn.pressed{
   background:#c47acb;color:white;transform:scale(.95);
 }
+#finaleBtn{
+  display:none;position:absolute;left:50%;bottom:62px;
+  transform:translateX(-50%);z-index:130;
+  margin:0;white-space:nowrap;
+  animation:pulse 1.6s ease-in-out infinite;
+}
+#finaleBtn.show{display:block}
 #gameHint{
   position:absolute;bottom:12px;left:50%;
   transform:translateX(-50%);z-index:90;
@@ -284,7 +318,7 @@ p{
   background:#24142ddd;border:1px solid #edc5df66;
   color:#ffe7f5;padding:11px 19px;
   border-radius:30px;z-index:150;
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Cormorant Garamond','Tajawal',serif;
   font-size:18px;white-space:nowrap;
   transition:.3s;
 }
@@ -313,25 +347,108 @@ p{
   border:1px solid #ffffff44;border-radius:50%;
   width:32px;height:32px;
 }
-.gallery-grid{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:12px;margin-top:20px;
+/* photo viewer (polaroid carousel) */
+.viewer{
+  width:100%;max-width:460px;
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  --pw:min(72vw,330px,calc((100dvh - 350px) * .8));
 }
-.gallery-card{
-  background:#ffffff0c;border:1px solid #ffffff20;
-  border-radius:13px;overflow:hidden;
+.vhead{
+  width:100%;display:flex;justify-content:space-between;align-items:center;
 }
-.gallery-card img{
-  display:block;width:100%;aspect-ratio:1/1;
-  object-fit:cover;background:#21142a;
+.vhead .close{float:none;flex:0 0 32px}
+.polaroid{
+  margin:6px 0 0;width:calc(var(--pw) + 28px);
+  background:#fbf3ea;padding:14px 14px 0;border-radius:6px;
+  box-shadow:0 18px 50px #000a;
+  transform:rotate(var(--tilt,-1.5deg));
+  position:relative;color:#3a2840;
+  touch-action:pan-y;user-select:none;-webkit-user-select:none;
 }
-.gallery-card p{font-size:11px;margin:8px}
+.polaroid:before{
+  content:"";position:absolute;top:-11px;left:50%;
+  width:84px;height:24px;transform:translateX(-50%) rotate(-3deg);
+  background:#e8d3a1aa;box-shadow:0 1px 3px #0004;
+}
+.photo-wrap{
+  position:relative;width:var(--pw);aspect-ratio:4/5;
+  background:#21142a;overflow:hidden;border-radius:2px;
+}
+.photo-wrap img{
+  width:100%;height:100%;object-fit:cover;object-position:center 30%;
+  display:block;cursor:zoom-in;
+  transition:filter .5s,transform .5s;
+}
+.photo-wrap.locked img{
+  filter:blur(16px) brightness(.55) saturate(.8);
+  transform:scale(1.12);cursor:default;
+}
+.photo-wrap.missing:after{
+  content:"🖼";position:absolute;inset:0;
+  display:grid;place-items:center;font-size:40px;opacity:.35;
+}
+.lockmsg{
+  position:absolute;inset:0;display:none;
+  flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  padding:16px;text-align:center;color:#fff;
+  font-family:'Tajawal','DM Sans',sans-serif;font-size:15px;line-height:1.6;
+  text-shadow:0 2px 10px #000;
+}
+.photo-wrap.locked .lockmsg{display:flex}
+.lockmsg b{font-size:32px}
+.pcaption{padding:10px 4px 16px;text-align:center;min-height:78px}
+.ptitle{
+  display:block;font-family:'Caveat','Tajawal',cursive;
+  font-size:25px;line-height:1.15;font-weight:700;color:#3a2840;
+}
+.pcap{display:block;margin-top:4px;font-size:12px;color:#7a6580;letter-spacing:.5px}
+.vctrl{display:flex;align-items:center;gap:18px;color:#d9c3da;font-size:12px;letter-spacing:2px}
+.nav{
+  width:44px;height:44px;border-radius:50%;
+  background:#ffffff12;border:1px solid #ffffff40;color:white;font-size:22px;
+  line-height:1;
+}
+.thumbs{
+  display:flex;gap:8px;overflow-x:auto;max-width:100%;
+  padding:4px 2px;scrollbar-width:none;
+}
+.thumbs::-webkit-scrollbar{display:none}
+.thumb{
+  flex:0 0 46px;height:46px;border-radius:8px;overflow:hidden;padding:0;
+  border:2px solid transparent;background:#21142a;opacity:.55;
+}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb.locked img{filter:blur(6px) brightness(.5)}
+.thumb.on{border-color:var(--gold);opacity:1}
+@media(max-height:620px){.thumbs{display:none}}
+.polaroid.in-r{animation:inR .38s cubic-bezier(.2,.8,.2,1) both}
+.polaroid.in-l{animation:inL .38s cubic-bezier(.2,.8,.2,1) both}
+@keyframes inR{
+  from{opacity:0;transform:translateX(70px) rotate(calc(var(--tilt,0deg) + 6deg))}
+  to{opacity:1;transform:rotate(var(--tilt,0deg))}
+}
+@keyframes inL{
+  from{opacity:0;transform:translateX(-70px) rotate(calc(var(--tilt,0deg) - 6deg))}
+  to{opacity:1;transform:rotate(var(--tilt,0deg))}
+}
+.hud-btn.glow{border-color:var(--gold);animation:btnGlow 1.4s ease-in-out infinite}
+@keyframes btnGlow{
+  0%,100%{box-shadow:0 0 0 #e8d3a100}
+  50%{box-shadow:0 0 16px #e8d3a1aa}
+}
+.planet-photo{
+  display:block;width:150px;max-width:60%;aspect-ratio:4/5;
+  object-fit:cover;object-position:center 30%;
+  margin:6px auto 20px;
+  border:7px solid #fbf3ea;border-bottom-width:26px;border-radius:4px;
+  box-shadow:0 12px 30px #0008;transform:rotate(-3deg);
+}
 #lightbox img{
   max-width:90vw;max-height:75dvh;
   object-fit:contain;border-radius:12px;
 }
 input,textarea{
-  width:100%;padding:13px;margin:7px 0;
+  width:100%;padding:13px;margin:10px 0 0;
   background:#ffffff0d;border:1px solid #ffffff35;
   border-radius:10px;color:white;font:inherit;
 }
@@ -356,8 +473,9 @@ footer{
   from{height:17px;opacity:.65}
   to{height:29px;opacity:1}
 }
-@keyframes collectFlash{
-  to{transform:scale(2.5);opacity:0}
+@keyframes pulse{
+  0%,100%{box-shadow:0 8px 35px #d99fc833}
+  50%{box-shadow:0 8px 45px #f0dcaeaa}
 }
 @media(min-width:700px){
   #joystick{width:145px;height:145px;left:35px;bottom:35px}
@@ -370,6 +488,7 @@ footer{
   #stick{width:49px;height:49px}
   #boostBtn{width:68px;height:68px;right:17px;bottom:48px}
   #gameHint{font-size:8px;bottom:8px}
+  #finaleBtn{bottom:150px}
 }
 </style>
 </head>
@@ -381,12 +500,12 @@ footer{
 <div class="topbar">
   <div class="brand">YOYA ✦ 404</div>
   <div class="top-actions">
-    <span class="pill" id="starCounter">✦ 0 stars</span>
-    <button class="pill" id="musicBtn">♫ Music OFF</button>
+    <span class="pill" id="starCounter">✦ 0 / 16 stars</span>
+    <button class="pill" id="musicBtn" aria-label="Toggle music">♫ Music OFF</button>
   </div>
 </div>
 
-<audio id="bgMusic" loop preload="auto">
+<audio id="bgMusic" loop preload="none">
   <source src="music/romantic-space.mp3" type="audio/mpeg">
 </audio>
 
@@ -401,6 +520,7 @@ footer{
       that feels like home.<br>
       And somehow, it has always been <span class="gold">you.</span>
     </p>
+    <p class="ar">وسط ملايين النجوم، في كون واحد بس حاسس إنه بيتي.</p>
     <button class="main-btn" onclick="goTo('letter')">ENTER OUR UNIVERSE ✦</button>
     <p class="small-note">A JOURNEY MADE WITH LOVE</p>
   </div>
@@ -409,13 +529,14 @@ footer{
 <section class="screen" id="letter">
   <div class="content">
     <div class="eyebrow">A message from my heart</div>
-    <h2>Dear <span class="accent">Yoya</span> ♡</h2>
+    <h2>Dear <span class="accent" id="nameSlot">Yoya</span> ♡</h2>
     <p>If I could put everything I feel into words,
       I would probably need a whole galaxy.</p>
     <p>So I made you one instead.<br>
       A little place where every star holds a memory,
       every planet hides a reason,
       and every road leads back to you.</p>
+    <p class="ar">لو كنت هكتب كل اللي حاسه، كنت هحتاج مجرة كاملة. فعملتلك واحدة.</p>
     <p class="gold">Ready to explore it with me?</p>
     <button class="main-btn" onclick="goTo('littleThings')">I'M READY ♡</button>
   </div>
@@ -428,6 +549,7 @@ footer{
     <p>Your smile. Your voice. The little details you don't even notice.
       The moments that seem ordinary but become unforgettable
       just because you're in them.</p>
+    <p class="ar">ابتسامتك، صوتك، وتفاصيل صغيرة إنتي مش واخدة بالك منها.</p>
     <p>That's my favorite kind of magic.</p>
     <button class="main-btn" onclick="goTo('reasons')">ONE MORE THING ✦</button>
   </div>
@@ -439,6 +561,7 @@ footer{
     <h2>Why you are <span class="accent">special</span></h2>
     <p>Because you make the simplest moments feel different.</p>
     <p>Because being close to you feels like finding my favorite place in the universe.</p>
+    <p class="ar">لأن أبسط اللحظات بتبقى مختلفة وإنتي موجودة فيها.</p>
     <p class="gold">And because this is only the beginning...</p>
     <button class="main-btn" onclick="startGame()">START OUR ADVENTURE 🚀</button>
   </div>
@@ -447,19 +570,38 @@ footer{
 <!-- GAME -->
 <section id="game">
   <div id="universe">
+    <canvas id="nebulaBg"></canvas>
+    <canvas id="sky"></canvas>
     <div id="world">
-      <div class="nebula"></div>
 
       <div class="ship" id="ship">
         <div class="ship-engine"></div>
-        <svg viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="hull" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#b9a0da"/>
+              <stop offset=".42" stop-color="#ffffff"/>
+              <stop offset="1" stop-color="#a98ccc"/>
+            </linearGradient>
+            <linearGradient id="fin" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f6aedb"/>
+              <stop offset="1" stop-color="#9a4a9e"/>
+            </linearGradient>
+            <radialGradient id="glass" cx=".35" cy=".3" r=".85">
+              <stop offset="0" stop-color="#e2f7ff"/>
+              <stop offset=".5" stop-color="#6e8fe0"/>
+              <stop offset="1" stop-color="#2a2878"/>
+            </radialGradient>
+          </defs>
+          <path d="M17 46 L4 66 L24 60Z" fill="url(#fin)" stroke="#ffffff55" stroke-width=".8"/>
+          <path d="M43 46 L56 66 L36 60Z" fill="url(#fin)" stroke="#ffffff55" stroke-width=".8"/>
+          <path d="M25 61 L35 61 L33.5 67 L26.5 67Z" fill="#54406b"/>
           <path d="M30 3 C14 22 14 48 30 65 C46 48 46 22 30 3Z"
-            fill="#f5d8ef" stroke="#fff" stroke-width="1.5"/>
-          <path d="M30 16 C23 28 23 38 30 43 C37 38 37 28 30 16Z"
-            fill="#8c63bb"/>
-          <path d="M17 48 L5 64 L23 59Z" fill="#d58acb"/>
-          <path d="M43 48 L55 64 L37 59Z" fill="#d58acb"/>
-          <path d="M25 65 L30 79 L35 65Z" fill="#ffb36b"/>
+            fill="url(#hull)" stroke="#ffffff99" stroke-width="1"/>
+          <path d="M20.5 47 Q30 56 39.5 47" fill="none" stroke="#d58acb" stroke-width="2"/>
+          <ellipse cx="30" cy="27" rx="6.6" ry="9.6" fill="url(#glass)" stroke="#e8d3a1" stroke-width="1.3"/>
+          <ellipse cx="27.6" cy="22.6" rx="1.8" ry="3.4" fill="#ffffff" opacity=".6" transform="rotate(12 27.6 22.6)"/>
+          <path d="M27 67 L30 77 L33 67Z" fill="#ffb36b"/>
         </svg>
       </div>
 
@@ -493,13 +635,15 @@ footer{
         <span class="planet-ball"></span><span class="planet-name">To Our Future</span>
       </button>
     </div>
+    <canvas id="fx"></canvas>
+    <div id="vignette"></div>
   </div>
 
   <div id="hud">
     <div class="hud-label">✦ EXPLORE OUR GALAXY</div>
     <div class="hud-buttons">
       <button class="hud-btn" onclick="toggleMap()">GALAXY MAP</button>
-      <button class="hud-btn" onclick="openGallery()">MEMORIES ♡</button>
+      <button class="hud-btn" id="galleryBtn" onclick="openGallery()">MEMORIES ♡</button>
     </div>
   </div>
 
@@ -510,42 +654,62 @@ footer{
     <button class="map-item" onclick="goPlanet(2)">✦ Our Memories</button>
     <button class="map-item" onclick="goPlanet(3)">✦ My Favorite Person</button>
     <button class="map-item" onclick="goPlanet(4)">✦ To Our Future</button>
+    <button class="map-item reset" onclick="resetProgress()">↺ Start over</button>
   </div>
 
   <div id="toast"></div>
 
   <div id="controls">
-    <div id="joystick"><div id="stick"></div></div>
-    <button id="boostBtn">BOOST ✦</button>
+    <div id="joystick" aria-label="Joystick"><div id="stick"></div></div>
+    <button id="boostBtn" aria-label="Boost">BOOST ✦</button>
   </div>
+  <button class="main-btn" id="finaleBtn" onclick="finishAdventure()">🚀 THE LAST DESTINATION</button>
   <div id="gameHint">COLLECT THE STARS ✦ · EXPLORE THE PLANETS</div>
 </section>
 
-<!-- PLANET MODAL -->
+<!-- PLANET / INFO MODAL -->
 <div class="overlay" id="planetModal">
   <div class="modal">
-    <button class="close" onclick="closeModal('planetModal')">×</button>
-    <div class="eyebrow">A little piece of us</div>
+    <button class="close" onclick="closeInfo()" aria-label="Close">×</button>
+    <div class="eyebrow" id="planetEyebrow">A little piece of us</div>
     <h2 id="planetTitle"></h2>
+    <img id="planetPhoto" class="planet-photo" alt="" style="display:none">
     <p id="planetText"></p>
-    <button class="main-btn" onclick="closeModal('planetModal')">KEEP EXPLORING ♡</button>
+    <p class="ar" id="planetAr"></p>
+    <p id="planetMemory" class="gold"></p>
+    <button class="main-btn" onclick="closeInfo()">KEEP EXPLORING ♡</button>
   </div>
 </div>
 
 <!-- GALLERY -->
 <div class="overlay" id="galleryModal">
-  <div class="modal">
-    <button class="close" onclick="closeModal('galleryModal')">×</button>
-    <div class="eyebrow">Our little collection</div>
-    <h2>Memories <span class="accent">♡</span></h2>
-    <div class="gallery-grid" id="galleryGrid"></div>
-    <button class="main-btn" onclick="closeModal('galleryModal')">BACK TO THE GALAXY</button>
+  <div class="viewer">
+    <div class="vhead">
+      <div class="eyebrow" style="margin:0">Our little collection ♡</div>
+      <button class="close" onclick="closeGallery()" aria-label="Close">×</button>
+    </div>
+    <figure class="polaroid" id="polaroid">
+      <div class="photo-wrap" id="photoWrap">
+        <img id="gImg" alt="">
+        <div class="lockmsg" id="lockMsg"></div>
+      </div>
+      <figcaption class="pcaption">
+        <span class="ptitle" id="gTitle"></span>
+        <span class="pcap" id="gCap"></span>
+      </figcaption>
+    </figure>
+    <div class="vctrl">
+      <button class="nav" id="gPrev" aria-label="Previous">‹</button>
+      <span id="gCount"></span>
+      <button class="nav" id="gNext" aria-label="Next">›</button>
+    </div>
+    <div class="thumbs" id="gThumbs"></div>
   </div>
 </div>
 
 <div class="overlay" id="lightbox">
   <div style="text-align:center">
-    <button class="close" onclick="closeModal('lightbox')" style="margin-bottom:15px">×</button>
+    <button class="close" onclick="closeModal('lightbox')" style="margin-bottom:15px" aria-label="Close">×</button>
     <img id="lightboxImg" src="" alt="Our memory">
     <p id="lightboxCaption"></p>
   </div>
@@ -557,11 +721,31 @@ footer{
     <div class="heart">♡</div>
     <div class="eyebrow">One last destination</div>
     <h2>Will you go on a <span class="accent">date</span> with me?</h2>
+    <p class="ar" style="font-size:20px">تيجي معايا مشوار؟ ♡</p>
     <p>Every adventure is better with you.<br>
       So here's my favorite question...</p>
-    <input id="datePlace" placeholder="Where should we go?">
-    <input id="dateTime" placeholder="When would you like?">
-    <button class="main-btn" onclick="sendDate()">YES, LET'S MAKE A MEMORY ♡</button>
+
+    <div class="chip-label">نروح فين؟ · Where?</div>
+    <div class="chips" id="placeChips" data-input="datePlace">
+      <button class="chip" data-v="كافيه ☕">كافيه ☕</button>
+      <button class="chip" data-v="سينما 🎬">سينما 🎬</button>
+      <button class="chip" data-v="مشوار على النيل 🌙">مشوار على النيل 🌙</button>
+      <button class="chip" data-custom="1">اقتراح تاني ✨</button>
+    </div>
+    <input id="datePlace" class="hidden-input" placeholder="Where should we go? / نروح فين؟" autocomplete="off">
+
+    <div class="chip-label">إمتى؟ · When?</div>
+    <div class="chips" id="timeChips" data-input="dateTime">
+      <button class="chip" data-v="النهاردة">النهاردة</button>
+      <button class="chip" data-v="بكرة">بكرة</button>
+      <button class="chip" data-v="الويكند">الويكند</button>
+      <button class="chip" data-custom="1">وقت تاني ✨</button>
+    </div>
+    <input id="dateTime" class="hidden-input" placeholder="When would you like? / إمتى؟" autocomplete="off">
+
+    <a class="main-btn" id="sendLink" target="_blank" rel="noopener">YES, LET'S MAKE A MEMORY ♡</a><br>
+    <a class="ghost" id="maybeLink" target="_blank" rel="noopener">لسه مش متأكدة؟ ابعتلي بس "أيوه" ونحدد بعدين 💌</a><br>
+    <button class="ghost" onclick="backToGalaxy()">↩ رجوع للمجرة</button>
     <p class="small-note">YOU + ME · A LITTLE ADVENTURE</p>
   </div>
 </section>
@@ -569,7 +753,47 @@ footer{
 <footer>MADE WITH LOVE · IN EVERY UNIVERSE</footer>
 
 <script>
-/* BACKGROUND STARS */
+/* ============ CONFIG — عدّل هنا ============ */
+const CONFIG = {
+  name: 'Yoya',
+  whatsapp: '201224745669',
+  storageKey: 'yoya404-progress',
+  /* true = كل صورة في الجاليري بتتفتح بنجمتين (الأولى مفتوحة من الأول). false = كل الصور مفتوحة */
+  unlockPhotosWithStars: true,
+  /* اكتب هنا تفصيلة حقيقية بينكم لكل كوكب (اختياري). لو سبتها فاضية مش هتظهر. */
+  planets: [
+    { title:'Our Beginning',
+      en:'Every beautiful story has a beginning. And somehow, meeting you became one of my favorite chapters.',
+      ar:'كل حكاية حلوة ليها بداية، ولقاؤنا كان من أحلى الفصول.',
+      memory:'' },
+    { title:'Your Smile',
+      en:'There are a million stars in this galaxy, but your smile is still my favorite light.',
+      ar:'في المجرة دي ملايين النجوم، وابتسامتك لسه أحلى نور.',
+      memory:'' },
+    { title:'Our Memories',
+      en:'Some moments pass. Others stay forever. I want to keep collecting the little moments that make us us.',
+      ar:'في لحظات بتعدي، وفي لحظات بتفضل. وأنا عايز أكمّل أجمع اللحظات اللي بتخلينا إحنا.',
+      memory:'' },
+    { title:'My Favorite Person',
+      en:'You are not just a part of my world. You make my world feel different.',
+      ar:'إنتي مش بس جزء من عالمي، إنتي اللي بتخليه مختلف.',
+      memory:'' },
+    { title:'To Our Future',
+      en:'There are so many places we have not seen and memories we have not made yet. I hope we explore them together.',
+      ar:'لسه أماكن كتير ما شفناهاش وذكريات ما عملناهاش، وأتمنى نكتشفها سوا.',
+      memory:'' }
+  ],
+  secret: {
+    title:'You found every star ✦',
+    en:'Sixteen little lights, and not one of them shines like you.',
+    ar:'جمعتي النجوم كلها، ولا واحدة فيهم بتنوّر زيك.',
+    memory:''
+  }
+};
+
+document.getElementById('nameSlot').textContent = CONFIG.name;
+
+/* ============ BACKGROUND STARS ============ */
 const starCanvas=document.getElementById('stars');
 const starCtx=starCanvas.getContext('2d');
 let starDots=[];
@@ -581,8 +805,7 @@ function resizeStars(){
   starCanvas.style.width=innerWidth+'px';
   starCanvas.style.height=innerHeight+'px';
   starCtx.setTransform(dpr,0,0,dpr,0,0);
-
-  starDots=Array.from({length:180},()=>({
+  starDots=Array.from({length:150},()=>({
     x:Math.random()*innerWidth,
     y:Math.random()*innerHeight,
     r:Math.random()*1.4+.2,
@@ -590,7 +813,6 @@ function resizeStars(){
     phase:Math.random()*6
   }));
 }
-
 function drawStars(t=0){
   starCtx.clearRect(0,0,innerWidth,innerHeight);
   starDots.forEach(s=>{
@@ -606,7 +828,7 @@ resizeStars();
 drawStars();
 window.addEventListener('resize',resizeStars);
 
-/* MUSIC */
+/* ============ MUSIC ============ */
 const music=document.getElementById('bgMusic');
 const musicBtn=document.getElementById('musicBtn');
 let musicStarted=false;
@@ -629,17 +851,44 @@ function toggleMusic(){
 }
 musicBtn.addEventListener('click',toggleMusic);
 document.addEventListener('pointerdown',()=>{
+  ac();
   if(!musicStarted&&music.paused)startMusic();
 },{once:true});
 
-/* SCREENS */
+/* ============ SOUND EFFECTS (Web Audio, no files) ============ */
+let actx=null;
+function ac(){
+  if(!actx){
+    try{actx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}
+  }
+  if(actx&&actx.state==='suspended')actx.resume();
+  return actx;
+}
+function tone(freq,delay,dur,type='sine',vol=.07){
+  const a=ac(); if(!a)return;
+  const t=a.currentTime+delay;
+  const o=a.createOscillator(), g=a.createGain();
+  o.type=type; o.frequency.value=freq;
+  g.gain.setValueAtTime(0.0001,t);
+  g.gain.linearRampToValueAtTime(vol,t+.02);
+  g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g); g.connect(a.destination);
+  o.start(t); o.stop(t+dur+.05);
+}
+const sfx={
+  star:()=>{tone(880,0,.25);tone(1320,.08,.35);},
+  planet:()=>{[523,659,784,1047].forEach((f,i)=>tone(f,i*.09,.6,'triangle',.06));},
+  secret:()=>{[659,784,988,1319,1568].forEach((f,i)=>tone(f,i*.1,.7,'sine',.07));}
+};
+
+/* ============ SCREENS ============ */
 function goTo(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
 }
 
-/* GAME REFERENCES */
+/* ============ GAME STATE ============ */
 const game=document.getElementById('game');
 const universe=document.getElementById('universe');
 const world=document.getElementById('world');
@@ -649,84 +898,125 @@ const stick=document.getElementById('stick');
 const boostBtn=document.getElementById('boostBtn');
 const starCounter=document.getElementById('starCounter');
 const toast=document.getElementById('toast');
+const finaleBtn=document.getElementById('finaleBtn');
 
 let shipX=900,shipY=900;
 let joyX=0,joyY=0;
-let boostActive=false;
-let starsCollected=0;
+let touchBoost=false,boostActive=false;
 let gameRunning=false;
+let paused=false;
 let lastTime=0;
 let toastTimer=null;
 let currentScale=1;
-let openedPlanets=new Set();
 
-/* Planet coordinates */
-const planetPositions=[
-  [900,900],
-  [470,490],
-  [1320,510],
-  [500,1320],
-  [1370,1300]
-];
+const openedPlanets=new Set();
+const collectedStars=new Set();
+let secretShown=false;
 
-/* Collectible star coordinates */
+const planetPositions=[[900,900],[470,490],[1320,510],[500,1320],[1370,1300]];
 const starPositions=[
   [690,760],[1080,680],[1190,920],[720,1090],
   [350,800],[600,350],[1020,360],[1490,760],
   [1550,1100],[1100,1450],[800,1500],[320,1180],
   [850,500],[1250,1150],[400,1020],[1450,350]
 ];
+const collectibleElements=[];
 
-let collectibleElements=[];
+/* ---- progress (localStorage, always in try/catch) ---- */
+function saveState(){
+  try{
+    localStorage.setItem(CONFIG.storageKey,JSON.stringify({
+      planets:[...openedPlanets],
+      stars:[...collectedStars],
+      secret:secretShown
+    }));
+  }catch(e){}
+}
+function loadState(){
+  try{
+    const s=JSON.parse(localStorage.getItem(CONFIG.storageKey)||'null');
+    if(!s)return;
+    (s.planets||[]).forEach(i=>{if(i>=0&&i<planetPositions.length)openedPlanets.add(i)});
+    (s.stars||[]).forEach(i=>{if(i>=0&&i<starPositions.length)collectedStars.add(i)});
+    secretShown=!!s.secret;
+  }catch(e){}
+}
+function applyState(){
+  collectibleElements.forEach((el,i)=>{
+    el.style.display=collectedStars.has(i)?'none':'grid';
+  });
+  document.querySelectorAll('.planet').forEach((p,i)=>{
+    p.classList.toggle('discovered',openedPlanets.has(i));
+  });
+  updateStarCounter();
+  finaleBtn.classList.toggle('show',openedPlanets.size===planetPositions.length);
+}
+function updateStarCounter(){
+  starCounter.textContent='✦ '+collectedStars.size+' / '+starPositions.length+' stars';
+}
+loadState();
 
+/* ---- world setup ---- */
 function createGalaxy(){
-  /* Decorative cosmic dust */
-  const nebula=document.querySelector('.nebula');
-  for(let i=0;i<100;i++){
-    const d=document.createElement('i');
-    d.className='dust';
-    d.style.left=Math.random()*1780+'px';
-    d.style.top=Math.random()*1780+'px';
-    const size=Math.random()*2.5+1;
-    d.style.width=size+'px';
-    d.style.height=size+'px';
-    d.style.animationDelay=Math.random()*3+'s';
-    nebula.appendChild(d);
-  }
-
-  /* Actual collectible stars */
   starPositions.forEach((pos,i)=>{
     const el=document.createElement('div');
     el.className='collectible';
-    el.textContent='✦';
     el.style.left=pos[0]+'px';
     el.style.top=pos[1]+'px';
-    el.dataset.index=i;
     world.appendChild(el);
     collectibleElements.push(el);
   });
 }
 createGalaxy();
 
-/*
-  CAMERA FIX:
-  Anchor world to the center of #universe.
-  Read the actual game rectangle, not window dimensions.
-  This keeps the ship centered on phones and desktops.
-*/
+/* ---- camera ---- */
 function updateCamera(){
-  const rect=universe.getBoundingClientRect();
-
-  const vw=rect.width;
-  const vh=rect.height;
-
-  currentScale=vw<600?.68:1;
-
-  const tx=-shipX*currentScale;
-  const ty=-shipY*currentScale;
-
+  currentScale=universe.clientWidth<600?.68:1;
   world.style.transform=
-    `translate3d(${tx}px,${ty}px,0) scale(${currentScale})`;
+    `translate3d(${-shipX*currentScale}px,${-shipY*currentScale}px,0) scale(${currentScale})`;
+}
+
+/* ---- particles ---- */
+const fx=document.getElementById('fx');
+const fxc=fx.getContext('2d');
+let parts=[];
+
+function sizeFx(){
+  const dpr=Math.min(devicePixelRatio||1,2);
+  const w=universe.clientWidth,h=universe.clientHeight;
+  fx.width=w*dpr; fx.height=h*dpr;
+  fxc.setTransform(dpr,0,0,dpr,0,0);
+}
+function emit(x,y,n,opts={}){
+  for(let i=0;i<n;i++){
+    const a=Math.random()*Math.PI*2;
+    const sp=(opts.speed||1)*(Math.random()*1.6+.3);
+    parts.push({
+      x,y,
+      vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,
+      life:1,decay:opts.decay||.03,
+      r:opts.r||(Math.random()*2.2+1),
+      color:opts.color||'255,230,160'
+    });
+  }
+}
+function drawFx(dt){
+  const w=universe.clientWidth,h=universe.clientHeight;
+  fxc.clearRect(0,0,w,h);
+  fxc.globalCompositeOperation='lighter';
+  for(let i=parts.length-1;i>=0;i--){
+    const p=parts[i];
+    p.x+=p.vx*dt; p.y+=p.vy*dt;
+    p.life-=p.decay*dt;
+    if(p.life<=0){parts.splice(i,1);continue;}
+    const sx=w/2+(p.x-shipX)*currentScale;
+    const sy=h/2+(p.y-shipY)*currentScale;
+    fxc.fillStyle=`rgba(${p.color},${p.life})`;
+    fxc.beginPath();
+    fxc.arc(sx,sy,p.r*currentScale*p.life+.4,0,Math.PI*2);
+    fxc.fill();
+  }
+  fxc.globalCompositeOperation='source-over';
 }
 
 function refreshViewport(){
@@ -735,56 +1025,61 @@ function refreshViewport(){
     game.style.height=vv.height+'px';
     game.style.top=vv.offsetTop+'px';
   }
+  sizeFx();
   if(gameRunning)updateCamera();
 }
-
 window.addEventListener('resize',refreshViewport);
-window.addEventListener('orientationchange',()=>{
-  setTimeout(refreshViewport,250);
-});
+window.addEventListener('orientationchange',()=>setTimeout(refreshViewport,250));
 if(window.visualViewport){
   window.visualViewport.addEventListener('resize',refreshViewport);
   window.visualViewport.addEventListener('scroll',refreshViewport);
 }
 
-/* START GAME */
+/* ============ START / FINISH ============ */
 function startGame(){
+  if(gameRunning)return;
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-
   game.classList.add('active');
-  game.style.setProperty('display','block','important');
 
-  shipX=900;
-  shipY=900;
-  joyX=0;
-  joyY=0;
-  boostActive=false;
-  starsCollected=0;
-  openedPlanets.clear();
+  shipX=900; shipY=900;
+  joyX=0; joyY=0;
+  touchBoost=false; boostActive=false;
+  paused=false;
+  parts=[];
 
-  collectibleElements.forEach(el=>{
-    el.style.display='grid';
-    el.classList.remove('collected');
-  });
-
-  document.querySelectorAll('.planet').forEach(p=>p.classList.remove('discovered'));
-
-  starCounter.textContent='✦ 0 stars';
-
+  applyState();
   ship.style.left=shipX+'px';
   ship.style.top=shipY+'px';
   ship.style.transform='translate(-50%,-50%)';
 
   gameRunning=true;
   lastTime=0;
-
   refreshViewport();
   updateCamera();
   requestAnimationFrame(gameLoop);
   startMusic();
 }
 
-/* TOAST */
+function finishAdventure(){
+  gameRunning=false;
+  resetStick();
+  game.classList.remove('active');
+  document.getElementById('mapPanel').classList.remove('open');
+  goTo('finalScreen');
+  updateLinks();
+}
+function backToGalaxy(){ startGame(); }
+
+function resetProgress(){
+  if(!confirm('نبدأ الرحلة من الأول؟'))return;
+  openedPlanets.clear(); collectedStars.clear(); secretShown=false;
+  try{localStorage.removeItem(CONFIG.storageKey);}catch(e){}
+  applyState();
+  document.getElementById('mapPanel').classList.remove('open');
+  showToast('Fresh universe ✦');
+}
+
+/* ============ TOAST ============ */
 function showToast(message){
   toast.textContent=message;
   toast.classList.add('show');
@@ -792,115 +1087,117 @@ function showToast(message){
   toastTimer=setTimeout(()=>toast.classList.remove('show'),1900);
 }
 
-/* COLLECT STARS */
-function collectStar(index){
-  const el=collectibleElements[index];
-  if(!el||el.style.display==='none')return;
+/* ============ COLLECTING & DISCOVERING ============ */
+function collectStar(i){
+  if(collectedStars.has(i))return;
+  collectedStars.add(i);
+  collectibleElements[i].style.display='none';
+  emit(starPositions[i][0],starPositions[i][1],16,{speed:2.2,decay:.035});
+  sfx.star();
+  updateStarCounter();
+  saveState();
 
-  el.style.display='none';
-  el.classList.add('collected');
-
-  starsCollected++;
-  starCounter.textContent='✦ '+starsCollected+' stars';
-
-  showToast('You found a little piece of starlight ✦');
+  if(collectedStars.size===starPositions.length&&!secretShown){
+    secretShown=true;
+    saveState();
+    setTimeout(()=>{
+      sfx.secret();
+      showModal('A tiny secret',CONFIG.secret.title,CONFIG.secret.en,CONFIG.secret.ar,CONFIG.secret.memory);
+    },500);
+  }else{
+    showToast('You found a little piece of starlight ✦');
+  }
 }
 
-/* PLANET COLLISION */
+function checkStarCollision(){
+  for(let i=0;i<starPositions.length;i++){
+    if(collectedStars.has(i))continue;
+    if(Math.hypot(shipX-starPositions[i][0],shipY-starPositions[i][1])<32)collectStar(i);
+  }
+}
 function checkPlanetCollision(){
   for(let i=0;i<planetPositions.length;i++){
     if(openedPlanets.has(i))continue;
-
-    const [px,py]=planetPositions[i];
-    const distance=Math.hypot(shipX-px,shipY-py);
-
-    /* Open planet when ship gets close */
-    if(distance<75){
+    if(Math.hypot(shipX-planetPositions[i][0],shipY-planetPositions[i][1])<75){
       openPlanet(i,true);
       break;
     }
   }
 }
 
-/* STAR COLLISION */
-function checkStarCollision(){
-  starPositions.forEach((pos,i)=>{
-    const el=collectibleElements[i];
-    if(!el||el.style.display==='none')return;
+/* ============ MAIN LOOP ============ */
+const keys={};
+let keyActive=false;
 
-    const distance=Math.hypot(shipX-pos[0],shipY-pos[1]);
-    if(distance<32)collectStar(i);
-  });
+function handleKeys(){
+  let kx=0,ky=0;
+  if(keys.arrowleft||keys.a)kx-=1;
+  if(keys.arrowright||keys.d)kx+=1;
+  if(keys.arrowup||keys.w)ky-=1;
+  if(keys.arrowdown||keys.s)ky+=1;
+  if(kx||ky){
+    keyActive=true;
+    const n=Math.hypot(kx,ky);
+    joyX=kx/n; joyY=ky/n;
+  }else if(keyActive){
+    keyActive=false;
+    if(joyPointer===null){joyX=0;joyY=0;}
+  }
+  boostActive=!!keys[' ']||touchBoost;
 }
 
-/* MAIN GAME LOOP */
 function gameLoop(timestamp){
   if(!gameRunning)return;
-
-  const dt=lastTime
-    ?Math.min((timestamp-lastTime)/16.67,2)
-    :1;
+  const dt=lastTime?Math.min((timestamp-lastTime)/16.67,2):1;
   lastTime=timestamp;
 
-  const speed=(boostActive?5.2:2.7)*dt;
+  if(!paused){
+    handleKeys();
+    const speed=(boostActive?5.2:2.7)*dt;
+    shipX=Math.max(50,Math.min(1750,shipX+joyX*speed));
+    shipY=Math.max(50,Math.min(1750,shipY+joyY*speed));
 
-  shipX+=joyX*speed;
-  shipY+=joyY*speed;
+    ship.style.left=shipX+'px';
+    ship.style.top=shipY+'px';
 
-  shipX=Math.max(50,Math.min(1750,shipX));
-  shipY=Math.max(50,Math.min(1750,shipY));
+    const moving=Math.abs(joyX)+Math.abs(joyY)>.1;
+    if(moving){
+      ship.style.transform=`translate(-50%,-50%) rotate(${Math.atan2(joyX,-joyY)*180/Math.PI}deg)`;
+      const n=Math.hypot(joyX,joyY)||1;
+      emit(shipX-joyX/n*30+(Math.random()-.5)*6,shipY-joyY/n*30+(Math.random()-.5)*6,
+        boostActive?3:1,{speed:.25,decay:.06,r:2.6,color:boostActive?'255,200,130':'237,154,203'});
+    }else{
+      ship.style.transform='translate(-50%,-50%)';
+    }
 
-  ship.style.left=shipX+'px';
-  ship.style.top=shipY+'px';
-
-  if(Math.abs(joyX)+Math.abs(joyY)>.1){
-    const angle=Math.atan2(joyX,-joyY)*180/Math.PI;
-    ship.style.transform=`translate(-50%,-50%) rotate(${angle}deg)`;
-  }else{
-    ship.style.transform='translate(-50%,-50%)';
+    checkStarCollision();
+    checkPlanetCollision();
   }
 
-  checkStarCollision();
-  checkPlanetCollision();
   updateCamera();
-
+  drawFx(dt);
   requestAnimationFrame(gameLoop);
 }
 
-/* JOYSTICK */
+/* ============ JOYSTICK ============ */
 let joyPointer=null;
 
 function moveStick(e){
   if(joyPointer!==e.pointerId)return;
-
   const rect=joystick.getBoundingClientRect();
-  const cx=rect.left+rect.width/2;
-  const cy=rect.top+rect.height/2;
-
-  let dx=e.clientX-cx;
-  let dy=e.clientY-cy;
-
+  let dx=e.clientX-(rect.left+rect.width/2);
+  let dy=e.clientY-(rect.top+rect.height/2);
   const max=rect.width*.34;
-  const distance=Math.hypot(dx,dy);
-
-  if(distance>max){
-    dx=dx/distance*max;
-    dy=dy/distance*max;
-  }
-
-  joyX=dx/max;
-  joyY=dy/max;
-
+  const d=Math.hypot(dx,dy);
+  if(d>max){dx=dx/d*max;dy=dy/d*max;}
+  joyX=dx/max; joyY=dy/max;
   stick.style.transform=`translate(${dx}px,${dy}px)`;
 }
-
 function resetStick(){
   joyPointer=null;
-  joyX=0;
-  joyY=0;
+  joyX=0; joyY=0;
   stick.style.transform='translate(0,0)';
 }
-
 joystick.addEventListener('pointerdown',e=>{
   e.preventDefault();
   joyPointer=e.pointerId;
@@ -912,86 +1209,82 @@ joystick.addEventListener('pointerup',resetStick);
 joystick.addEventListener('pointercancel',resetStick);
 joystick.addEventListener('lostpointercapture',resetStick);
 
-/* BOOST */
+/* ============ BOOST ============ */
 boostBtn.addEventListener('pointerdown',e=>{
   e.preventDefault();
-  boostActive=true;
+  touchBoost=true;
   boostBtn.classList.add('pressed');
 });
 function stopBoost(){
-  boostActive=false;
+  touchBoost=false;
   boostBtn.classList.remove('pressed');
 }
 boostBtn.addEventListener('pointerup',stopBoost);
 boostBtn.addEventListener('pointercancel',stopBoost);
 boostBtn.addEventListener('lostpointercapture',stopBoost);
 
-/* KEYBOARD */
-const keys={};
+/* ============ KEYBOARD ============ */
 document.addEventListener('keydown',e=>{
-  keys[e.key.toLowerCase()]=true;
-  if(['arrowup','arrowdown','arrowleft','arrowright',' '].includes(e.key.toLowerCase())){
+  const k=e.key.toLowerCase();
+  keys[k]=true;
+  /* only block default while playing, never inside inputs (so spaces still type) */
+  if(gameRunning&&!/^(input|textarea)$/i.test(e.target.tagName)&&
+     ['arrowup','arrowdown','arrowleft','arrowright',' '].includes(k)){
     e.preventDefault();
   }
 });
-document.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
+document.addEventListener('keyup',e=>{keys[e.key.toLowerCase()]=false;});
+window.addEventListener('blur',()=>{for(const k in keys)keys[k]=false;});
 
-function keyboardLoop(){
-  if(keys.arrowleft||keys.a)joyX=-1;
-  else if(keys.arrowright||keys.d)joyX=1;
-  else if(!joyPointer)joyX=0;
-
-  if(keys.arrowup||keys.w)joyY=-1;
-  else if(keys.arrowdown||keys.s)joyY=1;
-  else if(!joyPointer)joyY=0;
-
-  if(keys[' '])boostActive=true;
-  else if(!boostBtn.classList.contains('pressed'))boostActive=false;
-
-  requestAnimationFrame(keyboardLoop);
-}
-keyboardLoop();
-
-/* PLANETS */
-const planetData=[
-  ['Our Beginning','Every beautiful story has a beginning. And somehow, meeting you became one of my favorite chapters.'],
-  ['Your Smile','There are a million stars in this galaxy, but your smile is still my favorite light.'],
-  ['Our Memories','Some moments pass. Others stay forever. I want to keep collecting the little moments that make us us.'],
-  ['My Favorite Person','You are not just a part of my world. You make my world feel different.'],
-  ['To Our Future','There are so many places we have not seen and memories we have not made yet. I hope we explore them together.']
-];
-
-function openPlanet(i,fromCollision=false){
-  if(openedPlanets.has(i))return;
-
-  openedPlanets.add(i);
-
-  document.getElementById('planetTitle').textContent=planetData[i][0];
-  document.getElementById('planetText').textContent=planetData[i][1];
+/* ============ MODALS ============ */
+function showModal(eyebrow,title,en,ar,memory){
+  document.getElementById('planetEyebrow').textContent=eyebrow;
+  document.getElementById('planetTitle').textContent=title;
+  document.getElementById('planetText').textContent=en||'';
+  document.getElementById('planetAr').textContent=ar||'';
+  document.getElementById('planetMemory').textContent=memory||'';
   document.getElementById('planetModal').classList.add('open');
-
-  const planet=document.getElementById('planet'+i);
-  planet.classList.add('discovered');
-
-  if(fromCollision){
-    showToast('A new world discovered ✦');
+  paused=true;
+  resetStick();
+  touchBoost=false;
+  boostBtn.classList.remove('pressed');
+}
+function openPlanet(i,fromCollision=false){
+  if(fromCollision&&openedPlanets.has(i))return;
+  const p=CONFIG.planets[i];
+  const first=!openedPlanets.has(i);
+  openedPlanets.add(i);
+  document.getElementById('planet'+i).classList.add('discovered');
+  emit(planetPositions[i][0],planetPositions[i][1],30,{speed:2.6,decay:.025,color:'237,154,203'});
+  sfx.planet();
+  saveState();
+  showModal('A little piece of us',p.title,p.en,p.ar,p.memory);
+  if(fromCollision&&first)showToast('A new world discovered ✦');
+}
+function closeInfo(){
+  closeModal('planetModal');
+  paused=false;
+  if(openedPlanets.size===planetPositions.length&&!finaleBtn.classList.contains('show')){
+    finaleBtn.classList.add('show');
+    showToast('كل الكواكب اتفتحت ✦ في وجهة أخيرة');
   }
+}
+function closeModal(id){
+  document.getElementById(id).classList.remove('open');
 }
 
 function goPlanet(i){
-  const positions=planetPositions;
-  shipX=positions[i][0]-110;
-  shipY=positions[i][1]+110;
-
+  shipX=planetPositions[i][0]-110;
+  shipY=planetPositions[i][1]+110;
   document.getElementById('mapPanel').classList.remove('open');
   updateCamera();
 }
-
 function toggleMap(){
   document.getElementById('mapPanel').classList.toggle('open');
 }
 
-/* GALLERY */
+/* ============ GALLERY — FIXED POLAROID VIEWER ============ */
+
 const captions=[
   'My little Yoya ✦',
   'A moment worth keeping ♥',
@@ -1003,66 +1296,238 @@ const captions=[
   'To many more memories ♥'
 ];
 
-function openGallery(){
-  const grid=document.getElementById('galleryGrid');
-  grid.innerHTML='';
+const galleryPhotos=captions.map((caption,i)=>({
+  src:`images/memory${i+1}.jpeg`,
+  title:caption,
+  caption:`MEMORY ${String(i+1).padStart(2,'0')}`,
+  index:i
+}));
 
-  captions.forEach((caption,i)=>{
-    const card=document.createElement('div');
-    card.className='gallery-card';
+let galleryIndex=0;
+let galleryDirection=1;
+let galleryTouchStart=0;
 
-    const img=document.createElement('img');
-    img.src=`images/memory${i+1}.jpeg`;
-    img.alt=caption;
-    img.loading='lazy';
-    img.onerror=()=>{img.style.opacity='.15'};
-    img.onclick=()=>showImage(i);
+function isPhotoUnlocked(i){
+  if(!CONFIG.unlockPhotosWithStars)return true;
+  if(i===0)return true;
 
-    const text=document.createElement('p');
-    text.textContent=caption;
-
-    card.append(img,text);
-    grid.appendChild(card);
-  });
-
-  document.getElementById('galleryModal').classList.add('open');
+  return collectedStars.size >= i*2;
 }
 
+function openGallery(){
+  galleryIndex=0;
+  paused=true;
+  resetStick();
+
+  document.getElementById('galleryModal').classList.add('open');
+
+  renderGallery();
+}
+
+function closeGallery(){
+  document.getElementById('galleryModal').classList.remove('open');
+  paused=false;
+}
+
+function renderGallery(){
+  const photo=galleryPhotos[galleryIndex];
+
+  const wrap=document.getElementById('photoWrap');
+  const img=document.getElementById('gImg');
+  const lock=document.getElementById('lockMsg');
+  const polaroid=document.getElementById('polaroid');
+
+  const unlocked=isPhotoUnlocked(galleryIndex);
+
+  wrap.classList.toggle('locked',!unlocked);
+  wrap.classList.remove('missing');
+
+  img.src=photo.src;
+  img.alt=photo.title;
+
+  img.onerror=()=>{
+    wrap.classList.add('missing');
+    img.removeAttribute('src');
+  };
+
+  lock.innerHTML=unlocked
+    ? ''
+    : `<b>🔒</b>
+       <span>Collect ${galleryIndex*2} stars to unlock this memory</span>
+       <small>${collectedStars.size} / ${galleryIndex*2} stars</small>`;
+
+  document.getElementById('gTitle').textContent=photo.title;
+  document.getElementById('gCap').textContent=photo.caption;
+
+  document.getElementById('gCount').textContent=
+    `${galleryIndex+1} / ${galleryPhotos.length}`;
+
+  img.style.cursor=unlocked?'zoom-in':'default';
+
+  document.getElementById('gPrev').disabled=
+    galleryIndex===0;
+
+  document.getElementById('gNext').disabled=
+    galleryIndex===galleryPhotos.length-1;
+
+  polaroid.style.setProperty(
+    '--tilt',
+    galleryIndex%2===0?'-1.5deg':'1.5deg'
+  );
+
+  polaroid.classList.remove('in-r','in-l');
+  void polaroid.offsetWidth;
+  polaroid.classList.add(galleryDirection>0?'in-r':'in-l');
+
+  renderThumbnails();
+}
+
+function renderThumbnails(){
+  const container=document.getElementById('gThumbs');
+  container.innerHTML='';
+
+  galleryPhotos.forEach((photo,i)=>{
+    const unlocked=isPhotoUnlocked(i);
+
+    const button=document.createElement('button');
+    button.className='thumb';
+    button.classList.toggle('on',i===galleryIndex);
+    button.classList.toggle('locked',!unlocked);
+    button.type='button';
+    button.setAttribute('aria-label',`Memory ${i+1}`);
+
+    const img=document.createElement('img');
+    img.src=photo.src;
+    img.alt='';
+    img.loading='lazy';
+
+    img.onerror=()=>{
+      img.style.opacity='.15';
+    };
+
+    button.appendChild(img);
+
+    button.addEventListener('click',()=>{
+      galleryDirection=i>galleryIndex?1:-1;
+      galleryIndex=i;
+      renderGallery();
+    });
+
+    container.appendChild(button);
+  });
+
+  const active=container.children[galleryIndex];
+
+  if(active){
+    active.scrollIntoView({
+      behavior:'smooth',
+      block:'nearest',
+      inline:'center'
+    });
+  }
+}
+
+function changeGallery(direction){
+  const next=galleryIndex+direction;
+
+  if(next<0||next>=galleryPhotos.length)return;
+
+  galleryDirection=direction;
+  galleryIndex=next;
+  renderGallery();
+}
+
+document.getElementById('gPrev').addEventListener(
+  'click',()=>changeGallery(-1)
+);
+
+document.getElementById('gNext').addEventListener(
+  'click',()=>changeGallery(1)
+);
+
+document.getElementById('gImg').addEventListener('click',()=>{
+  if(!isPhotoUnlocked(galleryIndex))return;
+  showImage(galleryIndex);
+});
+
 function showImage(i){
-  document.getElementById('lightboxImg').src=`images/memory${i+1}.jpeg`;
-  document.getElementById('lightboxCaption').textContent=captions[i];
+  if(!isPhotoUnlocked(i))return;
+
+  const img=document.getElementById('lightboxImg');
+
+  img.src=galleryPhotos[i].src;
+
+  document.getElementById('lightboxCaption').textContent=
+    galleryPhotos[i].title;
+
   document.getElementById('lightbox').classList.add('open');
 }
 
-function closeModal(id){
-  document.getElementById(id).classList.remove('open');
+function closeLightbox(){
+  closeModal('lightbox');
+  document.getElementById('lightboxImg').removeAttribute('src');
 }
 
-/* DATE INVITATION */
-function sendDate(){
-  const place=document.getElementById('datePlace').value.trim()||'Anywhere with you';
-  const time=document.getElementById('dateTime').value.trim()||'Whenever you like';
+/* Touch swipe support */
+const polaroid=document.getElementById('polaroid');
 
-  const message=`Hey Yoya ♡
-I have a date invitation for you!
-Place: ${place}
-Time: ${time}
+polaroid.addEventListener('touchstart',e=>{
+  galleryTouchStart=e.changedTouches[0].clientX;
+},{passive:true});
 
-From your favorite astronaut 🚀`;
+polaroid.addEventListener('touchend',e=>{
+  const end=e.changedTouches[0].clientX;
+  const diff=end-galleryTouchStart;
 
-  window.open(
-    'https://wa.me/201224745669?text='+encodeURIComponent(message),
-    '_blank'
-  );
+  if(Math.abs(diff)>55){
+    changeGallery(diff<0?1:-1);
+  }
+},{passive:true});
+
+/* Keyboard gallery navigation */
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('galleryModal').classList.contains('open'))return;
+
+  if(e.key==='ArrowRight')changeGallery(1);
+  if(e.key==='ArrowLeft')changeGallery(-1);
+});
+/* ============ DATE INVITATION ============ */
+function chipValue(groupId,fallback){
+  const group=document.getElementById(groupId);
+  const sel=group.querySelector('.chip.sel');
+  if(!sel)return fallback;
+  if(sel.dataset.custom){
+    const v=document.getElementById(group.dataset.input).value.trim();
+    return v||fallback;
+  }
+  return sel.dataset.v;
 }
-
-/* ENDING */
-function finishAdventure(){
-  gameRunning=false;
-  game.classList.remove('active');
-  game.style.display='none';
-  goTo('finalScreen');
+function waLink(text){
+  return 'https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent(text);
 }
+function updateLinks(){
+  const place=chipValue('placeChips','أي مكان معاكي');
+  const time=chipValue('timeChips','وقت ما يناسبك');
+  const msg=`هاي ${CONFIG.name} ♡\nعندي دعوة ليكي 🚀\nفين: ${place}\nإمتى: ${time}\n\nمن رائد الفضاء بتاعك ✦`;
+  document.getElementById('sendLink').href=waLink(msg);
+  document.getElementById('maybeLink').href=waLink(
+    `أيوه ♡ بس نحدد المكان والوقت بعدين 💌`);
+}
+document.querySelectorAll('.chips').forEach(group=>{
+  group.addEventListener('click',e=>{
+    const b=e.target.closest('.chip');
+    if(!b)return;
+    group.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));
+    b.classList.add('sel');
+    const input=document.getElementById(group.dataset.input);
+    if(b.dataset.custom){input.classList.add('show');input.focus();}
+    else input.classList.remove('show');
+    updateLinks();
+  });
+});
+['datePlace','dateTime'].forEach(id=>
+  document.getElementById(id).addEventListener('input',updateLinks));
+updateLinks();
 </script>
 </body>
 </html>
