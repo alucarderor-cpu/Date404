@@ -26,10 +26,10 @@ body{
 button,input,select{font:inherit}
 button{cursor:pointer}
 button:focus-visible{outline:2px solid var(--gold)}
+
 #space{
   position:fixed;inset:0;overflow:hidden;
-  background:
-    radial-gradient(ellipse at 50% 45%,#241239 0%,#100c24 45%,#080714 100%);
+  background:radial-gradient(ellipse at 50% 45%,#241239 0%,#100c24 45%,#080714 100%);
 }
 #stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .nebula{
@@ -38,6 +38,7 @@ button:focus-visible{outline:2px solid var(--gold)}
 }
 .nebula.a{background:#a52f92;top:-35%;left:-20%}
 .nebula.b{background:#423bd3;bottom:-40%;right:-20%}
+
 header{
   position:fixed;z-index:20;top:0;left:0;right:0;
   display:flex;align-items:center;justify-content:space-between;
@@ -54,6 +55,7 @@ header{
   border-radius:30px;padding:9px 13px;color:white;
   font-size:12px;backdrop-filter:blur(10px)
 }
+
 .screen{
   position:fixed;inset:0;z-index:5;display:none;
   align-items:center;justify-content:center;
@@ -100,8 +102,7 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500}
 .worldStar{
   position:absolute;width:3px;height:3px;border-radius:50%;
   background:white;box-shadow:0 0 9px white;
-  pointer-events:none;
-  animation:twinkle 2s infinite alternate;
+  pointer-events:none;animation:twinkle 2s infinite alternate;
 }
 @keyframes twinkle{to{opacity:.2;transform:scale(.5)}}
 
@@ -133,7 +134,6 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500}
 .p4{width:110px;height:110px;left:560px;top:1530px;background:radial-gradient(circle at 30% 25%,#d6c1ff,#8058bb 65%,#30204d);--glow:#b58bff}
 .p5{width:80px;height:80px;left:2050px;top:1550px;background:radial-gradient(circle at 30% 25%,#fff1ba,#a57c35 65%,#44311c);--glow:#ffdb8a}
 
-/* PLANET ORBITS */
 .orbit{
   position:absolute;border:1px solid #ffffff12;border-radius:50%;
   pointer-events:none;
@@ -150,10 +150,7 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500}
   will-change:left,top,transform;pointer-events:none;
 }
 #ship svg{width:100%;height:100%;overflow:visible}
-#flame{
-  transform-origin:50% 0%;
-  animation:flame .14s infinite alternate;
-}
+#flame{transform-origin:50% 0%;animation:flame .14s infinite alternate}
 @keyframes flame{
   from{transform:scaleY(.7);opacity:.7}
   to{transform:scaleY(1.3);opacity:1}
@@ -178,9 +175,8 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500}
   white-space:nowrap;border:1px solid #ffffff20;
   pointer-events:none
 }
-#mapBtn{
-  position:fixed;z-index:15;right:18px;bottom:20px
-}
+#mapBtn{position:fixed;z-index:15;right:18px;bottom:20px}
+
 #joystick{
   display:none;position:fixed;z-index:14;
   bottom:90px;left:20px;width:112px;height:112px;
@@ -193,6 +189,21 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500}
   left:34px;top:34px;border-radius:50%;
   background:#ff9bc7bb;border:1px solid #ffd9e9;
   box-shadow:0 0 15px #ff83b566
+}
+#boostBtn{
+  display:none;place-items:center;
+  position:fixed;z-index:15;right:25px;
+  bottom:48px;width:72px;height:72px;
+  border-radius:50%;border:1px solid #ffd9a866;
+  color:#ffe6a6;font-size:27px;
+  background:linear-gradient(145deg,#ff9bc733,#a98aff33);
+  box-shadow:0 0 25px #ff83b544;
+  touch-action:none;user-select:none;-webkit-user-select:none;
+}
+#boostBtn.active{
+  background:#ffb4d555;
+  box-shadow:0 0 35px #ff83b5aa;
+  transform:scale(.94);
 }
 
 /* MODALS */
@@ -210,10 +221,19 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500}
 }
 .modalCard h2,.mapCard h2{font-size:38px;color:var(--gold);margin:8px 0}
 .modalCard p,.mapCard p{color:#e0d4e6;line-height:1.9;font-size:14px}
+
+/* Adaptive memory images */
 .modalCard img{
-  display:block;width:100%;height:auto;max-height:55vh;
-  object-fit:contain;object-position:center;
-  border-radius:15px;margin:15px auto;background:#080714
+  display:block;
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:45vh;
+  object-fit:contain;
+  object-position:center;
+  border-radius:15px;
+  margin:15px auto;
+  background:transparent;
 }
 .close{float:right;background:none;border:0;color:white;font-size:25px}
 .mapLinks{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -235,25 +255,44 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500}
 #galleryScreen{align-items:flex-start}
 .galleryWrap{width:min(1000px,100%);text-align:center}
 .galleryGrid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
-  margin-top:20px
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;margin-top:20px;
+  align-items:start;
 }
 .memory{
-  margin:0;border:1px solid #ffffff24;border-radius:15px;
-  overflow:hidden;background:#171126;cursor:pointer
+  width:fit-content;
+  max-width:100%;
+  justify-self:center;
+  align-self:start;
+  margin:0;
+  border:1px solid #ffffff24;
+  border-radius:15px;
+  overflow:hidden;
+  background:#171126;
+  cursor:pointer;
 }
 .memory img{
-  display:block;width:100%;height:180px;
-  object-fit:contain;background:#05040d;
+  display:block;
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:260px;
+  object-fit:contain;
+  object-position:center;
+  background:transparent;
 }
-.memory figcaption{padding:10px;font-size:11px;color:#ffcee3}
+.memory figcaption{
+  padding:10px;font-size:11px;color:#ffcee3;text-align:center;
+}
 #lightbox{
   display:none;position:fixed;z-index:60;inset:0;
-  background:#000e;align-items:center;justify-content:center;padding:15px
+  background:#000e;align-items:center;justify-content:center;padding:12px
 }
 #lightbox.show{display:flex}
 #lightbox img{
-  max-width:95vw;max-height:85vh;width:auto;height:auto;
+  display:block;width:auto;height:auto;
+  max-width:96vw;max-height:88dvh;
   object-fit:contain;border-radius:12px
 }
 footer{
@@ -270,16 +309,74 @@ footer{
 }
 #toast.show{opacity:1}
 
+/* MOBILE EXPERIENCE */
 @media(max-width:650px){
-  header{padding:12px}
-  .logo{font-size:20px}
-  .pill{font-size:10px;padding:8px}
-  #joystick{display:block}
-  #hint{bottom:62px;font-size:9px}
-  #mapBtn{bottom:62px}
-  #progress{top:70px;left:12px}
-  .galleryGrid{grid-template-columns:repeat(2,1fr)}
-  .memory img{height:145px}
+  header{
+    padding:10px 12px;min-height:58px;
+    background:linear-gradient(#080714ee,transparent);
+  }
+  .logo{font-size:17px;letter-spacing:1px}
+  .hud{gap:6px}
+  .pill{font-size:10px;padding:7px 9px}
+  .smallBtn{font-size:10px;padding:7px 10px}
+
+  #progress{
+    top:65px;left:12px;font-size:9px;
+    padding:8px 10px;max-width:55%;
+  }
+  #hint{display:none}
+
+  #mapBtn{
+    top:65px;right:12px;bottom:auto;
+    font-size:11px;padding:9px 12px;
+  }
+
+  #joystick{
+    display:block;position:fixed;
+    left:20px;
+    bottom:calc(24px + env(safe-area-inset-bottom));
+    width:130px;height:130px;
+    border-radius:50%;
+    background:#ffffff12;
+    border:1px solid #ffffff55;
+    box-shadow:0 0 25px #a98aff22;
+    touch-action:none;
+  }
+  #stick{
+    width:48px;height:48px;left:40px;top:40px;
+  }
+  #boostBtn{
+    display:grid;
+    bottom:calc(48px + env(safe-area-inset-bottom));
+  }
+
+  .galleryGrid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+  }
+  .memory img{max-height:230px}
+
+  .modalCard,.mapCard{
+    width:100%;max-height:88dvh;
+    padding:18px;overflow-y:auto;
+  }
+  .modalCard h2,.mapCard h2{font-size:31px}
+  .modalCard img{max-height:42dvh}
+
+  #galleryScreen{padding:80px 12px 35px}
+  #finalScreen{padding:75px 16px 35px}
+  #finalScreen .intro h1{font-size:54px}
+  .mapLinks{grid-template-columns:1fr 1fr}
+  footer{display:none}
+}
+
+@media(min-width:651px){
+  #boostBtn{display:none}
+}
+@media(max-height:520px) and (max-width:900px){
+  #joystick{width:100px;height:100px;bottom:12px}
+  #stick{left:29px;top:29px;width:40px;height:40px}
+  #boostBtn{width:58px;height:58px;bottom:18px}
 }
 </style>
 </head>
@@ -360,6 +457,7 @@ footer{
   <div id="progress">MISSION: Discover the five planets</div>
   <div id="hint">WASD / arrows to fly · Touch joystick on mobile · Collect stars ✦</div>
   <div id="joystick"><div id="stick"></div></div>
+  <button id="boostBtn" aria-label="Boost">⚡</button>
   <button class="secondary" id="mapBtn">☰ Galaxy map</button>
 </div>
 
@@ -445,21 +543,31 @@ const world=$("world");
 const ship=$("ship");
 
 const planets=[
- {title:"Memory Garden",emoji:"🌸",x:347,y:437,
+ {
+  title:"Memory Garden",emoji:"🌸",x:347,y:437,
   text:"If I could keep one thing from every universe, it would be the moments that made you smile. You turn ordinary days into memories I want to keep forever.",
-  image:"images/memory1.jpeg"},
- {title:"Our First Moments",emoji:"💗",x:1047,y:337,
+  image:"images/memory1.jpeg"
+ },
+ {
+  title:"Our First Moments",emoji:"💗",x:1047,y:337,
   text:"Every beautiful story has a beginning. I love ours — every little detail, every unexpected moment, and the way you became someone so special to me.",
-  image:"images/memory2.jpeg"},
- {title:"Blue Dreams",emoji:"🌊",x:1895,y:745,
+  image:"images/memory2.jpeg"
+ },
+ {
+  title:"Blue Dreams",emoji:"🌊",x:1895,y:745,
   text:"Some places are beautiful because of their view. Others become beautiful because you're standing next to me. You're my favorite destination.",
-  image:"images/memory3.jpeg"},
- {title:"Little Things",emoji:"💜",x:615,y:1585,
+  image:"images/memory3.jpeg"
+ },
+ {
+  title:"Little Things",emoji:"💜",x:615,y:1585,
   text:"It's your laugh, your voice, the way you say my name, and the tiny things you probably don't notice. Somehow, they mean the world to me.",
-  image:"images/memory4.jpeg"},
- {title:"Forever Star",emoji:"✨",x:2090,y:1590,
+  image:"images/memory4.jpeg"
+ },
+ {
+  title:"Forever Star",emoji:"✨",x:2090,y:1590,
   text:"I don't know what every tomorrow will look like. But I know I want to keep discovering it with you, one little adventure at a time.",
-  image:"images/memory8.jpeg"}
+  image:"images/memory8.jpeg"
+ }
 ];
 
 const memories=[
@@ -476,6 +584,7 @@ const memories=[
 let shipX=1300,shipY=1050;
 let velocityX=0,velocityY=0;
 let joyX=0,joyY=0,joyActive=false;
+let boostActive=false;
 let keys={};
 let started=false;
 let lastTime=0;
@@ -483,7 +592,6 @@ let score=0;
 let collected=new Set();
 let discovered=new Set();
 let modalOpen=false;
-let lastPlanet=-1;
 let toastTimer;
 
 const worldStars=[];
@@ -498,7 +606,10 @@ const starPositions=[
 function rand(a,b){return Math.random()*(b-a)+a}
 
 function buildStars(){
- for(let i=0;i<180;i++){
+ const mobile=window.innerWidth<=650;
+ const count=mobile?100:180;
+
+ for(let i=0;i<count;i++){
   const s=document.createElement("div");
   s.className="worldStar";
   s.style.left=rand(0,2550)+"px";
@@ -507,6 +618,7 @@ function buildStars(){
   s.style.animationDelay=rand(0,3)+"s";
   world.appendChild(s);
  }
+
  starPositions.forEach((p,i)=>{
   const s=document.createElement("div");
   s.textContent="✦";
@@ -539,10 +651,13 @@ function collectNearStars(){
  });
 }
 
+/* Camera: mobile-only zoom */
 function camera(){
- const x=window.innerWidth/2-shipX;
- const y=window.innerHeight/2-shipY;
- world.style.transform=`translate3d(${x}px,${y}px,0)`;
+ const mobile=window.innerWidth<=650;
+ const zoom=mobile?1.12:1;
+ const x=window.innerWidth/2-shipX*zoom;
+ const y=window.innerHeight/2-shipY*zoom;
+ world.style.transform=`translate3d(${x}px,${y}px,0) scale(${zoom})`;
 }
 
 function checkPlanets(){
@@ -558,9 +673,9 @@ function checkPlanets(){
 function openPlanet(i){
  if(discovered.has(i))return;
  discovered.add(i);
- lastPlanet=i;
  modalOpen=true;
  const p=planets[i];
+
  $("modalContent").innerHTML=`
   <div style="font-size:36px">${p.emoji} ✦</div>
   <h2>${p.title}</h2>
@@ -568,8 +683,10 @@ function openPlanet(i){
   <img src="${p.image}" alt="${p.title}" onerror="this.style.display='none'">
   <p style="color:#ffb5d5">${discovered.size} / 5 destinations discovered</p>
  `;
+
  $("modal").classList.add("show");
  $("progress").textContent=`DESTINATIONS: ${discovered.size}/5`;
+
  if(discovered.size===5){
   $("modalContinue").textContent="Complete the mission ♥";
  }
@@ -580,6 +697,7 @@ function closeModal(){
  modalOpen=false;
 }
 $("closeModal").onclick=closeModal;
+
 $("modalContinue").onclick=()=>{
  closeModal();
  if(discovered.size===5)setTimeout(showFinal,400);
@@ -589,14 +707,17 @@ function jumpToPlanet(i){
  const p=planets[i];
  shipX=p.x-115;
  shipY=p.y+15;
+ velocityX=0;
+ velocityY=0;
+ ship.style.left=shipX+"px";
+ ship.style.top=shipY+"px";
  camera();
  if(!discovered.has(i))openPlanet(i);
 }
 
 document.querySelectorAll(".planet").forEach(btn=>{
  btn.addEventListener("click",()=>{
-  const i=Number(btn.dataset.planet);
-  jumpToPlanet(i);
+  jumpToPlanet(Number(btn.dataset.planet));
  });
 });
 
@@ -608,44 +729,57 @@ function startGame(){
  lastTime=performance.now();
  requestAnimationFrame(loop);
 }
+
 $("startBtn").onclick=()=>{
  startGame();
- music.play().then(()=>$("musicBtn").textContent="♫ Music ON").catch(()=>{});
+ music.play().then(()=>{
+  $("musicBtn").textContent="♫ Music ON";
+ }).catch(()=>{});
 };
 
 $("musicBtn").onclick=()=>{
  if(music.paused){
-  music.play().then(()=>$("musicBtn").textContent="♫ Music ON").catch(()=>toast("Add your music file first 🎵"));
+  music.play().then(()=>{
+   $("musicBtn").textContent="♫ Music ON";
+  }).catch(()=>toast("Add your music file first 🎵"));
  }else{
   music.pause();
   $("musicBtn").textContent="♫ Music OFF";
  }
 };
 
+/* Main movement loop */
 function loop(now){
  if(!started)return;
+
  const dt=Math.min((now-lastTime)/16.67||1,2);
  lastTime=now;
 
  let dx=0,dy=0;
+
  if(keys.ArrowLeft||keys.a||keys.A)dx--;
  if(keys.ArrowRight||keys.d||keys.D)dx++;
  if(keys.ArrowUp||keys.w||keys.W)dy--;
  if(keys.ArrowDown||keys.s||keys.S)dy++;
 
- dx+=joyX;dy+=joyY;
+ dx+=joyX;
+ dy+=joyY;
+
  const len=Math.hypot(dx,dy);
  if(len>1){dx/=len;dy/=len}
 
- const acceleration=.23;
+ const acceleration=boostActive?.36:.23;
  const friction=Math.pow(.90,dt);
+
  velocityX+=dx*acceleration*dt;
  velocityY+=dy*acceleration*dt;
+
  if(!dx)velocityX*=friction;
  if(!dy)velocityY*=friction;
 
  const speed=Math.hypot(velocityX,velocityY);
- const maxSpeed=5.5;
+ const maxSpeed=boostActive?8.5:5.5;
+
  if(speed>maxSpeed){
   velocityX=velocityX/speed*maxSpeed;
   velocityY=velocityY/speed*maxSpeed;
@@ -661,18 +795,28 @@ function loop(now){
   const angle=Math.atan2(velocityY,velocityX)*180/Math.PI+90;
   ship.style.transform=`translate(-50%,-50%) rotate(${angle}deg)`;
  }
+
  camera();
  collectNearStars();
  checkPlanets();
  requestAnimationFrame(loop);
 }
 
+/* Keyboard */
 document.addEventListener("keydown",e=>{
  keys[e.key]=true;
- if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "].includes(e.key))e.preventDefault();
+ if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "].includes(e.key)){
+  e.preventDefault();
+ }
 });
 document.addEventListener("keyup",e=>keys[e.key]=false);
+window.addEventListener("blur",()=>{
+ keys={};
+ resetJoy();
+ stopBoost();
+});
 
+/* Joystick */
 const joystick=$("joystick");
 const stick=$("stick");
 
@@ -680,16 +824,25 @@ function moveJoy(e){
  const r=joystick.getBoundingClientRect();
  let x=e.clientX-(r.left+r.width/2);
  let y=e.clientY-(r.top+r.height/2);
- const d=Math.hypot(x,y),max=34;
+ const d=Math.hypot(x,y);
+ const max=r.width*.27;
+
  if(d>max){x=x/d*max;y=y/d*max}
+
  stick.style.transform=`translate(${x}px,${y}px)`;
- joyX=x/max;joyY=y/max;
+ joyX=x/max;
+ joyY=y/max;
 }
+
 function resetJoy(){
- joyActive=false;joyX=0;joyY=0;
+ joyActive=false;
+ joyX=0;
+ joyY=0;
  stick.style.transform="translate(0,0)";
 }
+
 joystick.addEventListener("pointerdown",e=>{
+ e.preventDefault();
  joyActive=true;
  joystick.setPointerCapture(e.pointerId);
  moveJoy(e);
@@ -699,7 +852,27 @@ joystick.addEventListener("pointermove",e=>{
 });
 joystick.addEventListener("pointerup",resetJoy);
 joystick.addEventListener("pointercancel",resetJoy);
+joystick.addEventListener("lostpointercapture",resetJoy);
 
+/* Boost button */
+const boostBtn=$("boostBtn");
+
+function stopBoost(){
+ boostActive=false;
+ boostBtn.classList.remove("active");
+}
+
+boostBtn.addEventListener("pointerdown",e=>{
+ e.preventDefault();
+ boostActive=true;
+ boostBtn.classList.add("active");
+ boostBtn.setPointerCapture(e.pointerId);
+});
+boostBtn.addEventListener("pointerup",stopBoost);
+boostBtn.addEventListener("pointercancel",stopBoost);
+boostBtn.addEventListener("lostpointercapture",stopBoost);
+
+/* Galaxy map */
 $("mapBtn").onclick=()=>$("mapPanel").classList.add("show");
 $("closeMap").onclick=()=>$("mapPanel").classList.remove("show");
 
@@ -710,38 +883,58 @@ document.querySelectorAll("[data-jump]").forEach(btn=>{
  };
 });
 
+/* Gallery */
 function showGallery(){
  $("mapPanel").classList.remove("show");
  $("game").classList.remove("active");
  $("galleryScreen").classList.add("active");
 }
+
 $("galleryBtn").onclick=showGallery;
+
 $("backGame").onclick=()=>{
  $("galleryScreen").classList.remove("active");
  $("game").classList.add("active");
+ camera();
 };
+
 $("galleryBtn").addEventListener("click",()=>{
  const grid=$("galleryGrid");
  if(grid.children.length)return;
+
  memories.forEach((m,i)=>{
   const fig=document.createElement("figure");
   fig.className="memory";
+
   const img=document.createElement("img");
   img.src="images/"+m[0];
   img.alt="Our memory "+(i+1);
   img.loading="lazy";
+  img.decoding="async";
+
+  img.addEventListener("error",()=>{
+   fig.style.display="none";
+  });
+
   const cap=document.createElement("figcaption");
   cap.textContent=m[1];
+
   fig.append(img,cap);
+
   fig.onclick=()=>{
    $("lightboxImg").src=img.src;
    $("lightbox").classList.add("show");
   };
+
   grid.appendChild(fig);
  });
 });
-$("lightbox").onclick=()=>$("lightbox").classList.remove("show");
 
+$("lightbox").onclick=()=>{
+ $("lightbox").classList.remove("show");
+};
+
+/* Final destination */
 $("finishJump").onclick=()=>{
  $("mapPanel").classList.remove("show");
  showFinal();
@@ -752,11 +945,13 @@ function showFinal(){
  $("game").classList.remove("active");
  $("finalScreen").classList.add("active");
 }
+
 $("sendBtn").onclick=()=>{
  const date=$("date").value||"Whenever you want";
  const time=$("time").value||"Whenever you are ready";
  const food=$("food").value;
  const place=$("place").value||"Somewhere special";
+
  const message=`Hey Yoya! ❤️
 
 I have a little date planned for us.
@@ -775,39 +970,54 @@ Love you, my favorite person. ✨`;
  );
 };
 
-/* Background star animation */
+/* Background stars */
 const canvas=$("stars");
 const ctx=canvas.getContext("2d");
 let bgStars=[];
 
 function resize(){
  const dpr=Math.min(devicePixelRatio||1,2);
+
  canvas.width=innerWidth*dpr;
  canvas.height=innerHeight*dpr;
  canvas.style.width=innerWidth+"px";
  canvas.style.height=innerHeight+"px";
+
  ctx.setTransform(dpr,0,0,dpr,0,0);
- bgStars=Array.from({length:150},()=>({
-  x:rand(0,innerWidth),y:rand(0,innerHeight),
-  r:rand(.4,1.7),a:rand(.2,1),v:rand(.002,.009)
+
+ const mobile=innerWidth<=650;
+ const count=mobile?85:150;
+
+ bgStars=Array.from({length:count},()=>({
+  x:rand(0,innerWidth),
+  y:rand(0,innerHeight),
+  r:rand(.4,1.7),
+  a:rand(.2,1),
+  v:rand(.002,.009)
  }));
 }
+
 function drawStars(){
  ctx.clearRect(0,0,innerWidth,innerHeight);
+
  bgStars.forEach(s=>{
   s.a+=s.v;
   if(s.a>1||s.a<.15)s.v*=-1;
+
   ctx.beginPath();
   ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
   ctx.fillStyle=`rgba(255,255,255,${s.a})`;
   ctx.fill();
  });
+
  requestAnimationFrame(drawStars);
 }
+
 window.addEventListener("resize",()=>{
  resize();
  if(started)camera();
 });
+
 resize();
 drawStars();
 </script>
