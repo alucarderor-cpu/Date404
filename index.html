@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#080714">
-<title>Yoya | Lost in Your Universe</title>
+<title>Yoya — Lost in Your Universe</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
@@ -16,257 +16,286 @@
   --gold:#ffe0a3;
   --white:#fff5fb;
 }
-
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--white);
-  font-family:Inter,sans-serif;
-  overflow:hidden;
+  margin:0;background:var(--bg);color:var(--white);
+  font-family:Inter,sans-serif;overflow:hidden;
+  user-select:none;-webkit-user-select:none;
 }
-button{font:inherit;cursor:pointer}
+button,input,select{font:inherit}
+button{cursor:pointer}
 button:focus-visible{outline:2px solid var(--gold)}
-
 #space{
-  position:fixed;inset:0;
-  overflow:hidden;
+  position:fixed;inset:0;overflow:hidden;
   background:
-    radial-gradient(ellipse at 50% 50%,#241239 0%,#100c24 42%,#080714 100%);
+    radial-gradient(ellipse at 50% 45%,#241239 0%,#100c24 45%,#080714 100%);
 }
-#stars,#effects{
-  position:absolute;inset:0;width:100%;height:100%;
-  pointer-events:none;
-}
+#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .nebula{
-  position:absolute;width:70vw;height:70vw;
-  border-radius:50%;filter:blur(75px);opacity:.18;
-  pointer-events:none;
+  position:absolute;width:65vw;height:65vw;border-radius:50%;
+  filter:blur(90px);opacity:.17;pointer-events:none;
 }
-.nebula.one{background:#a52f92;top:-35%;left:-20%}
-.nebula.two{background:#423bd3;bottom:-40%;right:-20%}
-
+.nebula.a{background:#a52f92;top:-35%;left:-20%}
+.nebula.b{background:#423bd3;bottom:-40%;right:-20%}
 header{
-  position:fixed;z-index:10;top:0;left:0;right:0;
+  position:fixed;z-index:20;top:0;left:0;right:0;
   display:flex;align-items:center;justify-content:space-between;
-  padding:17px 22px;
-  background:linear-gradient(#080714d9,transparent);
+  padding:15px 22px;
+  background:linear-gradient(#080714e8,transparent);
 }
 .logo{
   font-family:'Cormorant Garamond',serif;
   font-size:25px;letter-spacing:2px;color:var(--gold)
 }
-.hud{display:flex;align-items:center;gap:10px}
-.pill{
-  border:1px solid #ffffff2c;background:#ffffff0d;
-  border-radius:30px;padding:9px 13px;font-size:12px;
-  backdrop-filter:blur(10px)
+.hud{display:flex;gap:9px;align-items:center}
+.pill,.smallBtn{
+  border:1px solid #ffffff30;background:#ffffff0d;
+  border-radius:30px;padding:9px 13px;color:white;
+  font-size:12px;backdrop-filter:blur(10px)
 }
-#musicBtn,.smallBtn{
-  border:1px solid #ffffff35;background:#ffffff12;
-  color:white;border-radius:30px;padding:9px 13px;
-}
-#musicBtn{font-size:12px}
-
 .screen{
-  position:absolute;inset:0;display:none;
+  position:fixed;inset:0;z-index:5;display:none;
   align-items:center;justify-content:center;
-  padding:85px 20px 90px;
+  padding:90px 20px 60px;overflow:auto;
 }
 .screen.active{display:flex}
-.intro{text-align:center;max-width:680px}
+.intro{text-align:center;max-width:700px;width:100%}
 .eyebrow{
   color:var(--pink);letter-spacing:4px;font-size:10px;
   text-transform:uppercase;margin-bottom:18px
 }
-h1,h2,h3{
-  font-family:'Cormorant Garamond',serif;font-weight:500
-}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500}
 .intro h1{
-  font-size:clamp(48px,10vw,92px);
-  line-height:.95;margin:0 0 20px;
+  font-size:clamp(48px,10vw,94px);line-height:.92;margin:0 0 20px;
   background:linear-gradient(110deg,#fff,#ff9bc7,#d2b8ff);
-  -webkit-background-clip:text;color:transparent;
+  -webkit-background-clip:text;color:transparent
 }
 .intro p,.description{
   color:#d8cde3;line-height:1.9;font-size:14px
 }
 .primary{
-  border:0;border-radius:40px;padding:15px 26px;
+  border:0;border-radius:40px;padding:15px 27px;
   color:#251027;font-weight:700;
   background:linear-gradient(120deg,#ffd6a0,#ff8ebd);
-  box-shadow:0 0 35px #ff83b544;
-  margin-top:24px;transition:.25s
+  box-shadow:0 0 35px #ff83b544;margin-top:20px;
+  transition:.25s
 }
-.primary:hover{transform:translateY(-3px);box-shadow:0 0 45px #ff83b577}
+.primary:hover{transform:translateY(-3px)}
 .secondary{
-  border:1px solid #ffffff44;background:#ffffff0c;
-  color:white;border-radius:30px;padding:12px 18px
+  border:1px solid #ffffff40;background:#ffffff10;
+  color:white;border-radius:30px;padding:11px 16px
 }
 
-/* GAME */
-#game{position:absolute;inset:0;display:none}
+/* GAME WORLD */
+#game{position:fixed;inset:0;display:none;overflow:hidden}
 #game.active{display:block}
-#universe{
-  position:absolute;inset:0;overflow:hidden;
-  touch-action:none;
-}
+#universe{position:absolute;inset:0;overflow:hidden;touch-action:none}
 #world{
-  position:absolute;width:2200px;height:1800px;
-  left:50%;top:50%;
-  transform:translate(-50%,-50%);
-  transform-origin:center;
+  position:absolute;left:0;top:0;
+  width:2600px;height:2100px;
+  transform:translate3d(0,0,0);
+  transform-origin:0 0;will-change:transform;
 }
 .worldStar{
-  position:absolute;width:3px;height:3px;
-  background:#fff;border-radius:50%;
-  box-shadow:0 0 9px #fff;
+  position:absolute;width:3px;height:3px;border-radius:50%;
+  background:white;box-shadow:0 0 9px white;
+  pointer-events:none;
   animation:twinkle 2s infinite alternate;
 }
 @keyframes twinkle{to{opacity:.2;transform:scale(.5)}}
 
-#ship{
-  position:absolute;left:50%;top:50%;
-  width:62px;height:62px;z-index:5;
-  display:grid;place-items:center;
-  font-size:43px;
-  filter:drop-shadow(0 0 16px #ff9cc9);
-  transform:translate(-50%,-50%);
-  pointer-events:none;
-  transition:transform .08s;
-}
-#ship:after{
-  content:"";position:absolute;top:45px;width:9px;height:30px;
-  background:linear-gradient(#ffb1d5,transparent);
-  filter:blur(5px);border-radius:50%;
-}
-
-.planet{
-  position:absolute;border:0;border-radius:50%;
-  display:grid;place-items:center;
-  color:white;font-size:34px;
-  box-shadow:inset -12px -12px 20px #0008,0 0 35px var(--glow);
-  transition:transform .3s;
-}
-.planet:hover{transform:scale(1.13)}
-.planet small{
-  position:absolute;top:110%;white-space:nowrap;
-  font-size:12px;letter-spacing:1px;color:#eee;
-}
-.p1{width:90px;height:90px;background:radial-gradient(circle at 30% 25%,#ffbbd8,#a64c9b 60%,#36164b);--glow:#d76acb;left:250px;top:330px}
-.p2{width:110px;height:110px;background:radial-gradient(circle at 30% 25%,#ffe1ad,#b66b55 65%,#48233e);--glow:#ed997b;left:950px;top:240px}
-.p3{width:85px;height:85px;background:radial-gradient(circle at 30% 25%,#a8e5ff,#3c6db8 65%,#20204e);--glow:#74aaff;left:1550px;top:650px}
-.p4{width:105px;height:105px;background:radial-gradient(circle at 30% 25%,#d6c1ff,#8058bb 65%,#30204d);--glow:#b58bff;left:550px;top:1200px}
-.p5{width:75px;height:75px;background:radial-gradient(circle at 30% 25%,#fff1ba,#a57c35 65%,#44311c);--glow:#ffdb8a;left:1650px;top:1300px}
-
 #sun{
-  position:absolute;left:1050px;top:900px;width:125px;height:125px;
-  border-radius:50%;
+  position:absolute;left:1210px;top:980px;
+  width:130px;height:130px;border-radius:50%;
   background:radial-gradient(circle at 35% 30%,#fff4bd,#ff9d73 45%,#b43e8c 80%);
-  box-shadow:0 0 45px #ff9c76,0 0 110px #ff5caa66;
+  box-shadow:0 0 55px #ff9c76,0 0 130px #ff5caa55;
 }
 #sun:after{
-  content:"";position:absolute;inset:-22px;border:1px solid #ffb1a766;
-  border-radius:50%;transform:rotate(-20deg) scaleY(.3);
+  content:"";position:absolute;inset:-24px;border:1px solid #ffb1a766;
+  border-radius:50%;transform:rotate(-20deg) scaleY(.35);
+}
+.planet{
+  position:absolute;border:0;border-radius:50%;
+  display:grid;place-items:center;color:white;font-size:35px;
+  box-shadow:inset -15px -15px 25px #0008,0 0 35px var(--glow);
+  transition:filter .3s;z-index:2;
+}
+.planet:hover{filter:brightness(1.3)}
+.planet small{
+  position:absolute;top:115%;white-space:nowrap;
+  color:#eee;font-size:12px;letter-spacing:1px;
+  text-shadow:0 2px 5px black
+}
+.p1{width:95px;height:95px;left:300px;top:390px;background:radial-gradient(circle at 30% 25%,#ffbbd8,#a64c9b 60%,#36164b);--glow:#d76acb}
+.p2{width:115px;height:115px;left:990px;top:280px;background:radial-gradient(circle at 30% 25%,#ffe1ad,#b66b55 65%,#48233e);--glow:#ed997b}
+.p3{width:90px;height:90px;left:1850px;top:700px;background:radial-gradient(circle at 30% 25%,#a8e5ff,#3c6db8 65%,#20204e);--glow:#74aaff}
+.p4{width:110px;height:110px;left:560px;top:1530px;background:radial-gradient(circle at 30% 25%,#d6c1ff,#8058bb 65%,#30204d);--glow:#b58bff}
+.p5{width:80px;height:80px;left:2050px;top:1550px;background:radial-gradient(circle at 30% 25%,#fff1ba,#a57c35 65%,#44311c);--glow:#ffdb8a}
+
+/* PLANET ORBITS */
+.orbit{
+  position:absolute;border:1px solid #ffffff12;border-radius:50%;
+  pointer-events:none;
+}
+.orbit.o1{width:500px;height:210px;left:1050px;top:940px;transform:rotate(-20deg)}
+.orbit.o2{width:850px;height:340px;left:900px;top:870px;transform:rotate(18deg)}
+.orbit.o3{width:1250px;height:500px;left:720px;top:780px;transform:rotate(-10deg)}
+
+#ship{
+  position:absolute;left:1300px;top:1050px;width:72px;height:90px;
+  z-index:8;display:grid;place-items:center;
+  filter:drop-shadow(0 0 14px #ff9cc9);
+  transform:translate(-50%,-50%);
+  will-change:left,top,transform;pointer-events:none;
+}
+#ship svg{width:100%;height:100%;overflow:visible}
+#flame{
+  transform-origin:50% 0%;
+  animation:flame .14s infinite alternate;
+}
+@keyframes flame{
+  from{transform:scaleY(.7);opacity:.7}
+  to{transform:scaleY(1.3);opacity:1}
+}
+#engineGlow{
+  position:absolute;bottom:-22px;width:15px;height:35px;
+  background:linear-gradient(#ffe9b1,#ff70b6,transparent);
+  filter:blur(9px);border-radius:50%;
+  animation:flame .13s infinite alternate
 }
 
-#gameHint{
-  position:fixed;z-index:7;bottom:75px;left:50%;
-  transform:translateX(-50%);
-  background:#090716cc;border:1px solid #ffffff22;
-  border-radius:30px;padding:10px 15px;
-  color:#e7d8ed;font-size:11px;text-align:center;
-  white-space:nowrap;pointer-events:none
-}
-#joystick{
-  position:fixed;z-index:8;bottom:105px;left:20px;
-  width:100px;height:100px;border-radius:50%;
-  border:1px solid #ffffff30;background:#ffffff0c;
-  display:none;touch-action:none;
-}
-#stick{
-  position:absolute;width:38px;height:38px;border-radius:50%;
-  background:#ff9bc7aa;border:1px solid #ffd9e9;
-  left:30px;top:30px;
-}
 #progress{
-  position:fixed;z-index:8;top:78px;left:22px;
-  color:#f5d6e9;font-size:12px;
+  position:fixed;z-index:12;top:78px;left:20px;
+  font-size:11px;color:#f4d5e8;
+  background:#08071488;padding:9px 12px;border-radius:20px;
+  border:1px solid #ffffff20
+}
+#hint{
+  position:fixed;z-index:12;bottom:20px;left:50%;
+  transform:translateX(-50%);font-size:10px;color:#e5d5e8;
+  background:#080714bd;padding:10px 16px;border-radius:30px;
+  white-space:nowrap;border:1px solid #ffffff20;
+  pointer-events:none
 }
 #mapBtn{
-  position:fixed;z-index:9;right:18px;bottom:100px;
+  position:fixed;z-index:15;right:18px;bottom:20px
 }
-#mapPanel{
-  display:none;position:fixed;z-index:20;inset:0;
-  background:#080714ef;backdrop-filter:blur(15px);
-  align-items:center;justify-content:center;padding:20px;
+#joystick{
+  display:none;position:fixed;z-index:14;
+  bottom:90px;left:20px;width:112px;height:112px;
+  border-radius:50%;border:1px solid #ffffff38;
+  background:#ffffff0c;touch-action:none;
+  backdrop-filter:blur(8px)
 }
-#mapPanel.show{display:flex}
-.mapCard{
-  width:min(420px,100%);padding:25px;border:1px solid #ffffff2c;
-  border-radius:24px;background:#171126;text-align:center
+#stick{
+  position:absolute;width:42px;height:42px;
+  left:34px;top:34px;border-radius:50%;
+  background:#ff9bc7bb;border:1px solid #ffd9e9;
+  box-shadow:0 0 15px #ff83b566
 }
-.mapCard h2{font-size:34px;color:var(--gold)}
-.mapLinks{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.mapLinks button{padding:13px 8px;border-radius:12px;border:1px solid #ffffff25;background:#ffffff0c;color:white}
 
 /* MODALS */
-#modal{
-  display:none;position:fixed;z-index:30;inset:0;
-  background:#05040de8;backdrop-filter:blur(14px);
-  align-items:center;justify-content:center;padding:18px;
+#modal,#mapPanel{
+  display:none;position:fixed;z-index:40;inset:0;
+  background:#05040dec;backdrop-filter:blur(15px);
+  align-items:center;justify-content:center;padding:18px
 }
-#modal.show{display:flex}
-.modalCard{
-  width:min(500px,100%);max-height:85vh;overflow:auto;
-  padding:25px;border:1px solid #ffffff30;border-radius:24px;
+#modal.show,#mapPanel.show{display:flex}
+.modalCard,.mapCard{
+  width:min(510px,100%);max-height:85vh;overflow:auto;
+  padding:24px;border:1px solid #ffffff30;border-radius:24px;
   background:linear-gradient(145deg,#24132f,#100e20);
-  text-align:center;box-shadow:0 0 60px #b25a9a22;
+  text-align:center;box-shadow:0 0 60px #b25a9a22
 }
-.modalCard h2{font-size:39px;color:var(--gold);margin:5px 0 12px}
-.modalCard p{color:#e0d4e6;line-height:1.9;font-size:14px}
-.modalCard img{width:100%;max-height:270px;object-fit:cover;border-radius:16px;margin:12px 0}
-.close{float:right;background:none;border:0;color:white;font-size:24px}
-#finalScreen{text-align:center;max-width:650px}
-#finalScreen h1{font-size:clamp(45px,9vw,78px);color:#ffc0dc}
-input,select{
-  width:100%;padding:13px;margin:7px 0;
-  border-radius:12px;border:1px solid #ffffff30;
-  background:#ffffff0c;color:white;
+.modalCard h2,.mapCard h2{font-size:38px;color:var(--gold);margin:8px 0}
+.modalCard p,.mapCard p{color:#e0d4e6;line-height:1.9;font-size:14px}
+.modalCard img{
+  display:block;width:100%;height:auto;max-height:55vh;
+  object-fit:contain;object-position:center;
+  border-radius:15px;margin:15px auto;background:#080714
 }
-select option{color:#111}
-.dateForm{text-align:left;margin-top:18px}
-footer{
-  position:fixed;bottom:15px;left:0;right:0;text-align:center;
-  color:#84788f;font-size:10px;letter-spacing:2px;pointer-events:none
+.close{float:right;background:none;border:0;color:white;font-size:25px}
+.mapLinks{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mapLinks button{
+  padding:13px 8px;border-radius:12px;
+  border:1px solid #ffffff25;background:#ffffff0c;color:white
 }
 
-@media(max-width:600px){
-  header{padding:13px}
+/* FINAL */
+#finalScreen{text-align:center}
+.dateForm{text-align:left;margin-top:18px}
+.dateForm label{font-size:12px;color:#e9d9eb}
+.dateForm input,.dateForm select{
+  width:100%;padding:13px;margin:7px 0 14px;
+  border-radius:12px;border:1px solid #ffffff30;
+  background:#ffffff0c;color:white
+}
+.dateForm option{color:#111}
+#galleryScreen{align-items:flex-start}
+.galleryWrap{width:min(1000px,100%);text-align:center}
+.galleryGrid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+  margin-top:20px
+}
+.memory{
+  margin:0;border:1px solid #ffffff24;border-radius:15px;
+  overflow:hidden;background:#171126;cursor:pointer
+}
+.memory img{
+  display:block;width:100%;height:180px;
+  object-fit:contain;background:#05040d;
+}
+.memory figcaption{padding:10px;font-size:11px;color:#ffcee3}
+#lightbox{
+  display:none;position:fixed;z-index:60;inset:0;
+  background:#000e;align-items:center;justify-content:center;padding:15px
+}
+#lightbox.show{display:flex}
+#lightbox img{
+  max-width:95vw;max-height:85vh;width:auto;height:auto;
+  object-fit:contain;border-radius:12px
+}
+footer{
+  position:fixed;z-index:10;bottom:7px;left:0;right:0;
+  text-align:center;color:#84788f;font-size:9px;
+  letter-spacing:2px;pointer-events:none
+}
+#toast{
+  position:fixed;z-index:70;top:20%;left:50%;
+  transform:translateX(-50%);background:#24132f;
+  border:1px solid #ffb4d5;border-radius:30px;
+  padding:12px 18px;color:white;font-size:12px;
+  opacity:0;transition:.3s;pointer-events:none
+}
+#toast.show{opacity:1}
+
+@media(max-width:650px){
+  header{padding:12px}
   .logo{font-size:20px}
-  .pill{padding:8px;font-size:10px}
+  .pill{font-size:10px;padding:8px}
   #joystick{display:block}
-  #gameHint{bottom:55px;font-size:10px}
-  #mapBtn{bottom:170px}
-  .planet small{font-size:10px}
+  #hint{bottom:62px;font-size:9px}
+  #mapBtn{bottom:62px}
+  #progress{top:70px;left:12px}
+  .galleryGrid{grid-template-columns:repeat(2,1fr)}
+  .memory img{height:145px}
 }
 </style>
 </head>
 
 <body>
 <div id="space">
-  <div class="nebula one"></div>
-  <div class="nebula two"></div>
+  <div class="nebula a"></div>
+  <div class="nebula b"></div>
   <canvas id="stars"></canvas>
-  <canvas id="effects"></canvas>
 </div>
 
 <header>
   <div class="logo">YOYA ✦ 404</div>
   <div class="hud">
     <div class="pill">✦ <span id="score">0</span> stars</div>
-    <button id="musicBtn">♫ Music</button>
+    <button class="smallBtn" id="musicBtn">♫ Music OFF</button>
   </div>
 </header>
 
@@ -276,36 +305,60 @@ footer{
 
 <section class="screen active" id="intro">
   <div class="intro">
-    <div class="eyebrow">A little journey through the universe</div>
+    <div class="eyebrow">A journey beyond the stars</div>
     <h1>Lost in<br>Your Universe</h1>
-    <p>
-      Somewhere among billions of stars, there is one universe
-      that feels like home.<br>
-      And somehow… it has your name.
-    </p>
-    <p style="color:#ffb4d5;font-family:'Cormorant Garamond';font-size:25px">
+    <p>Billions of stars. Countless galaxies. Infinite possibilities.</p>
+    <p>Yet somehow, my favorite universe has your name.</p>
+    <p style="font-family:'Cormorant Garamond';font-size:29px;color:#ffb4d5">
       For my little Yoya ♥
     </p>
-    <button class="primary" id="startBtn">Begin your journey ✦</button>
+    <button class="primary" id="startBtn">Launch your spaceship 🚀</button>
+    <p style="font-size:10px">A little adventure made only for you.</p>
   </div>
 </section>
 
 <div id="game">
   <div id="universe">
     <div id="world">
+      <div class="orbit o1"></div>
+      <div class="orbit o2"></div>
+      <div class="orbit o3"></div>
       <div id="sun"></div>
-      <div id="ship">🚀</div>
 
       <button class="planet p1" data-planet="0">🌸<small>Memory Garden</small></button>
-      <button class="planet p2" data-planet="1">💗<small>Our First Moments</small></button>
+      <button class="planet p2" data-planet="1">💗<small>First Moments</small></button>
       <button class="planet p3" data-planet="2">🌊<small>Blue Dreams</small></button>
       <button class="planet p4" data-planet="3">💜<small>Little Things</small></button>
       <button class="planet p5" data-planet="4">✨<small>Forever Star</small></button>
+
+      <div id="ship">
+        <svg viewBox="0 0 100 120">
+          <defs>
+            <linearGradient id="body" x1="0" x2="1">
+              <stop offset="0%" stop-color="#bba1ff"/>
+              <stop offset="50%" stop-color="#fff4fb"/>
+              <stop offset="100%" stop-color="#ff8dbb"/>
+            </linearGradient>
+            <linearGradient id="fire" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#fff1a9"/>
+              <stop offset="60%" stop-color="#ff9bc7"/>
+              <stop offset="100%" stop-color="#a77aff" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M50 7 C30 25 28 57 34 81 L50 96 L66 81 C72 57 70 25 50 7Z"
+            fill="url(#body)" stroke="#fff" stroke-width="2"/>
+          <path d="M35 62 L12 88 L35 82Z" fill="#a98aff"/>
+          <path d="M65 62 L88 88 L65 82Z" fill="#ff83b5"/>
+          <circle cx="50" cy="49" r="10" fill="#352a64" stroke="#fff" stroke-width="3"/>
+          <path id="flame" d="M42 91 Q50 140 58 91Z" fill="url(#fire)"/>
+        </svg>
+        <div id="engineGlow"></div>
+      </div>
     </div>
   </div>
 
   <div id="progress">MISSION: Discover the five planets</div>
-  <div id="gameHint">Move with WASD / arrows or drag the joystick · Collect glowing stars</div>
+  <div id="hint">WASD / arrows to fly · Touch joystick on mobile · Collect stars ✦</div>
   <div id="joystick"><div id="stick"></div></div>
   <button class="secondary" id="mapBtn">☰ Galaxy map</button>
 </div>
@@ -314,14 +367,15 @@ footer{
   <div class="mapCard">
     <button class="close" id="closeMap">×</button>
     <h2>Galaxy Map</h2>
-    <p>Choose a destination, captain.</p>
+    <p>Choose your next destination, captain.</p>
     <div class="mapLinks">
       <button data-jump="0">🌸 Memory Garden</button>
       <button data-jump="1">💗 First Moments</button>
       <button data-jump="2">🌊 Blue Dreams</button>
       <button data-jump="3">💜 Little Things</button>
       <button data-jump="4">✨ Forever Star</button>
-      <button id="finishJump">💌 Final Destination</button>
+      <button id="galleryBtn">📸 Our memories</button>
+      <button id="finishJump">💌 Final destination</button>
     </div>
   </div>
 </div>
@@ -334,6 +388,20 @@ footer{
   </div>
 </div>
 
+<section class="screen" id="galleryScreen">
+  <div class="galleryWrap">
+    <div class="eyebrow">A little collection of forever</div>
+    <h1 style="font-size:55px;color:#ffc0dc">Our Memories</h1>
+    <p>Every picture holds a moment I wish I could live again.</p>
+    <div class="galleryGrid" id="galleryGrid"></div>
+    <button class="primary" id="backGame">Back to the galaxy</button>
+  </div>
+</section>
+
+<div id="lightbox">
+  <img id="lightboxImg" src="" alt="Our memory">
+</div>
+
 <section class="screen" id="finalScreen">
   <div class="intro">
     <div class="eyebrow">MISSION COMPLETE</div>
@@ -342,8 +410,9 @@ footer{
       Out of every star, every planet, every possible world…
       I would still find my way back to you.
     </p>
-    <h2 style="color:#ffb4d5;font-size:35px">Will you go on a date with me, Yoya? ♥</h2>
-
+    <h2 style="color:#ffb4d5;font-size:34px">
+      Will you go on a date with me, Yoya? ♥
+    </h2>
     <div class="dateForm">
       <label>Our special date</label>
       <input type="date" id="date">
@@ -361,308 +430,334 @@ footer{
       <label>Where shall our adventure begin?</label>
       <input id="place" placeholder="A place you love...">
     </div>
-
     <button class="primary" id="sendBtn">Send our date to my captain ♥</button>
     <p style="font-size:11px;color:#a99ab3">One more adventure. Just you and me.</p>
   </div>
 </section>
 
+<div id="toast"></div>
 <footer>MADE WITH LOVE · IN EVERY UNIVERSE</footer>
 
 <script>
-const $ = id => document.getElementById(id);
+const $=id=>document.getElementById(id);
+const music=$("music");
+const world=$("world");
+const ship=$("ship");
 
-const planetData = [
-  {
-    title:"Memory Garden",
-    text:"If I could keep one thing from every universe, it would be the moments that made you smile. You make ordinary days feel like something worth remembering.",
-    image:"images/memory1.jpeg"
-  },
-  {
-    title:"Our First Moments",
-    text:"Every story has a beginning. And I love ours — the little details, the unexpected moments, and the way you slowly became someone so important to me.",
-    image:"images/memory2.jpeg"
-  },
-  {
-    title:"Blue Dreams",
-    text:"Some places are beautiful because of their view. Others become beautiful because you're standing next to me. You're my favorite kind of destination.",
-    image:"images/memory3.jpeg"
-  },
-  {
-    title:"Little Things",
-    text:"It's not always the big moments. Sometimes it's your laugh, your voice, the way you say my name, or a tiny message that makes my whole day better.",
-    image:"images/memory4.jpeg"
-  },
-  {
-    title:"Forever Star",
-    text:"I don't know what every tomorrow will look like. But I know I want to keep discovering it with you, one little adventure at a time.",
-    image:"images/memory8.jpeg"
-  }
+const planets=[
+ {title:"Memory Garden",emoji:"🌸",x:347,y:437,
+  text:"If I could keep one thing from every universe, it would be the moments that made you smile. You turn ordinary days into memories I want to keep forever.",
+  image:"images/memory1.jpeg"},
+ {title:"Our First Moments",emoji:"💗",x:1047,y:337,
+  text:"Every beautiful story has a beginning. I love ours — every little detail, every unexpected moment, and the way you became someone so special to me.",
+  image:"images/memory2.jpeg"},
+ {title:"Blue Dreams",emoji:"🌊",x:1895,y:745,
+  text:"Some places are beautiful because of their view. Others become beautiful because you're standing next to me. You're my favorite destination.",
+  image:"images/memory3.jpeg"},
+ {title:"Little Things",emoji:"💜",x:615,y:1585,
+  text:"It's your laugh, your voice, the way you say my name, and the tiny things you probably don't notice. Somehow, they mean the world to me.",
+  image:"images/memory4.jpeg"},
+ {title:"Forever Star",emoji:"✨",x:2090,y:1590,
+  text:"I don't know what every tomorrow will look like. But I know I want to keep discovering it with you, one little adventure at a time.",
+  image:"images/memory8.jpeg"}
 ];
 
-const galleryCaptions = [
-  "My little Yoya ✦",
-  "A moment worth keeping ♥",
-  "Just you and me",
-  "My happy place",
-  "One for the stars ✧",
-  "Beautifully us",
-  "My favorite adventure",
-  "To many more memories ♥"
+const memories=[
+ ["memory1.jpeg","My little Yoya ✦"],
+ ["memory2.jpeg","A moment worth keeping ♥"],
+ ["memory3.jpeg","Just you and me"],
+ ["memory4.jpeg","My happy place"],
+ ["memory5.jpeg","One for the stars ✧"],
+ ["memory6.jpeg","Beautifully us"],
+ ["memory7.jpeg","My favorite adventure"],
+ ["memory8.jpeg","To many more memories ♥"]
 ];
 
-let discovered = new Set();
-let score = 0;
-let started = false;
-let shipX = 1100, shipY = 900;
-let keys = {};
-let velocityX = 0, velocityY = 0;
-let joystickActive = false;
-let joyX = 0, joyY = 0;
-let lastTime = 0;
-let stars = [];
-let collected = new Set();
+let shipX=1300,shipY=1050;
+let velocityX=0,velocityY=0;
+let joyX=0,joyY=0,joyActive=false;
+let keys={};
+let started=false;
+let lastTime=0;
+let score=0;
+let collected=new Set();
+let discovered=new Set();
+let modalOpen=false;
+let lastPlanet=-1;
+let toastTimer;
 
-const world = $("world");
-const ship = $("ship");
-const music = $("music");
+const worldStars=[];
+const starPositions=[
+ [440,540],[760,210],[1400,390],[2200,500],
+ [850,800],[1500,1100],[350,1200],[2300,1700],
+ [1200,1700],[480,1450],[1700,850],[950,1300],
+ [2000,300],[600,900],[1900,1200],[1200,500],
+ [250,1700],[2200,900],[1400,1500],[750,1750]
+];
 
-function random(min,max){return Math.random()*(max-min)+min}
+function rand(a,b){return Math.random()*(b-a)+a}
 
-function createWorldStars(){
-  for(let i=0;i<100;i++){
-    const s=document.createElement("div");
-    s.className="worldStar";
-    s.style.left=random(0,2150)+"px";
-    s.style.top=random(0,1750)+"px";
-    s.style.opacity=random(.2,1);
-    world.appendChild(s);
+function buildStars(){
+ for(let i=0;i<180;i++){
+  const s=document.createElement("div");
+  s.className="worldStar";
+  s.style.left=rand(0,2550)+"px";
+  s.style.top=rand(0,2050)+"px";
+  s.style.opacity=rand(.25,1);
+  s.style.animationDelay=rand(0,3)+"s";
+  world.appendChild(s);
+ }
+ starPositions.forEach((p,i)=>{
+  const s=document.createElement("div");
+  s.textContent="✦";
+  s.style.cssText=`position:absolute;left:${p[0]}px;top:${p[1]}px;color:#ffe6a6;font-size:24px;text-shadow:0 0 15px #ffdd8a;pointer-events:none`;
+  s.dataset.collectible=i;
+  world.appendChild(s);
+  worldStars.push({el:s,x:p[0],y:p[1],id:i});
+ });
+}
+buildStars();
+
+function toast(message){
+ const t=$("toast");
+ t.textContent=message;
+ t.classList.add("show");
+ clearTimeout(toastTimer);
+ toastTimer=setTimeout(()=>t.classList.remove("show"),1800);
+}
+
+function collectNearStars(){
+ worldStars.forEach(s=>{
+  if(collected.has(s.id))return;
+  if(Math.hypot(shipX-s.x,shipY-s.y)<55){
+   collected.add(s.id);
+   s.el.remove();
+   score++;
+   $("score").textContent=score;
+   toast("A little star for my little star ✨");
   }
-
-  const positions=[
-    [420,500],[800,170],[1350,350],[1800,480],
-    [750,750],[1300,1050],[300,1100],[1900,1500],
-    [1100,1500],[450,1450],[1450,800],[900,1200]
-  ];
-
-  positions.forEach((p,i)=>{
-    const s=document.createElement("button");
-    s.textContent="✦";
-    s.style.cssText=`
-      position:absolute;left:${p[0]}px;top:${p[1]}px;
-      border:0;background:none;color:#ffe6a6;font-size:26px;
-      filter:drop-shadow(0 0 12px #ffdd8a);cursor:pointer;
-      animation:twinkle 1.2s infinite alternate;
-    `;
-    s.dataset.star=i;
-    s.addEventListener("click",e=>{
-      e.stopPropagation();
-      collectStar(i);
-    });
-    world.appendChild(s);
-  });
+ });
 }
 
-function collectStar(i){
-  if(collected.has(i))return;
-  collected.add(i);
-  score++;
-  $("score").textContent=score;
-  const s=world.querySelector(`[data-star="${i}"]`);
-  if(s)s.remove();
-  showToast("A little star for my little star ✨");
+function camera(){
+ const x=window.innerWidth/2-shipX;
+ const y=window.innerHeight/2-shipY;
+ world.style.transform=`translate3d(${x}px,${y}px,0)`;
 }
 
-function showToast(message){
-  const t=document.createElement("div");
-  t.textContent=message;
-  t.style.cssText=`
-    position:fixed;z-index:50;top:18%;left:50%;
-    transform:translateX(-50%);background:#26152f;
-    border:1px solid #ffb4d5;border-radius:30px;
-    padding:13px 20px;color:white;font-size:13px;
-  `;
-  document.body.appendChild(t);
-  setTimeout(()=>t.remove(),1800);
-}
-
-function startGame(){
-  $("intro").classList.remove("active");
-  $("game").classList.add("active");
-  started=true;
-  updateCamera();
-  requestAnimationFrame(loop);
-}
-
-$("startBtn").addEventListener("click",()=>{
-  startGame();
-  music.play().then(()=>{$("musicBtn").textContent="♫ Music ON"}).catch(()=>{});
-});
-
-$("musicBtn").addEventListener("click",()=>{
-  if(music.paused){
-    music.play().then(()=>$("musicBtn").textContent="♫ Music ON").catch(()=>{});
-  }else{
-    music.pause();
-    $("musicBtn").textContent="♫ Music";
+function checkPlanets(){
+ if(modalOpen)return;
+ planets.forEach((p,i)=>{
+  if(discovered.has(i))return;
+  if(Math.hypot(shipX-p.x,shipY-p.y)<100){
+   openPlanet(i);
   }
-});
-
-createWorldStars();
-
-function updateCamera(){
-  const x=window.innerWidth/2-shipX;
-  const y=window.innerHeight/2-shipY;
-  world.style.transform=`translate(${x}px,${y}px)`;
-}
-
-function loop(timestamp){
-  if(!started)return;
-  const dt=Math.min((timestamp-lastTime)/16.67,2)||1;
-  lastTime=timestamp;
-
-  let dx=0,dy=0;
-  if(keys.ArrowLeft||keys.a)dx--;
-  if(keys.ArrowRight||keys.d)dx++;
-  if(keys.ArrowUp||keys.w)dy--;
-  if(keys.ArrowDown||keys.s)dy++;
-
-  dx+=joyX;dy+=joyY;
-  const length=Math.hypot(dx,dy);
-  if(length>1){dx/=length;dy/=length}
-
-  velocityX+=(dx*3-velocityX)*.16;
-  velocityY+=(dy*3-velocityY)*.16;
-
-  shipX=Math.max(40,Math.min(2160,shipX+velocityX*dt));
-  shipY=Math.max(40,Math.min(1760,shipY+velocityY*dt));
-
-  ship.style.left=shipX+"px";
-  ship.style.top=shipY+"px";
-
-  if(Math.abs(velocityX)+Math.abs(velocityY)>.1){
-    ship.style.transform=`translate(-50%,-50%) rotate(${Math.atan2(velocityY,velocityX)*180/Math.PI+90}deg)`;
-  }
-  updateCamera();
-  checkPlanetDistance();
-  requestAnimationFrame(loop);
-}
-
-function checkPlanetDistance(){
-  const planetPositions=[
-    [295,375],[1005,295],[1592,692],[602,1252],[1687,1337]
-  ];
-  planetPositions.forEach((p,i)=>{
-    if(discovered.has(i))return;
-    const d=Math.hypot(shipX-p[0],shipY-p[1]);
-    if(d<95){
-      openPlanet(i);
-    }
-  });
+ });
 }
 
 function openPlanet(i){
-  if(discovered.has(i))return;
-  discovered.add(i);
-  const p=planetData[i];
-  $("modalContent").innerHTML=`
-    <div style="font-size:34px">✦ ✧ ✦</div>
-    <h2>${p.title}</h2>
-    <p>${p.text}</p>
-    <img src="${p.image}" alt="${p.title}" onerror="this.style.display='none'">
-    <p style="color:#ffb5d5">${discovered.size} / 5 destinations discovered</p>
-  `;
-  $("modal").classList.add("show");
-  $("progress").textContent=`DESTINATIONS: ${discovered.size}/5`;
-  if(discovered.size===5){
-    $("modalContinue").textContent="Complete the mission ♥";
-  }
+ if(discovered.has(i))return;
+ discovered.add(i);
+ lastPlanet=i;
+ modalOpen=true;
+ const p=planets[i];
+ $("modalContent").innerHTML=`
+  <div style="font-size:36px">${p.emoji} ✦</div>
+  <h2>${p.title}</h2>
+  <p>${p.text}</p>
+  <img src="${p.image}" alt="${p.title}" onerror="this.style.display='none'">
+  <p style="color:#ffb5d5">${discovered.size} / 5 destinations discovered</p>
+ `;
+ $("modal").classList.add("show");
+ $("progress").textContent=`DESTINATIONS: ${discovered.size}/5`;
+ if(discovered.size===5){
+  $("modalContinue").textContent="Complete the mission ♥";
+ }
 }
 
+function closeModal(){
+ $("modal").classList.remove("show");
+ modalOpen=false;
+}
 $("closeModal").onclick=closeModal;
 $("modalContinue").onclick=()=>{
-  closeModal();
-  if(discovered.size===5){
-    setTimeout(showFinal,500);
-  }
+ closeModal();
+ if(discovered.size===5)setTimeout(showFinal,400);
 };
-function closeModal(){$("modal").classList.remove("show")}
+
+function jumpToPlanet(i){
+ const p=planets[i];
+ shipX=p.x-115;
+ shipY=p.y+15;
+ camera();
+ if(!discovered.has(i))openPlanet(i);
+}
 
 document.querySelectorAll(".planet").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    const i=Number(btn.dataset.planet);
-    shipX=[295,1005,1592,602,1687][i];
-    shipY=[375,295,692,1252,1337][i];
-    updateCamera();
-    openPlanet(i);
-  });
+ btn.addEventListener("click",()=>{
+  const i=Number(btn.dataset.planet);
+  jumpToPlanet(i);
+ });
 });
 
-$("mapBtn").onclick=()=>$("mapPanel").classList.add("show");
-$("closeMap").onclick=()=>$("mapPanel").classList.remove("show");
-
-document.querySelectorAll("[data-jump]").forEach(btn=>{
-  btn.onclick=()=>{
-    const i=Number(btn.dataset.jump);
-    shipX=[295,1005,1592,602,1687][i];
-    shipY=[375,295,692,1252,1337][i];
-    updateCamera();
-    $("mapPanel").classList.remove("show");
-    openPlanet(i);
-  };
-});
-
-$("finishJump").onclick=()=>{
-  $("mapPanel").classList.remove("show");
-  showFinal();
+function startGame(){
+ $("intro").classList.remove("active");
+ $("game").classList.add("active");
+ started=true;
+ camera();
+ lastTime=performance.now();
+ requestAnimationFrame(loop);
+}
+$("startBtn").onclick=()=>{
+ startGame();
+ music.play().then(()=>$("musicBtn").textContent="♫ Music ON").catch(()=>{});
 };
 
-function showFinal(){
-  started=false;
-  $("game").classList.remove("active");
-  $("finalScreen").classList.add("active");
+$("musicBtn").onclick=()=>{
+ if(music.paused){
+  music.play().then(()=>$("musicBtn").textContent="♫ Music ON").catch(()=>toast("Add your music file first 🎵"));
+ }else{
+  music.pause();
+  $("musicBtn").textContent="♫ Music OFF";
+ }
+};
+
+function loop(now){
+ if(!started)return;
+ const dt=Math.min((now-lastTime)/16.67||1,2);
+ lastTime=now;
+
+ let dx=0,dy=0;
+ if(keys.ArrowLeft||keys.a||keys.A)dx--;
+ if(keys.ArrowRight||keys.d||keys.D)dx++;
+ if(keys.ArrowUp||keys.w||keys.W)dy--;
+ if(keys.ArrowDown||keys.s||keys.S)dy++;
+
+ dx+=joyX;dy+=joyY;
+ const len=Math.hypot(dx,dy);
+ if(len>1){dx/=len;dy/=len}
+
+ const acceleration=.23;
+ const friction=Math.pow(.90,dt);
+ velocityX+=dx*acceleration*dt;
+ velocityY+=dy*acceleration*dt;
+ if(!dx)velocityX*=friction;
+ if(!dy)velocityY*=friction;
+
+ const speed=Math.hypot(velocityX,velocityY);
+ const maxSpeed=5.5;
+ if(speed>maxSpeed){
+  velocityX=velocityX/speed*maxSpeed;
+  velocityY=velocityY/speed*maxSpeed;
+ }
+
+ shipX=Math.max(45,Math.min(2555,shipX+velocityX*dt));
+ shipY=Math.max(45,Math.min(2055,shipY+velocityY*dt));
+
+ ship.style.left=shipX+"px";
+ ship.style.top=shipY+"px";
+
+ if(speed>.1){
+  const angle=Math.atan2(velocityY,velocityX)*180/Math.PI+90;
+  ship.style.transform=`translate(-50%,-50%) rotate(${angle}deg)`;
+ }
+ camera();
+ collectNearStars();
+ checkPlanets();
+ requestAnimationFrame(loop);
 }
 
 document.addEventListener("keydown",e=>{
-  keys[e.key]=true;
-  if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "].includes(e.key))e.preventDefault();
+ keys[e.key]=true;
+ if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "].includes(e.key))e.preventDefault();
 });
 document.addEventListener("keyup",e=>keys[e.key]=false);
 
 const joystick=$("joystick");
 const stick=$("stick");
+
 function moveJoy(e){
-  const r=joystick.getBoundingClientRect();
-  const cx=r.left+r.width/2,cy=r.top+r.height/2;
-  let x=e.clientX-cx,y=e.clientY-cy;
-  const d=Math.hypot(x,y),max=30;
-  if(d>max){x=x/d*max;y=y/d*max}
-  stick.style.transform=`translate(${x}px,${y}px)`;
-  joyX=x/max;joyY=y/max;
+ const r=joystick.getBoundingClientRect();
+ let x=e.clientX-(r.left+r.width/2);
+ let y=e.clientY-(r.top+r.height/2);
+ const d=Math.hypot(x,y),max=34;
+ if(d>max){x=x/d*max;y=y/d*max}
+ stick.style.transform=`translate(${x}px,${y}px)`;
+ joyX=x/max;joyY=y/max;
 }
 function resetJoy(){
-  joystickActive=false;joyX=0;joyY=0;
-  stick.style.transform="translate(0,0)";
+ joyActive=false;joyX=0;joyY=0;
+ stick.style.transform="translate(0,0)";
 }
 joystick.addEventListener("pointerdown",e=>{
-  joystickActive=true;
-  joystick.setPointerCapture(e.pointerId);
-  moveJoy(e);
+ joyActive=true;
+ joystick.setPointerCapture(e.pointerId);
+ moveJoy(e);
 });
 joystick.addEventListener("pointermove",e=>{
-  if(joystickActive)moveJoy(e);
+ if(joyActive)moveJoy(e);
 });
 joystick.addEventListener("pointerup",resetJoy);
 joystick.addEventListener("pointercancel",resetJoy);
 
-$("sendBtn").onclick=()=>{
-  const date=$("date").value||"Whenever you want";
-  const time=$("time").value||"Whenever you are ready";
-  const food=$("food").value;
-  const place=$("place").value||"Somewhere special";
+$("mapBtn").onclick=()=>$("mapPanel").classList.add("show");
+$("closeMap").onclick=()=>$("mapPanel").classList.remove("show");
 
-  const message=
-`Hey Yoya! ❤️
+document.querySelectorAll("[data-jump]").forEach(btn=>{
+ btn.onclick=()=>{
+  $("mapPanel").classList.remove("show");
+  jumpToPlanet(Number(btn.dataset.jump));
+ };
+});
+
+function showGallery(){
+ $("mapPanel").classList.remove("show");
+ $("game").classList.remove("active");
+ $("galleryScreen").classList.add("active");
+}
+$("galleryBtn").onclick=showGallery;
+$("backGame").onclick=()=>{
+ $("galleryScreen").classList.remove("active");
+ $("game").classList.add("active");
+};
+$("galleryBtn").addEventListener("click",()=>{
+ const grid=$("galleryGrid");
+ if(grid.children.length)return;
+ memories.forEach((m,i)=>{
+  const fig=document.createElement("figure");
+  fig.className="memory";
+  const img=document.createElement("img");
+  img.src="images/"+m[0];
+  img.alt="Our memory "+(i+1);
+  img.loading="lazy";
+  const cap=document.createElement("figcaption");
+  cap.textContent=m[1];
+  fig.append(img,cap);
+  fig.onclick=()=>{
+   $("lightboxImg").src=img.src;
+   $("lightbox").classList.add("show");
+  };
+  grid.appendChild(fig);
+ });
+});
+$("lightbox").onclick=()=>$("lightbox").classList.remove("show");
+
+$("finishJump").onclick=()=>{
+ $("mapPanel").classList.remove("show");
+ showFinal();
+};
+
+function showFinal(){
+ started=false;
+ $("game").classList.remove("active");
+ $("finalScreen").classList.add("active");
+}
+$("sendBtn").onclick=()=>{
+ const date=$("date").value||"Whenever you want";
+ const time=$("time").value||"Whenever you are ready";
+ const food=$("food").value;
+ const place=$("place").value||"Somewhere special";
+ const message=`Hey Yoya! ❤️
 
 I have a little date planned for us.
 
@@ -674,44 +769,45 @@ I have a little date planned for us.
 From one universe to another, I'd always choose you.
 Love you, my favorite person. ✨`;
 
-  window.open(
-    "https://wa.me/201224745669?text="+encodeURIComponent(message),
-    "_blank"
-  );
+ window.open(
+  "https://wa.me/201224745669?text="+encodeURIComponent(message),
+  "_blank"
+ );
 };
 
-/* Background stars */
+/* Background star animation */
 const canvas=$("stars");
 const ctx=canvas.getContext("2d");
 let bgStars=[];
 
 function resize(){
-  canvas.width=window.innerWidth*devicePixelRatio;
-  canvas.height=window.innerHeight*devicePixelRatio;
-  canvas.style.width=window.innerWidth+"px";
-  canvas.style.height=window.innerHeight+"px";
-  ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
-  bgStars=Array.from({length:150},()=>({
-    x:random(0,innerWidth),
-    y:random(0,innerHeight),
-    r:random(.4,1.7),
-    a:random(.2,1),
-    v:random(.002,.009)
-  }));
+ const dpr=Math.min(devicePixelRatio||1,2);
+ canvas.width=innerWidth*dpr;
+ canvas.height=innerHeight*dpr;
+ canvas.style.width=innerWidth+"px";
+ canvas.style.height=innerHeight+"px";
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+ bgStars=Array.from({length:150},()=>({
+  x:rand(0,innerWidth),y:rand(0,innerHeight),
+  r:rand(.4,1.7),a:rand(.2,1),v:rand(.002,.009)
+ }));
 }
 function drawStars(){
-  ctx.clearRect(0,0,innerWidth,innerHeight);
-  bgStars.forEach(s=>{
-    s.a+=s.v;
-    if(s.a>1||s.a<.15)s.v*=-1;
-    ctx.beginPath();
-    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-    ctx.fillStyle=`rgba(255,255,255,${s.a})`;
-    ctx.fill();
-  });
-  requestAnimationFrame(drawStars);
+ ctx.clearRect(0,0,innerWidth,innerHeight);
+ bgStars.forEach(s=>{
+  s.a+=s.v;
+  if(s.a>1||s.a<.15)s.v*=-1;
+  ctx.beginPath();
+  ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+  ctx.fillStyle=`rgba(255,255,255,${s.a})`;
+  ctx.fill();
+ });
+ requestAnimationFrame(drawStars);
 }
-window.addEventListener("resize",resize);
+window.addEventListener("resize",()=>{
+ resize();
+ if(started)camera();
+});
 resize();
 drawStars();
 </script>
