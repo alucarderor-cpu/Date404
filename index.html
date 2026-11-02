@@ -16,213 +16,439 @@
   --gold:#ffe0a3;
   --white:#fff5fb;
 }
+
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  margin:0;background:var(--bg);color:var(--white);
-  font-family:Inter,sans-serif;overflow:hidden;
-  user-select:none;-webkit-user-select:none;
+  margin:0;
+  background:var(--bg);
+  color:var(--white);
+  font-family:Inter,sans-serif;
+  overflow:hidden;
+  user-select:none;
+  -webkit-user-select:none;
 }
 button,input,select{font:inherit}
 button{cursor:pointer}
 button:focus-visible{outline:2px solid var(--gold)}
 
+/* BACKGROUND */
 #space{
-  position:fixed;inset:0;overflow:hidden;
+  position:fixed;
+  inset:0;
+  overflow:hidden;
   background:radial-gradient(ellipse at 50% 45%,#241239 0%,#100c24 45%,#080714 100%);
 }
-#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#stars{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+}
 .nebula{
-  position:absolute;width:65vw;height:65vw;border-radius:50%;
-  filter:blur(90px);opacity:.17;pointer-events:none;
+  position:absolute;
+  width:65vw;
+  height:65vw;
+  border-radius:50%;
+  filter:blur(90px);
+  opacity:.17;
+  pointer-events:none;
 }
 .nebula.a{background:#a52f92;top:-35%;left:-20%}
 .nebula.b{background:#423bd3;bottom:-40%;right:-20%}
 
+/* HEADER */
 header{
-  position:fixed;z-index:20;top:0;left:0;right:0;
-  display:flex;align-items:center;justify-content:space-between;
+  position:fixed;
+  z-index:20;
+  top:0;
+  left:0;
+  right:0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   padding:15px 22px;
   background:linear-gradient(#080714e8,transparent);
 }
 .logo{
   font-family:'Cormorant Garamond',serif;
-  font-size:25px;letter-spacing:2px;color:var(--gold)
+  font-size:25px;
+  letter-spacing:2px;
+  color:var(--gold);
 }
 .hud{display:flex;gap:9px;align-items:center}
 .pill,.smallBtn{
-  border:1px solid #ffffff30;background:#ffffff0d;
-  border-radius:30px;padding:9px 13px;color:white;
-  font-size:12px;backdrop-filter:blur(10px)
+  border:1px solid #ffffff30;
+  background:#ffffff0d;
+  border-radius:30px;
+  padding:9px 13px;
+  color:white;
+  font-size:12px;
+  backdrop-filter:blur(10px);
 }
 
+/* SCREENS */
 .screen{
-  position:fixed;inset:0;z-index:5;display:none;
-  align-items:center;justify-content:center;
-  padding:90px 20px 60px;overflow:auto;
+  position:fixed;
+  inset:0;
+  z-index:5;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:90px 20px 60px;
+  overflow:auto;
 }
 .screen.active{display:flex}
-.intro{text-align:center;max-width:700px;width:100%}
-.eyebrow{
-  color:var(--pink);letter-spacing:4px;font-size:10px;
-  text-transform:uppercase;margin-bottom:18px
+
+.intro{
+  text-align:center;
+  max-width:700px;
+  width:100%;
 }
-h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500}
+.eyebrow{
+  color:var(--pink);
+  letter-spacing:4px;
+  font-size:10px;
+  text-transform:uppercase;
+  margin-bottom:18px;
+}
+h1,h2,h3{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:500;
+}
 .intro h1{
-  font-size:clamp(48px,10vw,94px);line-height:.92;margin:0 0 20px;
+  font-size:clamp(48px,10vw,94px);
+  line-height:.92;
+  margin:0 0 20px;
   background:linear-gradient(110deg,#fff,#ff9bc7,#d2b8ff);
-  -webkit-background-clip:text;color:transparent
+  -webkit-background-clip:text;
+  color:transparent;
 }
 .intro p,.description{
-  color:#d8cde3;line-height:1.9;font-size:14px
+  color:#d8cde3;
+  line-height:1.9;
+  font-size:14px;
 }
 .primary{
-  border:0;border-radius:40px;padding:15px 27px;
-  color:#251027;font-weight:700;
+  border:0;
+  border-radius:40px;
+  padding:15px 27px;
+  color:#251027;
+  font-weight:700;
   background:linear-gradient(120deg,#ffd6a0,#ff8ebd);
-  box-shadow:0 0 35px #ff83b544;margin-top:20px;
-  transition:.25s
+  box-shadow:0 0 35px #ff83b544;
+  margin-top:20px;
+  transition:.25s;
 }
 .primary:hover{transform:translateY(-3px)}
 .secondary{
-  border:1px solid #ffffff40;background:#ffffff10;
-  color:white;border-radius:30px;padding:11px 16px
+  border:1px solid #ffffff40;
+  background:#ffffff10;
+  color:white;
+  border-radius:30px;
+  padding:11px 16px;
 }
 
 /* GAME WORLD */
-#game{position:fixed;inset:0;display:none;overflow:hidden}
+#game{
+  position:fixed;
+  inset:0;
+  display:none;
+  overflow:hidden;
+}
 #game.active{display:block}
-#universe{position:absolute;inset:0;overflow:hidden;touch-action:none}
+
+#universe{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  touch-action:none;
+}
 #world{
-  position:absolute;left:0;top:0;
-  width:2600px;height:2100px;
+  position:absolute;
+  left:0;
+  top:0;
+  width:2600px;
+  height:2100px;
   transform:translate3d(0,0,0);
-  transform-origin:0 0;will-change:transform;
+  transform-origin:0 0;
+  will-change:transform;
 }
+
 .worldStar{
-  position:absolute;width:3px;height:3px;border-radius:50%;
-  background:white;box-shadow:0 0 9px white;
-  pointer-events:none;animation:twinkle 2s infinite alternate;
+  position:absolute;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:white;
+  box-shadow:0 0 9px white;
+  pointer-events:none;
+  animation:twinkle 2s infinite alternate;
 }
-@keyframes twinkle{to{opacity:.2;transform:scale(.5)}}
+@keyframes twinkle{
+  to{opacity:.2;transform:scale(.5)}
+}
 
 #sun{
-  position:absolute;left:1210px;top:980px;
-  width:130px;height:130px;border-radius:50%;
+  position:absolute;
+  left:1210px;
+  top:980px;
+  width:130px;
+  height:130px;
+  border-radius:50%;
   background:radial-gradient(circle at 35% 30%,#fff4bd,#ff9d73 45%,#b43e8c 80%);
   box-shadow:0 0 55px #ff9c76,0 0 130px #ff5caa55;
 }
 #sun:after{
-  content:"";position:absolute;inset:-24px;border:1px solid #ffb1a766;
-  border-radius:50%;transform:rotate(-20deg) scaleY(.35);
+  content:"";
+  position:absolute;
+  inset:-24px;
+  border:1px solid #ffb1a766;
+  border-radius:50%;
+  transform:rotate(-20deg) scaleY(.35);
 }
+
 .planet{
-  position:absolute;border:0;border-radius:50%;
-  display:grid;place-items:center;color:white;font-size:35px;
+  position:absolute;
+  border:0;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:white;
+  font-size:35px;
   box-shadow:inset -15px -15px 25px #0008,0 0 35px var(--glow);
-  transition:filter .3s;z-index:2;
+  transition:filter .3s;
+  z-index:2;
 }
 .planet:hover{filter:brightness(1.3)}
 .planet small{
-  position:absolute;top:115%;white-space:nowrap;
-  color:#eee;font-size:12px;letter-spacing:1px;
-  text-shadow:0 2px 5px black
+  position:absolute;
+  top:115%;
+  white-space:nowrap;
+  color:#eee;
+  font-size:12px;
+  letter-spacing:1px;
+  text-shadow:0 2px 5px black;
 }
-.p1{width:95px;height:95px;left:300px;top:390px;background:radial-gradient(circle at 30% 25%,#ffbbd8,#a64c9b 60%,#36164b);--glow:#d76acb}
-.p2{width:115px;height:115px;left:990px;top:280px;background:radial-gradient(circle at 30% 25%,#ffe1ad,#b66b55 65%,#48233e);--glow:#ed997b}
-.p3{width:90px;height:90px;left:1850px;top:700px;background:radial-gradient(circle at 30% 25%,#a8e5ff,#3c6db8 65%,#20204e);--glow:#74aaff}
-.p4{width:110px;height:110px;left:560px;top:1530px;background:radial-gradient(circle at 30% 25%,#d6c1ff,#8058bb 65%,#30204d);--glow:#b58bff}
-.p5{width:80px;height:80px;left:2050px;top:1550px;background:radial-gradient(circle at 30% 25%,#fff1ba,#a57c35 65%,#44311c);--glow:#ffdb8a}
+
+.p1{
+  width:95px;height:95px;left:300px;top:390px;
+  background:radial-gradient(circle at 30% 25%,#ffbbd8,#a64c9b 60%,#36164b);
+  --glow:#d76acb;
+}
+.p2{
+  width:115px;height:115px;left:990px;top:280px;
+  background:radial-gradient(circle at 30% 25%,#ffe1ad,#b66b55 65%,#48233e);
+  --glow:#ed997b;
+}
+.p3{
+  width:90px;height:90px;left:1850px;top:700px;
+  background:radial-gradient(circle at 30% 25%,#a8e5ff,#3c6db8 65%,#20204e);
+  --glow:#74aaff;
+}
+.p4{
+  width:110px;height:110px;left:560px;top:1530px;
+  background:radial-gradient(circle at 30% 25%,#d6c1ff,#8058bb 65%,#30204d);
+  --glow:#b58bff;
+}
+.p5{
+  width:80px;height:80px;left:2050px;top:1550px;
+  background:radial-gradient(circle at 30% 25%,#fff1ba,#a57c35 65%,#44311c);
+  --glow:#ffdb8a;
+}
 
 .orbit{
-  position:absolute;border:1px solid #ffffff12;border-radius:50%;
+  position:absolute;
+  border:1px solid #ffffff12;
+  border-radius:50%;
   pointer-events:none;
 }
-.orbit.o1{width:500px;height:210px;left:1050px;top:940px;transform:rotate(-20deg)}
-.orbit.o2{width:850px;height:340px;left:900px;top:870px;transform:rotate(18deg)}
-.orbit.o3{width:1250px;height:500px;left:720px;top:780px;transform:rotate(-10deg)}
+.orbit.o1{
+  width:500px;height:210px;left:1050px;top:940px;
+  transform:rotate(-20deg);
+}
+.orbit.o2{
+  width:850px;height:340px;left:900px;top:870px;
+  transform:rotate(18deg);
+}
+.orbit.o3{
+  width:1250px;height:500px;left:720px;top:780px;
+  transform:rotate(-10deg);
+}
 
+/* SPACESHIP */
 #ship{
-  position:absolute;left:1300px;top:1050px;width:72px;height:90px;
-  z-index:8;display:grid;place-items:center;
+  position:absolute;
+  left:1300px;
+  top:1050px;
+  width:72px;
+  height:90px;
+  z-index:8;
+  display:grid;
+  place-items:center;
   filter:drop-shadow(0 0 14px #ff9cc9);
   transform:translate(-50%,-50%);
-  will-change:left,top,transform;pointer-events:none;
+  will-change:left,top,transform;
+  pointer-events:none;
 }
 #ship svg{width:100%;height:100%;overflow:visible}
-#flame{transform-origin:50% 0%;animation:flame .14s infinite alternate}
+#flame{
+  transform-origin:50% 0%;
+  animation:flame .14s infinite alternate;
+}
 @keyframes flame{
   from{transform:scaleY(.7);opacity:.7}
   to{transform:scaleY(1.3);opacity:1}
 }
 #engineGlow{
-  position:absolute;bottom:-22px;width:15px;height:35px;
+  position:absolute;
+  bottom:-22px;
+  width:15px;
+  height:35px;
   background:linear-gradient(#ffe9b1,#ff70b6,transparent);
-  filter:blur(9px);border-radius:50%;
-  animation:flame .13s infinite alternate
+  filter:blur(9px);
+  border-radius:50%;
+  animation:flame .13s infinite alternate;
 }
 
+/* GAME HUD */
 #progress{
-  position:fixed;z-index:12;top:78px;left:20px;
-  font-size:11px;color:#f4d5e8;
-  background:#08071488;padding:9px 12px;border-radius:20px;
-  border:1px solid #ffffff20
+  position:fixed;
+  z-index:12;
+  top:78px;
+  left:20px;
+  font-size:11px;
+  color:#f4d5e8;
+  background:#08071488;
+  padding:9px 12px;
+  border-radius:20px;
+  border:1px solid #ffffff20;
 }
 #hint{
-  position:fixed;z-index:12;bottom:20px;left:50%;
-  transform:translateX(-50%);font-size:10px;color:#e5d5e8;
-  background:#080714bd;padding:10px 16px;border-radius:30px;
-  white-space:nowrap;border:1px solid #ffffff20;
-  pointer-events:none
+  position:fixed;
+  z-index:12;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:10px;
+  color:#e5d5e8;
+  background:#080714bd;
+  padding:10px 16px;
+  border-radius:30px;
+  white-space:nowrap;
+  border:1px solid #ffffff20;
+  pointer-events:none;
 }
-#mapBtn{position:fixed;z-index:15;right:18px;bottom:20px}
 
+/* ON-SCREEN CONTROLS
+   Always visible on desktop AND mobile while game is active. */
 #joystick{
-  display:none;position:fixed;z-index:14;
-  bottom:90px;left:20px;width:112px;height:112px;
-  border-radius:50%;border:1px solid #ffffff38;
-  background:#ffffff0c;touch-action:none;
-  backdrop-filter:blur(8px)
+  display:flex !important;
+  position:fixed !important;
+  z-index:100 !important;
+  left:25px;
+  bottom:35px;
+  width:130px;
+  height:130px;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  border:1px solid #ffffff55;
+  background:radial-gradient(circle,#ffffff18,#ffffff08);
+  box-shadow:0 0 25px #a98aff22,inset 0 0 20px #ffffff0c;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  touch-action:none;
+  cursor:grab;
+  pointer-events:auto !important;
 }
+#joystick:active{cursor:grabbing}
 #stick{
-  position:absolute;width:42px;height:42px;
-  left:34px;top:34px;border-radius:50%;
-  background:#ff9bc7bb;border:1px solid #ffd9e9;
-  box-shadow:0 0 15px #ff83b566
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:52px;
+  height:52px;
+  margin-left:-26px;
+  margin-top:-26px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#ffc1dc,#b38aff);
+  border:2px solid #ffe4f0;
+  box-shadow:0 0 20px #ff83b599;
+  pointer-events:none;
+  transform:translate(0,0);
 }
+
 #boostBtn{
-  display:none;place-items:center;
-  position:fixed;z-index:15;right:25px;
-  bottom:48px;width:72px;height:72px;
-  border-radius:50%;border:1px solid #ffd9a866;
-  color:#ffe6a6;font-size:27px;
-  background:linear-gradient(145deg,#ff9bc733,#a98aff33);
-  box-shadow:0 0 25px #ff83b544;
-  touch-action:none;user-select:none;-webkit-user-select:none;
+  display:grid !important;
+  position:fixed !important;
+  z-index:101 !important;
+  right:28px;
+  bottom:105px;
+  width:76px;
+  height:76px;
+  place-items:center;
+  border-radius:50%;
+  border:1px solid #ffd9a888;
+  color:#ffe6a6;
+  font-size:29px;
+  background:linear-gradient(145deg,#ff9bc744,#a98aff44);
+  box-shadow:0 0 28px #ff83b566,inset 0 0 15px #ffffff18;
+  touch-action:none;
+  user-select:none;
+  -webkit-user-select:none;
+  pointer-events:auto !important;
 }
 #boostBtn.active{
-  background:#ffb4d555;
-  box-shadow:0 0 35px #ff83b5aa;
-  transform:scale(.94);
+  background:linear-gradient(145deg,#ffd9a9,#ff83b5);
+  color:#401d42;
+  box-shadow:0 0 45px #ff83b5cc;
+  transform:scale(.93);
+}
+
+#mapBtn{
+  position:fixed;
+  z-index:110;
+  right:20px;
+  bottom:20px;
 }
 
 /* MODALS */
 #modal,#mapPanel{
-  display:none;position:fixed;z-index:40;inset:0;
-  background:#05040dec;backdrop-filter:blur(15px);
-  align-items:center;justify-content:center;padding:18px
+  display:none;
+  position:fixed;
+  z-index:200;
+  inset:0;
+  background:#05040dec;
+  backdrop-filter:blur(15px);
+  align-items:center;
+  justify-content:center;
+  padding:18px;
 }
 #modal.show,#mapPanel.show{display:flex}
-.modalCard,.mapCard{
-  width:min(510px,100%);max-height:85vh;overflow:auto;
-  padding:24px;border:1px solid #ffffff30;border-radius:24px;
-  background:linear-gradient(145deg,#24132f,#100e20);
-  text-align:center;box-shadow:0 0 60px #b25a9a22
-}
-.modalCard h2,.mapCard h2{font-size:38px;color:var(--gold);margin:8px 0}
-.modalCard p,.mapCard p{color:#e0d4e6;line-height:1.9;font-size:14px}
 
-/* Adaptive memory images */
+.modalCard,.mapCard{
+  width:min(510px,100%);
+  max-height:85vh;
+  overflow:auto;
+  padding:24px;
+  border:1px solid #ffffff30;
+  border-radius:24px;
+  background:linear-gradient(145deg,#24132f,#100e20);
+  text-align:center;
+  box-shadow:0 0 60px #b25a9a22;
+}
+.modalCard h2,.mapCard h2{
+  font-size:38px;
+  color:var(--gold);
+  margin:8px 0;
+}
+.modalCard p,.mapCard p{
+  color:#e0d4e6;
+  line-height:1.9;
+  font-size:14px;
+}
 .modalCard img{
   display:block;
   width:auto;
@@ -235,29 +461,37 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500}
   margin:15px auto;
   background:transparent;
 }
-.close{float:right;background:none;border:0;color:white;font-size:25px}
-.mapLinks{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.close{
+  float:right;
+  background:none;
+  border:0;
+  color:white;
+  font-size:25px;
+}
+.mapLinks{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
 .mapLinks button{
-  padding:13px 8px;border-radius:12px;
-  border:1px solid #ffffff25;background:#ffffff0c;color:white
+  padding:13px 8px;
+  border-radius:12px;
+  border:1px solid #ffffff25;
+  background:#ffffff0c;
+  color:white;
 }
 
-/* FINAL */
-#finalScreen{text-align:center}
-.dateForm{text-align:left;margin-top:18px}
-.dateForm label{font-size:12px;color:#e9d9eb}
-.dateForm input,.dateForm select{
-  width:100%;padding:13px;margin:7px 0 14px;
-  border-radius:12px;border:1px solid #ffffff30;
-  background:#ffffff0c;color:white
-}
-.dateForm option{color:#111}
+/* GALLERY */
 #galleryScreen{align-items:flex-start}
-.galleryWrap{width:min(1000px,100%);text-align:center}
+.galleryWrap{
+  width:min(1000px,100%);
+  text-align:center;
+}
 .galleryGrid{
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:12px;margin-top:20px;
+  gap:12px;
+  margin-top:20px;
   align-items:start;
 }
 .memory{
@@ -283,36 +517,88 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500}
   background:transparent;
 }
 .memory figcaption{
-  padding:10px;font-size:11px;color:#ffcee3;text-align:center;
+  padding:10px;
+  font-size:11px;
+  color:#ffcee3;
+  text-align:center;
 }
 #lightbox{
-  display:none;position:fixed;z-index:60;inset:0;
-  background:#000e;align-items:center;justify-content:center;padding:12px
+  display:none;
+  position:fixed;
+  z-index:300;
+  inset:0;
+  background:#000e;
+  align-items:center;
+  justify-content:center;
+  padding:12px;
 }
 #lightbox.show{display:flex}
 #lightbox img{
-  display:block;width:auto;height:auto;
-  max-width:96vw;max-height:88dvh;
-  object-fit:contain;border-radius:12px
+  display:block;
+  width:auto;
+  height:auto;
+  max-width:96vw;
+  max-height:88dvh;
+  object-fit:contain;
+  border-radius:12px;
 }
+
+/* FINAL */
+#finalScreen{text-align:center}
+.dateForm{
+  text-align:left;
+  margin-top:18px;
+}
+.dateForm label{
+  font-size:12px;
+  color:#e9d9eb;
+}
+.dateForm input,.dateForm select{
+  width:100%;
+  padding:13px;
+  margin:7px 0 14px;
+  border-radius:12px;
+  border:1px solid #ffffff30;
+  background:#ffffff0c;
+  color:white;
+}
+.dateForm option{color:#111}
+
 footer{
-  position:fixed;z-index:10;bottom:7px;left:0;right:0;
-  text-align:center;color:#84788f;font-size:9px;
-  letter-spacing:2px;pointer-events:none
+  position:fixed;
+  z-index:10;
+  bottom:7px;
+  left:0;
+  right:0;
+  text-align:center;
+  color:#84788f;
+  font-size:9px;
+  letter-spacing:2px;
+  pointer-events:none;
 }
 #toast{
-  position:fixed;z-index:70;top:20%;left:50%;
-  transform:translateX(-50%);background:#24132f;
-  border:1px solid #ffb4d5;border-radius:30px;
-  padding:12px 18px;color:white;font-size:12px;
-  opacity:0;transition:.3s;pointer-events:none
+  position:fixed;
+  z-index:400;
+  top:20%;
+  left:50%;
+  transform:translateX(-50%);
+  background:#24132f;
+  border:1px solid #ffb4d5;
+  border-radius:30px;
+  padding:12px 18px;
+  color:white;
+  font-size:12px;
+  opacity:0;
+  transition:.3s;
+  pointer-events:none;
 }
 #toast.show{opacity:1}
 
-/* MOBILE EXPERIENCE */
+/* MOBILE */
 @media(max-width:650px){
   header{
-    padding:10px 12px;min-height:58px;
+    padding:10px 12px;
+    min-height:58px;
     background:linear-gradient(#080714ee,transparent);
   }
   .logo{font-size:17px;letter-spacing:1px}
@@ -321,33 +607,40 @@ footer{
   .smallBtn{font-size:10px;padding:7px 10px}
 
   #progress{
-    top:65px;left:12px;font-size:9px;
-    padding:8px 10px;max-width:55%;
+    top:65px;
+    left:12px;
+    font-size:9px;
+    padding:8px 10px;
+    max-width:55%;
   }
   #hint{display:none}
 
-  #mapBtn{
-    top:65px;right:12px;bottom:auto;
-    font-size:11px;padding:9px 12px;
-  }
-
   #joystick{
-    display:block;position:fixed;
-    left:20px;
+    left:16px;
     bottom:calc(24px + env(safe-area-inset-bottom));
-    width:130px;height:130px;
-    border-radius:50%;
-    background:#ffffff12;
-    border:1px solid #ffffff55;
-    box-shadow:0 0 25px #a98aff22;
-    touch-action:none;
+    width:122px;
+    height:122px;
   }
   #stick{
-    width:48px;height:48px;left:40px;top:40px;
+    width:50px;
+    height:50px;
+    margin-left:-25px;
+    margin-top:-25px;
   }
+
   #boostBtn{
-    display:grid;
-    bottom:calc(48px + env(safe-area-inset-bottom));
+    right:18px;
+    bottom:calc(82px + env(safe-area-inset-bottom));
+    width:68px;
+    height:68px;
+    font-size:26px;
+  }
+
+  #mapBtn{
+    right:12px;
+    bottom:calc(12px + env(safe-area-inset-bottom));
+    font-size:11px;
+    padding:9px 12px;
   }
 
   .galleryGrid{
@@ -357,8 +650,10 @@ footer{
   .memory img{max-height:230px}
 
   .modalCard,.mapCard{
-    width:100%;max-height:88dvh;
-    padding:18px;overflow-y:auto;
+    width:100%;
+    max-height:88dvh;
+    padding:18px;
+    overflow-y:auto;
   }
   .modalCard h2,.mapCard h2{font-size:31px}
   .modalCard img{max-height:42dvh}
@@ -370,18 +665,29 @@ footer{
   footer{display:none}
 }
 
-@media(min-width:651px){
-  #boostBtn{display:none}
-}
-@media(max-height:520px) and (max-width:900px){
-  #joystick{width:100px;height:100px;bottom:12px}
-  #stick{left:29px;top:29px;width:40px;height:40px}
-  #boostBtn{width:58px;height:58px;bottom:18px}
+@media(max-height:520px){
+  #joystick{
+    width:95px;
+    height:95px;
+    bottom:12px;
+  }
+  #stick{
+    width:40px;
+    height:40px;
+    margin-left:-20px;
+    margin-top:-20px;
+  }
+  #boostBtn{
+    width:58px;
+    height:58px;
+    bottom:75px;
+  }
 }
 </style>
 </head>
 
 <body>
+
 <div id="space">
   <div class="nebula a"></div>
   <div class="nebula b"></div>
@@ -400,6 +706,7 @@ footer{
   <source src="music/romantic-space.mp3" type="audio/mpeg">
 </audio>
 
+<!-- INTRO -->
 <section class="screen active" id="intro">
   <div class="intro">
     <div class="eyebrow">A journey beyond the stars</div>
@@ -414,9 +721,11 @@ footer{
   </div>
 </section>
 
+<!-- GAME -->
 <div id="game">
   <div id="universe">
     <div id="world">
+
       <div class="orbit o1"></div>
       <div class="orbit o2"></div>
       <div class="orbit o3"></div>
@@ -442,6 +751,7 @@ footer{
               <stop offset="100%" stop-color="#a77aff" stop-opacity="0"/>
             </linearGradient>
           </defs>
+
           <path d="M50 7 C30 25 28 57 34 81 L50 96 L66 81 C72 57 70 25 50 7Z"
             fill="url(#body)" stroke="#fff" stroke-width="2"/>
           <path d="M35 62 L12 88 L35 82Z" fill="#a98aff"/>
@@ -451,21 +761,33 @@ footer{
         </svg>
         <div id="engineGlow"></div>
       </div>
+
     </div>
   </div>
 
   <div id="progress">MISSION: Discover the five planets</div>
-  <div id="hint">WASD / arrows to fly · Touch joystick on mobile · Collect stars ✦</div>
-  <div id="joystick"><div id="stick"></div></div>
-  <button id="boostBtn" aria-label="Boost">⚡</button>
+
+  <div id="hint">
+    WASD / arrows or joystick to fly · Hold ⚡ to boost · Collect stars ✦
+  </div>
+
+  <!-- ALWAYS AVAILABLE CONTROLS -->
+  <div id="joystick" aria-label="Movement joystick">
+    <div id="stick"></div>
+  </div>
+
+  <button id="boostBtn" aria-label="Hold to boost">⚡</button>
+
   <button class="secondary" id="mapBtn">☰ Galaxy map</button>
 </div>
 
+<!-- GALAXY MAP -->
 <div id="mapPanel">
   <div class="mapCard">
     <button class="close" id="closeMap">×</button>
     <h2>Galaxy Map</h2>
     <p>Choose your next destination, captain.</p>
+
     <div class="mapLinks">
       <button data-jump="0">🌸 Memory Garden</button>
       <button data-jump="1">💗 First Moments</button>
@@ -478,6 +800,7 @@ footer{
   </div>
 </div>
 
+<!-- PLANET MODAL -->
 <div id="modal">
   <div class="modalCard">
     <button class="close" id="closeModal">×</button>
@@ -486,6 +809,7 @@ footer{
   </div>
 </div>
 
+<!-- GALLERY -->
 <section class="screen" id="galleryScreen">
   <div class="galleryWrap">
     <div class="eyebrow">A little collection of forever</div>
@@ -500,22 +824,28 @@ footer{
   <img id="lightboxImg" src="" alt="Our memory">
 </div>
 
+<!-- FINAL DATE -->
 <section class="screen" id="finalScreen">
   <div class="intro">
     <div class="eyebrow">MISSION COMPLETE</div>
     <h1>My favorite<br>universe is you.</h1>
+
     <p>
       Out of every star, every planet, every possible world…
       I would still find my way back to you.
     </p>
+
     <h2 style="color:#ffb4d5;font-size:34px">
       Will you go on a date with me, Yoya? ♥
     </h2>
+
     <div class="dateForm">
       <label>Our special date</label>
       <input type="date" id="date">
+
       <label>What time should I pick you up?</label>
       <input type="time" id="time">
+
       <label>What would you like to eat?</label>
       <select id="food">
         <option value="Surprise me ❤️">Surprise me ❤️</option>
@@ -525,9 +855,11 @@ footer{
         <option>Dessert & coffee ☕</option>
         <option>Anything, as long as it's with you</option>
       </select>
+
       <label>Where shall our adventure begin?</label>
       <input id="place" placeholder="A place you love...">
     </div>
+
     <button class="primary" id="sendBtn">Send our date to my captain ♥</button>
     <p style="font-size:11px;color:#a99ab3">One more adventure. Just you and me.</p>
   </div>
@@ -537,422 +869,549 @@ footer{
 <footer>MADE WITH LOVE · IN EVERY UNIVERSE</footer>
 
 <script>
-const $=id=>document.getElementById(id);
-const music=$("music");
-const world=$("world");
-const ship=$("ship");
+const $ = id => document.getElementById(id);
 
-const planets=[
- {
-  title:"Memory Garden",emoji:"🌸",x:347,y:437,
-  text:"If I could keep one thing from every universe, it would be the moments that made you smile. You turn ordinary days into memories I want to keep forever.",
-  image:"images/memory1.jpeg"
- },
- {
-  title:"Our First Moments",emoji:"💗",x:1047,y:337,
-  text:"Every beautiful story has a beginning. I love ours — every little detail, every unexpected moment, and the way you became someone so special to me.",
-  image:"images/memory2.jpeg"
- },
- {
-  title:"Blue Dreams",emoji:"🌊",x:1895,y:745,
-  text:"Some places are beautiful because of their view. Others become beautiful because you're standing next to me. You're my favorite destination.",
-  image:"images/memory3.jpeg"
- },
- {
-  title:"Little Things",emoji:"💜",x:615,y:1585,
-  text:"It's your laugh, your voice, the way you say my name, and the tiny things you probably don't notice. Somehow, they mean the world to me.",
-  image:"images/memory4.jpeg"
- },
- {
-  title:"Forever Star",emoji:"✨",x:2090,y:1590,
-  text:"I don't know what every tomorrow will look like. But I know I want to keep discovering it with you, one little adventure at a time.",
-  image:"images/memory8.jpeg"
- }
+const music = $("music");
+const world = $("world");
+const ship = $("ship");
+
+const planets = [
+  {
+    title:"Memory Garden",
+    emoji:"🌸",
+    x:347,y:437,
+    text:"If I could keep one thing from every universe, it would be the moments that made you smile. You turn ordinary days into memories I want to keep forever.",
+    image:"images/memory1.jpeg"
+  },
+  {
+    title:"Our First Moments",
+    emoji:"💗",
+    x:1047,y:337,
+    text:"Every beautiful story has a beginning. I love ours — every little detail, every unexpected moment, and the way you became someone so special to me.",
+    image:"images/memory2.jpeg"
+  },
+  {
+    title:"Blue Dreams",
+    emoji:"🌊",
+    x:1895,y:745,
+    text:"Some places are beautiful because of their view. Others become beautiful because you're standing next to me. You're my favorite destination.",
+    image:"images/memory3.jpeg"
+  },
+  {
+    title:"Little Things",
+    emoji:"💜",
+    x:615,y:1585,
+    text:"It's your laugh, your voice, the way you say my name, and the tiny things you probably don't notice. Somehow, they mean the world to me.",
+    image:"images/memory4.jpeg"
+  },
+  {
+    title:"Forever Star",
+    emoji:"✨",
+    x:2090,y:1590,
+    text:"I don't know what every tomorrow will look like. But I know I want to keep discovering it with you, one little adventure at a time.",
+    image:"images/memory8.jpeg"
+  }
 ];
 
-const memories=[
- ["memory1.jpeg","My little Yoya ✦"],
- ["memory2.jpeg","A moment worth keeping ♥"],
- ["memory3.jpeg","Just you and me"],
- ["memory4.jpeg","My happy place"],
- ["memory5.jpeg","One for the stars ✧"],
- ["memory6.jpeg","Beautifully us"],
- ["memory7.jpeg","My favorite adventure"],
- ["memory8.jpeg","To many more memories ♥"]
+const memories = [
+  ["memory1.jpeg","My little Yoya ✦"],
+  ["memory2.jpeg","A moment worth keeping ♥"],
+  ["memory3.jpeg","Just you and me"],
+  ["memory4.jpeg","My happy place"],
+  ["memory5.jpeg","One for the stars ✧"],
+  ["memory6.jpeg","Beautifully us"],
+  ["memory7.jpeg","My favorite adventure"],
+  ["memory8.jpeg","To many more memories ♥"]
 ];
 
-let shipX=1300,shipY=1050;
-let velocityX=0,velocityY=0;
-let joyX=0,joyY=0,joyActive=false;
+let shipX=1300;
+let shipY=1050;
+
+let velocityX=0;
+let velocityY=0;
+
+let joyX=0;
+let joyY=0;
+let joyActive=false;
+let joyPointer=null;
+
 let boostActive=false;
+let boostPointer=null;
+
 let keys={};
 let started=false;
 let lastTime=0;
+
 let score=0;
 let collected=new Set();
 let discovered=new Set();
+
 let modalOpen=false;
 let toastTimer;
 
 const worldStars=[];
+
 const starPositions=[
- [440,540],[760,210],[1400,390],[2200,500],
- [850,800],[1500,1100],[350,1200],[2300,1700],
- [1200,1700],[480,1450],[1700,850],[950,1300],
- [2000,300],[600,900],[1900,1200],[1200,500],
- [250,1700],[2200,900],[1400,1500],[750,1750]
+  [440,540],[760,210],[1400,390],[2200,500],
+  [850,800],[1500,1100],[350,1200],[2300,1700],
+  [1200,1700],[480,1450],[1700,850],[950,1300],
+  [2000,300],[600,900],[1900,1200],[1200,500],
+  [250,1700],[2200,900],[1400,1500],[750,1750]
 ];
 
-function rand(a,b){return Math.random()*(b-a)+a}
-
-function buildStars(){
- const mobile=window.innerWidth<=650;
- const count=mobile?100:180;
-
- for(let i=0;i<count;i++){
-  const s=document.createElement("div");
-  s.className="worldStar";
-  s.style.left=rand(0,2550)+"px";
-  s.style.top=rand(0,2050)+"px";
-  s.style.opacity=rand(.25,1);
-  s.style.animationDelay=rand(0,3)+"s";
-  world.appendChild(s);
- }
-
- starPositions.forEach((p,i)=>{
-  const s=document.createElement("div");
-  s.textContent="✦";
-  s.style.cssText=`position:absolute;left:${p[0]}px;top:${p[1]}px;color:#ffe6a6;font-size:24px;text-shadow:0 0 15px #ffdd8a;pointer-events:none`;
-  s.dataset.collectible=i;
-  world.appendChild(s);
-  worldStars.push({el:s,x:p[0],y:p[1],id:i});
- });
+function rand(a,b){
+  return Math.random()*(b-a)+a;
 }
+
+/* BUILD WORLD STARS */
+function buildStars(){
+  const count=window.innerWidth<=650?100:180;
+
+  for(let i=0;i<count;i++){
+    const s=document.createElement("div");
+    s.className="worldStar";
+    s.style.left=rand(0,2550)+"px";
+    s.style.top=rand(0,2050)+"px";
+    s.style.opacity=rand(.25,1);
+    s.style.animationDelay=rand(0,3)+"s";
+    world.appendChild(s);
+  }
+
+  starPositions.forEach((p,i)=>{
+    const s=document.createElement("div");
+    s.textContent="✦";
+    s.style.cssText=
+      `position:absolute;left:${p[0]}px;top:${p[1]}px;color:#ffe6a6;font-size:24px;text-shadow:0 0 15px #ffdd8a;pointer-events:none`;
+    world.appendChild(s);
+
+    worldStars.push({
+      el:s,
+      x:p[0],
+      y:p[1],
+      id:i
+    });
+  });
+}
+
 buildStars();
 
+/* TOAST */
 function toast(message){
- const t=$("toast");
- t.textContent=message;
- t.classList.add("show");
- clearTimeout(toastTimer);
- toastTimer=setTimeout(()=>t.classList.remove("show"),1800);
+  const t=$("toast");
+  t.textContent=message;
+  t.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer=setTimeout(()=>{
+    t.classList.remove("show");
+  },1800);
 }
 
+/* COLLECT STARS */
 function collectNearStars(){
- worldStars.forEach(s=>{
-  if(collected.has(s.id))return;
-  if(Math.hypot(shipX-s.x,shipY-s.y)<55){
-   collected.add(s.id);
-   s.el.remove();
-   score++;
-   $("score").textContent=score;
-   toast("A little star for my little star ✨");
-  }
- });
+  worldStars.forEach(s=>{
+    if(collected.has(s.id))return;
+
+    if(Math.hypot(shipX-s.x,shipY-s.y)<55){
+      collected.add(s.id);
+      s.el.remove();
+
+      score++;
+      $("score").textContent=score;
+
+      toast("A little star for my little star ✨");
+    }
+  });
 }
 
-/* Camera: mobile-only zoom */
+/* CAMERA */
 function camera(){
- const mobile=window.innerWidth<=650;
- const zoom=mobile?1.12:1;
- const x=window.innerWidth/2-shipX*zoom;
- const y=window.innerHeight/2-shipY*zoom;
- world.style.transform=`translate3d(${x}px,${y}px,0) scale(${zoom})`;
+  const mobile=window.innerWidth<=650;
+  const zoom=mobile?1.12:1;
+
+  const x=window.innerWidth/2-shipX*zoom;
+  const y=window.innerHeight/2-shipY*zoom;
+
+  world.style.transform=
+    `translate3d(${x}px,${y}px,0) scale(${zoom})`;
 }
 
+/* PLANETS */
 function checkPlanets(){
- if(modalOpen)return;
- planets.forEach((p,i)=>{
-  if(discovered.has(i))return;
-  if(Math.hypot(shipX-p.x,shipY-p.y)<100){
-   openPlanet(i);
-  }
- });
+  if(modalOpen)return;
+
+  planets.forEach((p,i)=>{
+    if(discovered.has(i))return;
+
+    if(Math.hypot(shipX-p.x,shipY-p.y)<100){
+      openPlanet(i);
+    }
+  });
 }
 
 function openPlanet(i){
- if(discovered.has(i))return;
- discovered.add(i);
- modalOpen=true;
- const p=planets[i];
+  if(discovered.has(i))return;
 
- $("modalContent").innerHTML=`
-  <div style="font-size:36px">${p.emoji} ✦</div>
-  <h2>${p.title}</h2>
-  <p>${p.text}</p>
-  <img src="${p.image}" alt="${p.title}" onerror="this.style.display='none'">
-  <p style="color:#ffb5d5">${discovered.size} / 5 destinations discovered</p>
- `;
+  discovered.add(i);
+  modalOpen=true;
 
- $("modal").classList.add("show");
- $("progress").textContent=`DESTINATIONS: ${discovered.size}/5`;
+  const p=planets[i];
 
- if(discovered.size===5){
-  $("modalContinue").textContent="Complete the mission ♥";
- }
+  $("modalContent").innerHTML=`
+    <div style="font-size:36px">${p.emoji} ✦</div>
+    <h2>${p.title}</h2>
+    <p>${p.text}</p>
+    <img src="${p.image}" alt="${p.title}" onerror="this.style.display='none'">
+    <p style="color:#ffb5d5">${discovered.size} / 5 destinations discovered</p>
+  `;
+
+  $("modal").classList.add("show");
+
+  $("progress").textContent=
+    `DESTINATIONS: ${discovered.size}/5`;
+
+  if(discovered.size===5){
+    $("modalContinue").textContent="Complete the mission ♥";
+  }
 }
 
 function closeModal(){
- $("modal").classList.remove("show");
- modalOpen=false;
+  $("modal").classList.remove("show");
+  modalOpen=false;
 }
+
 $("closeModal").onclick=closeModal;
 
 $("modalContinue").onclick=()=>{
- closeModal();
- if(discovered.size===5)setTimeout(showFinal,400);
+  closeModal();
+
+  if(discovered.size===5){
+    setTimeout(showFinal,400);
+  }
 };
 
+/* JUMP TO PLANET */
 function jumpToPlanet(i){
- const p=planets[i];
- shipX=p.x-115;
- shipY=p.y+15;
- velocityX=0;
- velocityY=0;
- ship.style.left=shipX+"px";
- ship.style.top=shipY+"px";
- camera();
- if(!discovered.has(i))openPlanet(i);
+  const p=planets[i];
+
+  shipX=p.x-115;
+  shipY=p.y+15;
+
+  velocityX=0;
+  velocityY=0;
+
+  ship.style.left=shipX+"px";
+  ship.style.top=shipY+"px";
+
+  camera();
+
+  if(!discovered.has(i)){
+    openPlanet(i);
+  }
 }
 
 document.querySelectorAll(".planet").forEach(btn=>{
- btn.addEventListener("click",()=>{
-  jumpToPlanet(Number(btn.dataset.planet));
- });
+  btn.addEventListener("click",()=>{
+    jumpToPlanet(Number(btn.dataset.planet));
+  });
 });
 
+/* START GAME */
 function startGame(){
- $("intro").classList.remove("active");
- $("game").classList.add("active");
- started=true;
- camera();
- lastTime=performance.now();
- requestAnimationFrame(loop);
+  $("intro").classList.remove("active");
+  $("game").classList.add("active");
+
+  started=true;
+  lastTime=performance.now();
+
+  camera();
+  requestAnimationFrame(loop);
 }
 
 $("startBtn").onclick=()=>{
- startGame();
- music.play().then(()=>{
-  $("musicBtn").textContent="♫ Music ON";
- }).catch(()=>{});
-};
+  startGame();
 
-$("musicBtn").onclick=()=>{
- if(music.paused){
   music.play().then(()=>{
-   $("musicBtn").textContent="♫ Music ON";
-  }).catch(()=>toast("Add your music file first 🎵"));
- }else{
-  music.pause();
-  $("musicBtn").textContent="♫ Music OFF";
- }
+    $("musicBtn").textContent="♫ Music ON";
+  }).catch(()=>{});
 };
 
-/* Main movement loop */
+/* MUSIC */
+$("musicBtn").onclick=()=>{
+  if(music.paused){
+    music.play().then(()=>{
+      $("musicBtn").textContent="♫ Music ON";
+    }).catch(()=>{
+      toast("Add your music file first 🎵");
+    });
+  }else{
+    music.pause();
+    $("musicBtn").textContent="♫ Music OFF";
+  }
+};
+
+/* MOVEMENT LOOP */
 function loop(now){
- if(!started)return;
+  if(!started)return;
 
- const dt=Math.min((now-lastTime)/16.67||1,2);
- lastTime=now;
+  const dt=Math.min((now-lastTime)/16.67||1,2);
+  lastTime=now;
 
- let dx=0,dy=0;
+  let dx=0;
+  let dy=0;
 
- if(keys.ArrowLeft||keys.a||keys.A)dx--;
- if(keys.ArrowRight||keys.d||keys.D)dx++;
- if(keys.ArrowUp||keys.w||keys.W)dy--;
- if(keys.ArrowDown||keys.s||keys.S)dy++;
+  /* KEYBOARD */
+  if(keys.ArrowLeft||keys.a||keys.A)dx--;
+  if(keys.ArrowRight||keys.d||keys.D)dx++;
+  if(keys.ArrowUp||keys.w||keys.W)dy--;
+  if(keys.ArrowDown||keys.s||keys.S)dy++;
 
- dx+=joyX;
- dy+=joyY;
+  /* JOYSTICK */
+  dx+=joyX;
+  dy+=joyY;
 
- const len=Math.hypot(dx,dy);
- if(len>1){dx/=len;dy/=len}
+  const len=Math.hypot(dx,dy);
 
- const acceleration=boostActive?.36:.23;
- const friction=Math.pow(.90,dt);
+  if(len>1){
+    dx/=len;
+    dy/=len;
+  }
 
- velocityX+=dx*acceleration*dt;
- velocityY+=dy*acceleration*dt;
+  const acceleration=boostActive?.36:.23;
+  const friction=Math.pow(.90,dt);
 
- if(!dx)velocityX*=friction;
- if(!dy)velocityY*=friction;
+  velocityX+=dx*acceleration*dt;
+  velocityY+=dy*acceleration*dt;
 
- const speed=Math.hypot(velocityX,velocityY);
- const maxSpeed=boostActive?8.5:5.5;
+  if(!dx)velocityX*=friction;
+  if(!dy)velocityY*=friction;
 
- if(speed>maxSpeed){
-  velocityX=velocityX/speed*maxSpeed;
-  velocityY=velocityY/speed*maxSpeed;
- }
+  const speed=Math.hypot(velocityX,velocityY);
+  const maxSpeed=boostActive?8.5:5.5;
 
- shipX=Math.max(45,Math.min(2555,shipX+velocityX*dt));
- shipY=Math.max(45,Math.min(2055,shipY+velocityY*dt));
+  if(speed>maxSpeed){
+    velocityX=velocityX/speed*maxSpeed;
+    velocityY=velocityY/speed*maxSpeed;
+  }
 
- ship.style.left=shipX+"px";
- ship.style.top=shipY+"px";
+  shipX=Math.max(45,Math.min(2555,shipX+velocityX*dt));
+  shipY=Math.max(45,Math.min(2055,shipY+velocityY*dt));
 
- if(speed>.1){
-  const angle=Math.atan2(velocityY,velocityX)*180/Math.PI+90;
-  ship.style.transform=`translate(-50%,-50%) rotate(${angle}deg)`;
- }
+  ship.style.left=shipX+"px";
+  ship.style.top=shipY+"px";
 
- camera();
- collectNearStars();
- checkPlanets();
- requestAnimationFrame(loop);
+  if(speed>.1){
+    const angle=
+      Math.atan2(velocityY,velocityX)*180/Math.PI+90;
+
+    ship.style.transform=
+      `translate(-50%,-50%) rotate(${angle}deg)`;
+  }
+
+  camera();
+  collectNearStars();
+  checkPlanets();
+
+  requestAnimationFrame(loop);
 }
 
-/* Keyboard */
+/* KEYBOARD CONTROLS */
 document.addEventListener("keydown",e=>{
- keys[e.key]=true;
- if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "].includes(e.key)){
-  e.preventDefault();
- }
-});
-document.addEventListener("keyup",e=>keys[e.key]=false);
-window.addEventListener("blur",()=>{
- keys={};
- resetJoy();
- stopBoost();
+  keys[e.key]=true;
+
+  if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "].includes(e.key)){
+    e.preventDefault();
+  }
 });
 
-/* Joystick */
+document.addEventListener("keyup",e=>{
+  keys[e.key]=false;
+});
+
+window.addEventListener("blur",()=>{
+  keys={};
+  resetJoy();
+  stopBoost();
+});
+
+/* JOYSTICK CONTROLS
+   Works with touch, mouse and stylus. */
 const joystick=$("joystick");
 const stick=$("stick");
 
 function moveJoy(e){
- const r=joystick.getBoundingClientRect();
- let x=e.clientX-(r.left+r.width/2);
- let y=e.clientY-(r.top+r.height/2);
- const d=Math.hypot(x,y);
- const max=r.width*.27;
+  const r=joystick.getBoundingClientRect();
 
- if(d>max){x=x/d*max;y=y/d*max}
+  let x=e.clientX-(r.left+r.width/2);
+  let y=e.clientY-(r.top+r.height/2);
 
- stick.style.transform=`translate(${x}px,${y}px)`;
- joyX=x/max;
- joyY=y/max;
+  const max=r.width*.32;
+  const d=Math.hypot(x,y);
+
+  if(d>max){
+    x=x/d*max;
+    y=y/d*max;
+  }
+
+  stick.style.transform=`translate(${x}px,${y}px)`;
+
+  joyX=x/max;
+  joyY=y/max;
 }
 
 function resetJoy(){
- joyActive=false;
- joyX=0;
- joyY=0;
- stick.style.transform="translate(0,0)";
+  joyActive=false;
+  joyPointer=null;
+
+  joyX=0;
+  joyY=0;
+
+  stick.style.transform="translate(0,0)";
 }
 
 joystick.addEventListener("pointerdown",e=>{
- e.preventDefault();
- joyActive=true;
- joystick.setPointerCapture(e.pointerId);
- moveJoy(e);
+  e.preventDefault();
+
+  joyActive=true;
+  joyPointer=e.pointerId;
+
+  joystick.setPointerCapture(e.pointerId);
+
+  moveJoy(e);
 });
+
 joystick.addEventListener("pointermove",e=>{
- if(joyActive)moveJoy(e);
+  if(joyActive&&e.pointerId===joyPointer){
+    e.preventDefault();
+    moveJoy(e);
+  }
 });
-joystick.addEventListener("pointerup",resetJoy);
+
+joystick.addEventListener("pointerup",e=>{
+  if(e.pointerId===joyPointer)resetJoy();
+});
+
 joystick.addEventListener("pointercancel",resetJoy);
 joystick.addEventListener("lostpointercapture",resetJoy);
 
-/* Boost button */
+/* BOOST BUTTON */
 const boostBtn=$("boostBtn");
 
 function stopBoost(){
- boostActive=false;
- boostBtn.classList.remove("active");
+  boostActive=false;
+  boostPointer=null;
+  boostBtn.classList.remove("active");
 }
 
 boostBtn.addEventListener("pointerdown",e=>{
- e.preventDefault();
- boostActive=true;
- boostBtn.classList.add("active");
- boostBtn.setPointerCapture(e.pointerId);
+  e.preventDefault();
+
+  boostActive=true;
+  boostPointer=e.pointerId;
+
+  boostBtn.setPointerCapture(e.pointerId);
+  boostBtn.classList.add("active");
 });
-boostBtn.addEventListener("pointerup",stopBoost);
+
+boostBtn.addEventListener("pointerup",e=>{
+  if(e.pointerId===boostPointer)stopBoost();
+});
+
 boostBtn.addEventListener("pointercancel",stopBoost);
 boostBtn.addEventListener("lostpointercapture",stopBoost);
 
-/* Galaxy map */
-$("mapBtn").onclick=()=>$("mapPanel").classList.add("show");
-$("closeMap").onclick=()=>$("mapPanel").classList.remove("show");
+/* GALAXY MAP */
+$("mapBtn").onclick=()=>{
+  $("mapPanel").classList.add("show");
+};
+
+$("closeMap").onclick=()=>{
+  $("mapPanel").classList.remove("show");
+};
 
 document.querySelectorAll("[data-jump]").forEach(btn=>{
- btn.onclick=()=>{
-  $("mapPanel").classList.remove("show");
-  jumpToPlanet(Number(btn.dataset.jump));
- };
+  btn.onclick=()=>{
+    $("mapPanel").classList.remove("show");
+    jumpToPlanet(Number(btn.dataset.jump));
+  };
 });
 
-/* Gallery */
+/* GALLERY */
 function showGallery(){
- $("mapPanel").classList.remove("show");
- $("game").classList.remove("active");
- $("galleryScreen").classList.add("active");
+  $("mapPanel").classList.remove("show");
+  $("game").classList.remove("active");
+  $("galleryScreen").classList.add("active");
 }
 
 $("galleryBtn").onclick=showGallery;
 
 $("backGame").onclick=()=>{
- $("galleryScreen").classList.remove("active");
- $("game").classList.add("active");
- camera();
+  $("galleryScreen").classList.remove("active");
+  $("game").classList.add("active");
+  camera();
 };
 
-$("galleryBtn").addEventListener("click",()=>{
- const grid=$("galleryGrid");
- if(grid.children.length)return;
+function buildGallery(){
+  const grid=$("galleryGrid");
 
- memories.forEach((m,i)=>{
-  const fig=document.createElement("figure");
-  fig.className="memory";
+  if(grid.children.length)return;
 
-  const img=document.createElement("img");
-  img.src="images/"+m[0];
-  img.alt="Our memory "+(i+1);
-  img.loading="lazy";
-  img.decoding="async";
+  memories.forEach((m,i)=>{
+    const fig=document.createElement("figure");
+    fig.className="memory";
 
-  img.addEventListener("error",()=>{
-   fig.style.display="none";
+    const img=document.createElement("img");
+    img.src="images/"+m[0];
+    img.alt="Our memory "+(i+1);
+    img.loading="lazy";
+    img.decoding="async";
+
+    img.addEventListener("error",()=>{
+      fig.style.display="none";
+    });
+
+    const cap=document.createElement("figcaption");
+    cap.textContent=m[1];
+
+    fig.append(img,cap);
+
+    fig.onclick=()=>{
+      $("lightboxImg").src=img.src;
+      $("lightbox").classList.add("show");
+    };
+
+    grid.appendChild(fig);
   });
+}
 
-  const cap=document.createElement("figcaption");
-  cap.textContent=m[1];
-
-  fig.append(img,cap);
-
-  fig.onclick=()=>{
-   $("lightboxImg").src=img.src;
-   $("lightbox").classList.add("show");
-  };
-
-  grid.appendChild(fig);
- });
-});
+$("galleryBtn").addEventListener("click",buildGallery);
 
 $("lightbox").onclick=()=>{
- $("lightbox").classList.remove("show");
+  $("lightbox").classList.remove("show");
 };
 
-/* Final destination */
+/* FINAL DESTINATION */
 $("finishJump").onclick=()=>{
- $("mapPanel").classList.remove("show");
- showFinal();
+  $("mapPanel").classList.remove("show");
+  showFinal();
 };
 
 function showFinal(){
- started=false;
- $("game").classList.remove("active");
- $("finalScreen").classList.add("active");
+  started=false;
+
+  $("game").classList.remove("active");
+  $("finalScreen").classList.add("active");
 }
 
+/* WHATSAPP DATE MESSAGE */
 $("sendBtn").onclick=()=>{
- const date=$("date").value||"Whenever you want";
- const time=$("time").value||"Whenever you are ready";
- const food=$("food").value;
- const place=$("place").value||"Somewhere special";
+  const date=$("date").value||"Whenever you want";
+  const time=$("time").value||"Whenever you are ready";
+  const food=$("food").value;
+  const place=$("place").value||"Somewhere special";
 
- const message=`Hey Yoya! ❤️
+  const message=`Hey Yoya! ❤️
 
 I have a little date planned for us.
 
@@ -964,62 +1423,65 @@ I have a little date planned for us.
 From one universe to another, I'd always choose you.
 Love you, my favorite person. ✨`;
 
- window.open(
-  "https://wa.me/201224745669?text="+encodeURIComponent(message),
-  "_blank"
- );
+  window.open(
+    "https://wa.me/201224745669?text="+encodeURIComponent(message),
+    "_blank"
+  );
 };
 
-/* Background stars */
+/* BACKGROUND STARS */
 const canvas=$("stars");
 const ctx=canvas.getContext("2d");
+
 let bgStars=[];
 
 function resize(){
- const dpr=Math.min(devicePixelRatio||1,2);
+  const dpr=Math.min(window.devicePixelRatio||1,2);
 
- canvas.width=innerWidth*dpr;
- canvas.height=innerHeight*dpr;
- canvas.style.width=innerWidth+"px";
- canvas.style.height=innerHeight+"px";
+  canvas.width=innerWidth*dpr;
+  canvas.height=innerHeight*dpr;
 
- ctx.setTransform(dpr,0,0,dpr,0,0);
+  canvas.style.width=innerWidth+"px";
+  canvas.style.height=innerHeight+"px";
 
- const mobile=innerWidth<=650;
- const count=mobile?85:150;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
 
- bgStars=Array.from({length:count},()=>({
-  x:rand(0,innerWidth),
-  y:rand(0,innerHeight),
-  r:rand(.4,1.7),
-  a:rand(.2,1),
-  v:rand(.002,.009)
- }));
+  const count=innerWidth<=650?85:150;
+
+  bgStars=Array.from({length:count},()=>({
+    x:rand(0,innerWidth),
+    y:rand(0,innerHeight),
+    r:rand(.4,1.7),
+    a:rand(.2,1),
+    v:rand(.002,.009)
+  }));
 }
 
 function drawStars(){
- ctx.clearRect(0,0,innerWidth,innerHeight);
+  ctx.clearRect(0,0,innerWidth,innerHeight);
 
- bgStars.forEach(s=>{
-  s.a+=s.v;
-  if(s.a>1||s.a<.15)s.v*=-1;
+  bgStars.forEach(s=>{
+    s.a+=s.v;
 
-  ctx.beginPath();
-  ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-  ctx.fillStyle=`rgba(255,255,255,${s.a})`;
-  ctx.fill();
- });
+    if(s.a>1||s.a<.15)s.v*=-1;
 
- requestAnimationFrame(drawStars);
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${s.a})`;
+    ctx.fill();
+  });
+
+  requestAnimationFrame(drawStars);
 }
 
 window.addEventListener("resize",()=>{
- resize();
- if(started)camera();
+  resize();
+  if(started)camera();
 });
 
 resize();
 drawStars();
 </script>
+
 </body>
 </html>
