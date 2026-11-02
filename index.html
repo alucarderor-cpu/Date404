@@ -2,447 +2,873 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#10090e">
-<title>Date404 — Just for Yoya ♥</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090711">
+<title>For Yoya | Beyond Every Universe</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
 :root {
-  --bg:#10090e;
-  --panel:#21131c;
-  --rose:#d98b9e;
-  --light:#f2c2cd;
-  --cream:#f8eae6;
-  --muted:#bba8af;
-  --gold:#c9a879;
-  --line:rgba(240,183,196,.17);
-  --serif:'Playfair Display',Georgia,serif;
-  --sans:'DM Sans',sans-serif;
+  --bg:#090711;
+  --panel:#151020;
+  --pink:#e9a6c4;
+  --purple:#a98bd8;
+  --gold:#d9bd91;
+  --white:#f8eff7;
+  --muted:#b6a8bd;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;background:var(--bg);color:var(--cream);
-  font-family:var(--sans);overflow-x:hidden;
+
+* { box-sizing:border-box; margin:0; padding:0; }
+
+html { scroll-behavior:smooth; }
+
+body {
+  background:var(--bg);
+  color:var(--white);
+  font-family:'Montserrat',sans-serif;
+  overflow-x:hidden;
 }
-body:before{
-  content:"";position:fixed;inset:0;z-index:-1;
-  background:radial-gradient(ellipse at 15% 10%,#69253d55,transparent 40%),
-  radial-gradient(ellipse at 85% 70%,#69314533,transparent 42%),
-  linear-gradient(145deg,#10090e,#190d14 55%,#0c080b);
+
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background:
+    radial-gradient(ellipse at 15% 20%,#39204d55,transparent 45%),
+    radial-gradient(ellipse at 85% 65%,#54203e44,transparent 45%),
+    linear-gradient(145deg,#090711,#100c1d 55%,#090711);
 }
-.stars,.hearts{
-  position:fixed;inset:0;overflow:hidden;pointer-events:none;
+
+#stars {
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  overflow:hidden;
 }
-.star{
-  position:absolute;width:2px;height:2px;border-radius:50%;
-  background:#ffe4eb;opacity:.45;
-  animation:twinkle 3s infinite ease-in-out;
+
+.star {
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:#fff;
+  border-radius:50%;
+  animation:twinkle 3s infinite alternate;
 }
-@keyframes twinkle{
-  50%{opacity:1;transform:scale(1.8)}
+
+@keyframes twinkle {
+  from {opacity:.15;transform:scale(.7)}
+  to {opacity:1;transform:scale(1.5)}
 }
-.float{
-  position:absolute;bottom:-30px;color:var(--rose);
-  opacity:0;animation:rise 13s linear forwards;
+
+a { color:inherit; text-decoration:none; }
+
+button { font-family:inherit; cursor:pointer; }
+
+section {
+  width:min(1100px,90%);
+  margin:auto;
+  padding:95px 0;
 }
-@keyframes rise{
-  10%{opacity:.35}
-  100%{transform:translateY(-110vh) rotate(25deg);opacity:0}
+
+.eyebrow {
+  color:var(--pink);
+  text-transform:uppercase;
+  letter-spacing:4px;
+  font-size:10px;
+  margin-bottom:17px;
 }
-.wrap{width:min(1050px,calc(100% - 36px));margin:auto}
-.nav{
-  height:72px;display:flex;align-items:center;
-  justify-content:space-between;border-bottom:1px solid var(--line);
+
+.section-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(38px,7vw,65px);
+  font-weight:400;
+  line-height:1.1;
+  margin-bottom:18px;
 }
-.brand{font:24px var(--serif)}
-.brand span{color:var(--light)}
-.nav small{
-  font-size:10px;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--muted);
+
+.section-subtitle {
+  color:var(--muted);
+  line-height:1.9;
+  font-size:13px;
+  max-width:550px;
+  margin:auto;
 }
-.hero{
-  min-height:calc(100svh - 72px);
-  display:grid;place-items:center;text-align:center;
-  position:relative;padding:65px 0 85px;
+
+.center { text-align:center; }
+
+/* Music player */
+
+.music-player {
+  position:fixed;
+  z-index:20;
+  top:20px;
+  right:20px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 15px;
+  border:1px solid #ffffff20;
+  border-radius:50px;
+  background:#120d20dd;
+  backdrop-filter:blur(15px);
 }
-.hero-inner{max-width:750px}
-.eyebrow,.kicker{
-  font-size:10px;letter-spacing:.28em;
-  text-transform:uppercase;color:var(--gold);
+
+.music-btn {
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:1px solid #e9a6c4aa;
+  color:var(--pink);
+  background:transparent;
+  font-size:14px;
 }
-h1{
-  font:500 clamp(52px,10vw,100px)/.98 var(--serif);
-  letter-spacing:-.04em;margin:25px 0;
+
+.music-label {
+  font-size:9px;
+  letter-spacing:2px;
+  color:#e8d8e9;
 }
-h1 em{color:var(--light);font-weight:500}
-.hero p{
-  max-width:510px;margin:0 auto 32px;
-  color:var(--muted);font-size:15px;line-height:1.9;
+
+.music-bars {
+  display:flex;
+  gap:3px;
+  height:15px;
+  align-items:center;
 }
-.ornament{color:var(--gold);letter-spacing:.2em}
-.btn{
-  border:1px solid #e4a8b866;
-  background:linear-gradient(135deg,#b9637d,#8e405c);
-  color:white;padding:14px 24px;border-radius:99px;
-  box-shadow:0 10px 35px #a046642e;transition:.25s;
+
+.music-bars span {
+  width:2px;
+  height:5px;
+  background:var(--pink);
+  border-radius:5px;
 }
-.btn:hover{transform:translateY(-3px)}
-.btn.ghost{background:transparent;color:var(--light);box-shadow:none}
-.scroll{
-  position:absolute;bottom:25px;color:#927e87;
-  font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+
+.music-bars.playing span {
+  animation:equalize .7s infinite alternate;
 }
-section{padding:90px 0;border-top:1px solid var(--line)}
-.head{text-align:center;max-width:600px;margin:0 auto 42px}
-.head h2{
-  font:500 clamp(34px,6vw,54px)/1.1 var(--serif);
-  margin:14px 0;
+
+.music-bars span:nth-child(2) {animation-delay:.2s}
+.music-bars span:nth-child(3) {animation-delay:.4s}
+.music-bars span:nth-child(4) {animation-delay:.1s}
+
+@keyframes equalize {
+  to {height:15px}
 }
-.head p{font-size:14px;color:var(--muted);line-height:1.8}
-.letter{
-  max-width:760px;margin:auto;
-  padding:clamp(28px,6vw,55px);
-  background:linear-gradient(145deg,#2a1722e8,#180e14e8);
-  border:1px solid var(--line);position:relative;
+
+/* Hero */
+
+.hero {
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
+  padding:100px 20px 60px;
 }
-.letter:after{
-  content:"✦";position:absolute;right:22px;top:18px;color:var(--gold);
+
+.orbit {
+  width:180px;
+  height:180px;
+  border:1px solid #d8b4d355;
+  border-radius:50%;
+  position:relative;
+  display:grid;
+  place-items:center;
+  margin-bottom:35px;
+  box-shadow:0 0 50px #b18ac522,inset 0 0 40px #b18ac511;
 }
-.letter p{
-  font:italic 19px/1.9 var(--serif);color:#ead7dc;
+
+.orbit::before {
+  content:"";
+  position:absolute;
+  width:220px;
+  height:75px;
+  border:1px solid #d9bd9170;
+  border-radius:50%;
+  transform:rotate(-28deg);
 }
-.letter .sign{
-  text-align:right;color:var(--light);
-  font-size:24px;margin-bottom:0;
+
+.planet {
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 25%,#f4c9dc,#a46d9f 45%,#36234e 85%);
+  box-shadow:0 0 50px #d69ac777;
 }
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
-.card{
-  min-height:190px;padding:24px;
-  background:linear-gradient(145deg,#291723,#170e14);
-  border:1px solid var(--line);
-  display:flex;flex-direction:column;justify-content:space-between;
-  transition:.25s;
+
+.orbit-heart {
+  position:absolute;
+  right:2px;
+  top:15px;
+  font-size:24px;
+  color:var(--pink);
 }
-.card:hover{transform:translateY(-5px);border-color:#e4a8b866}
-.symbol{font-size:25px;color:var(--light)}
-.card h3{font:23px var(--serif);margin:15px 0 8px}
-.card p{font-size:13px;line-height:1.7;color:var(--muted);margin:0}
-.reasons{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:12px;max-width:760px;margin:auto;
+
+.hero h1 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(60px,13vw,110px);
+  font-weight:500;
+  letter-spacing:3px;
+  background:linear-gradient(110deg,#fff1f7,#e7a6c7,#d8c0f5);
+  -webkit-background-clip:text;
+  color:transparent;
 }
-.reason{
-  padding:17px 19px;border:1px solid var(--line);
-  background:#24131d88;color:#ead9de;
-  font:italic 17px var(--serif);
+
+.hero .subtitle {
+  font-size:11px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin:10px 0 25px;
 }
-.reason span{font:11px var(--sans);color:var(--rose);margin-right:12px}
-.question{
-  max-width:680px;margin:auto;text-align:center;
-  padding:clamp(28px,7vw,60px) 22px;
-  border:1px solid #c9a87955;
-  background:radial-gradient(ellipse at top,#7e374d38,transparent 70%),#1a1016;
+
+.hero p {
+  color:var(--muted);
+  max-width:500px;
+  line-height:2;
+  font-size:13px;
 }
-.question h2{font:500 clamp(34px,6vw,52px) var(--serif);margin:17px 0}
-.question p{color:var(--muted);line-height:1.8}
-.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:25px}
-.answer{min-height:28px;color:var(--light);font:italic 18px var(--serif);margin-top:20px}
-.planner{
-  max-width:600px;margin:28px auto 0;
-  display:grid;grid-template-columns:1fr 1fr;gap:13px;text-align:left;
+
+.primary-btn {
+  display:inline-block;
+  margin-top:32px;
+  padding:15px 30px;
+  border:1px solid #e9a6c477;
+  border-radius:40px;
+  background:linear-gradient(120deg,#9b577d44,#a98bd822);
+  color:#fff;
+  letter-spacing:2px;
+  font-size:10px;
+  transition:.3s;
 }
-.field{display:flex;flex-direction:column;gap:8px}
-.field.full{grid-column:1/-1}
-.field label{
-  font-size:10px;letter-spacing:.15em;
-  text-transform:uppercase;color:var(--gold);
+
+.primary-btn:hover {
+  background:#b36b91;
+  box-shadow:0 0 30px #d68bb755;
+  transform:translateY(-3px);
 }
-.field input,.field select,.field textarea{
-  width:100%;padding:13px;background:#100a0e;
-  color:var(--cream);border:1px solid var(--line);
-  border-radius:3px;outline:none;
+
+.scroll-note {
+  position:absolute;
+  bottom:25px;
+  font-size:9px;
+  letter-spacing:3px;
+  color:#8d8198;
 }
-.field textarea{min-height:80px;resize:vertical}
-.planner .btn{grid-column:1/-1;justify-self:center;margin-top:5px}
-footer{
-  text-align:center;padding:48px 15px 60px;
-  color:#927e87;font-size:10px;letter-spacing:.13em;
+
+/* Letter */
+
+.letter-card {
+  max-width:780px;
+  margin:35px auto 0;
+  padding:clamp(25px,6vw,55px);
+  border:1px solid #ffffff16;
+  background:linear-gradient(135deg,#ffffff09,#ffffff03);
+  border-radius:8px;
+  position:relative;
+  box-shadow:0 20px 70px #0004;
 }
-footer strong{
-  display:block;font:italic 23px var(--serif);
-  color:var(--light);letter-spacing:0;margin-bottom:12px;
+
+.letter-card::before {
+  content:"✦";
+  position:absolute;
+  top:18px;
+  right:22px;
+  color:var(--gold);
 }
-.modal{
-  position:fixed;inset:0;background:#050305d9;
-  backdrop-filter:blur(10px);display:none;
-  place-items:center;z-index:5;padding:20px;
+
+.letter-card p {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(19px,3vw,25px);
+  line-height:1.8;
+  color:#e9dce9;
 }
-.modal.show{display:grid}
-.modalbox{
-  width:min(460px,100%);padding:35px 25px;
-  text-align:center;background:#1b1017;border:1px solid var(--line);
+
+.signature {
+  margin-top:28px;
+  color:var(--pink);
+  font-family:'Cormorant Garamond',serif;
+  font-size:27px;
+  font-style:italic;
 }
-.modalbox h2{font:34px var(--serif)}
-.modalbox p{white-space:pre-line;color:var(--muted);line-height:1.8}
-@media(max-width:680px){
-  .nav{height:62px}
-  .nav small{font-size:8px}
-  .hero{min-height:88svh}
-  .cards{grid-template-columns:1fr}
-  .card{min-height:155px}
-  .reasons{grid-template-columns:1fr}
-  section{padding:72px 0}
-  .planner{grid-template-columns:1fr}
-  .field.full,.planner .btn{grid-column:auto}
-  .letter p{font-size:17px}
+
+/* Memories */
+
+.gallery {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:17px;
+  margin-top:45px;
 }
-@media(prefers-reduced-motion:reduce){
-  *,*:before,*:after{
-    animation:none!important;
-    scroll-behavior:auto!important;
-    transition:none!important;
-  }
+
+.memory {
+  position:relative;
+  overflow:hidden;
+  border-radius:7px;
+  border:1px solid #ffffff20;
+  background:var(--panel);
+  min-height:260px;
+  transition:.4s;
+}
+
+.memory:nth-child(even) { transform:translateY(22px); }
+
+.memory:hover {
+  transform:translateY(-5px);
+  border-color:#e9a6c488;
+  box-shadow:0 15px 40px #0006;
+}
+
+.memory img {
+  width:100%;
+  height:100%;
+  min-height:260px;
+  object-fit:cover;
+  display:block;
+  transition:transform .6s;
+}
+
+.memory:hover img { transform:scale(1.07); }
+
+.memory figcaption {
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  padding:30px 13px 15px;
+  background:linear-gradient(transparent,#090711eF);
+  font-family:'Cormorant Garamond',serif;
+  font-size:19px;
+  color:#fff;
+}
+
+/* Story */
+
+.story-list {
+  max-width:650px;
+  margin:45px auto 0;
+  border-left:1px solid #d9bd9166;
+  padding-left:30px;
+}
+
+.story-item {
+  position:relative;
+  padding:0 0 35px;
+}
+
+.story-item::before {
+  content:"";
+  position:absolute;
+  width:9px;
+  height:9px;
+  background:var(--pink);
+  border-radius:50%;
+  left:-35px;
+  top:7px;
+  box-shadow:0 0 15px var(--pink);
+}
+
+.story-item h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:25px;
+  font-weight:500;
+  color:var(--gold);
+  margin-bottom:8px;
+}
+
+.story-item p {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.9;
+}
+
+/* Reasons */
+
+.reasons {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+  margin-top:40px;
+}
+
+.reason {
+  padding:25px;
+  border:1px solid #ffffff16;
+  background:#ffffff06;
+  border-radius:8px;
+}
+
+.reason .symbol {
+  color:var(--pink);
+  font-size:23px;
+  margin-bottom:12px;
+}
+
+.reason h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;
+  font-weight:500;
+  margin-bottom:7px;
+}
+
+.reason p {
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.8;
+}
+
+/* Date invitation */
+
+.date-box {
+  margin:35px auto 0;
+  max-width:650px;
+  padding:clamp(25px,6vw,45px);
+  background:linear-gradient(145deg,#28182f,#140f20);
+  border:1px solid #d9bd9144;
+  border-radius:10px;
+  box-shadow:0 20px 60px #0005;
+}
+
+.date-box label {
+  display:block;
+  color:var(--gold);
+  font-size:10px;
+  letter-spacing:2px;
+  margin:18px 0 8px;
+  text-align:left;
+}
+
+.date-box input,
+.date-box select,
+.date-box textarea {
+  width:100%;
+  padding:14px;
+  background:#090711;
+  border:1px solid #ffffff22;
+  border-radius:5px;
+  color:#fff;
+  outline:none;
+  font-family:inherit;
+  font-size:12px;
+}
+
+.date-box input:focus,
+.date-box select:focus,
+.date-box textarea:focus {
+  border-color:var(--pink);
+}
+
+.date-box textarea {
+  resize:vertical;
+  min-height:80px;
+}
+
+.date-submit {
+  width:100%;
+  padding:16px;
+  border:0;
+  border-radius:5px;
+  margin-top:25px;
+  color:#160d1c;
+  background:linear-gradient(100deg,#e9a6c4,#d9bd91);
+  font-weight:600;
+  letter-spacing:2px;
+  font-size:11px;
+  transition:.3s;
+}
+
+.date-submit:hover { filter:brightness(1.1); }
+
+/* Footer */
+
+footer {
+  text-align:center;
+  padding:45px 20px;
+  border-top:1px solid #ffffff12;
+  color:#8e8195;
+  font-size:10px;
+  letter-spacing:2px;
+  line-height:2;
+}
+
+footer span { color:var(--pink); }
+
+@media(max-width:700px) {
+  section {padding:75px 0}
+  .gallery {grid-template-columns:repeat(2,1fr);gap:11px}
+  .memory,.memory img {min-height:220px}
+  .memory:nth-child(even) {transform:none}
+  .reasons {grid-template-columns:1fr}
+  .music-player {top:12px;right:12px}
+  .music-label {font-size:8px}
+}
+
+@media(max-width:380px) {
+  .gallery {grid-template-columns:1fr 1fr}
+  .memory,.memory img {min-height:180px}
 }
 </style>
 </head>
+
 <body>
 
-<div class="stars" id="stars"></div>
-<div class="hearts" id="hearts"></div>
+<div id="stars"></div>
 
-<header class="wrap nav">
-  <div class="brand">Date<span>404</span> ♥</div>
-  <small>A little universe for Yoya</small>
-</header>
-
-<main>
-
-<section class="hero" style="border:0">
-  <div class="hero-inner wrap">
-    <div class="ornament">✧ &nbsp; MADE WITH LOVE &nbsp; ✧</div>
-    <div class="eyebrow" style="margin-top:25px">To my favorite person</div>
-    <h1>Hey, <em>Yoya.</em><br>This is your place.</h1>
-    <p>
-      Out of all the pages on the internet, this little corner
-      was made for one person only. No algorithms, no random
-      stories — just a tiny universe with your name written all over it.
-    </p>
-    <button class="btn" onclick="document.getElementById('letter').scrollIntoView({behavior:'smooth'})">
-      Open your little universe ♡
-    </button>
-  </div>
-  <div class="scroll">A little further down ↓</div>
-</section>
-
-<section id="letter">
-  <div class="wrap">
-    <div class="head">
-      <div class="kicker">01 — A note for you</div>
-      <h2>Something I want you to know</h2>
-      <p>Not a perfect speech. Just a little piece of my heart.</p>
+<!-- MUSIC PLAYER -->
+<div class="music-player">
+  <button class="music-btn" id="musicToggle" aria-label="Play music">▶</button>
+  <div>
+    <div class="music-label">OUR LITTLE UNIVERSE</div>
+    <div class="music-bars" id="musicBars">
+      <span></span><span></span><span></span><span></span>
     </div>
-    <article class="letter">
-      <p>Dear Yoya,</p>
-      <p>
-        If this website could hold every thought I have about you,
-        it would probably never finish loading. So I made it simple:
-        a quiet place, a few words, and a reminder that you are
-        someone worth celebrating — in the ordinary days, not just
-        the special ones.
-      </p>
-      <p>
-        I hope this makes you smile, even for a second. And whenever
-        life gets a little too loud, remember there's someone who
-        is always happy that you're in his world.
-      </p>
-      <p class="sign">Yours, Youssef ♡</p>
-    </article>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="head">
-      <div class="kicker">02 — The little things</div>
-      <h2>It's always the details.</h2>
-      <p>Some things don't need a big explanation. They just feel like you.</p>
-    </div>
-    <div class="cards">
-      <article class="card">
-        <div class="symbol">✧</div>
-        <div><h3>Your smile</h3><p>The kind of little moment that can turn an ordinary day around.</p></div>
-      </article>
-      <article class="card">
-        <div class="symbol">☾</div>
-        <div><h3>Your voice</h3><p>A familiar comfort I could recognize in the middle of a thousand sounds.</p></div>
-      </article>
-      <article class="card">
-        <div class="symbol">♡</div>
-        <div><h3>Being us</h3><p>Not perfect, not scripted. Just two people making their own story.</p></div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="head">
-      <div class="kicker">03 — A tiny list</div>
-      <h2>Reasons? I lost count.</h2>
-      <p>Here are a few. The rest are for another day.</p>
-    </div>
-    <div class="reasons">
-      <div class="reason"><span>01</span>You make the little things matter.</div>
-      <div class="reason"><span>02</span>Your presence feels like home.</div>
-      <div class="reason"><span>03</span>You are wonderfully, unmistakably you.</div>
-      <div class="reason"><span>04</span>Even quiet moments feel special with you.</div>
-      <div class="reason"><span>05</span>You make me want to make more memories.</div>
-      <div class="reason"><span>06</span>Because simply… you're my Yoya.</div>
-    </div>
-  </div>
-</section>
-
-<section id="date">
-  <div class="wrap">
-    <div class="head">
-      <div class="kicker">04 — One little question</div>
-      <h2>Can I take you on a date?</h2>
-      <p>No pressure, no tricks. Just me hoping we can make another lovely memory together.</p>
-    </div>
-    <div class="question">
-      <div class="ornament">♡</div>
-      <h2>Will you be my favorite plan?</h2>
-      <p>Choose yes and let's make a little plan together.</p>
-      <div class="actions">
-        <button class="btn" onclick="sayYes()">Yes, my love ♡</button>
-        <button class="btn ghost" onclick="softNo()">Let me think ☺</button>
-      </div>
-      <div class="answer" id="answer" aria-live="polite"></div>
-
-      <div id="planner" hidden>
-        <div class="planner">
-          <div class="field">
-            <label for="dateInput">Our day</label>
-            <input type="date" id="dateInput">
-          </div>
-          <div class="field">
-            <label for="timeInput">Our time</label>
-            <input type="time" id="timeInput">
-          </div>
-          <div class="field">
-            <label for="foodInput">Something delicious</label>
-            <select id="foodInput">
-              <option>Surprise me ✨</option>
-              <option>Burgers 🍔</option>
-              <option>Pizza 🍕</option>
-              <option>Pasta 🍝</option>
-              <option>Sushi 🍣</option>
-              <option>Dessert date 🍰</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="placeInput">Where to?</label>
-            <input id="placeInput" placeholder="Somewhere lovely...">
-          </div>
-          <div class="field full">
-            <label for="noteInput">A little note (optional)</label>
-            <textarea id="noteInput" placeholder="Anything you want me to know..."></textarea>
-          </div>
-          <button class="btn" onclick="sharePlan()">Save our little plan ♡</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer>
-  <strong>Made for you, Yooya.</strong>
-  DATE404 · A SMALL PLACE IN A BIG INTERNET
-  <br><br>Always a little more love than words can say ♥
-</footer>
-
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-  <div class="modalbox">
-    <div class="eyebrow">A little promise</div>
-    <h2 id="modalTitle">Our little plan ♡</h2>
-    <p id="modalText"></p>
-    <button class="btn" onclick="closeModal()">Close with a smile</button>
   </div>
 </div>
 
+<audio id="bgMusic" loop preload="none">
+  <source src="music/romantic-space.mp3" type="audio/mpeg">
+</audio>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="orbit">
+    <div class="planet"></div>
+    <div class="orbit-heart">♥</div>
+  </div>
+
+  <div class="eyebrow">A LITTLE UNIVERSE MADE FOR YOU</div>
+  <h1>Yoya</h1>
+  <div class="subtitle">My favorite person in every universe</div>
+
+  <p>
+    Somewhere between a million galaxies,
+    countless stars and endless possibilities...
+    I found the one person I would choose every single time.
+  </p>
+
+  <a href="#letter" class="primary-btn">ENTER OUR UNIVERSE ✦</a>
+
+  <div class="scroll-note">SCROLL TO DISCOVER OUR STORY ↓</div>
+</header>
+
+<!-- LOVE LETTER -->
+<section id="letter">
+  <div class="center">
+    <div class="eyebrow">A MESSAGE FROM MY HEART</div>
+    <h2 class="section-title">To My Yoya</h2>
+    <p class="section-subtitle">There are things that words can never fully explain.</p>
+  </div>
+
+  <div class="letter-card">
+    <p>
+      If I could travel across every galaxy, cross every star
+      and explore every universe, I would still hope to find you.
+      <br><br>
+      You are not just someone I love.
+      You are the calm in my chaos, the warmth in my coldest days,
+      and the beautiful thought that makes an ordinary day feel special.
+      <br><br>
+      I don't need a perfect universe.
+      I just need one where I get to hold your hand,
+      laugh with you, grow with you, and keep choosing you.
+      <br><br>
+      And if life gave me a thousand chances,
+      I would find you and choose you in every single one.
+    </p>
+    <div class="signature">Forever yours, with love ♥</div>
+  </div>
+</section>
+
+<!-- PHOTO GALLERY -->
+<section id="memories">
+  <div class="center">
+    <div class="eyebrow">OUR LITTLE COLLECTION</div>
+    <h2 class="section-title">Little Moments, Forever Memories</h2>
+    <p class="section-subtitle">
+      Eight little windows into the memories I never want to forget.
+      Every picture has a story, and every story has you.
+    </p>
+  </div>
+
+  <div class="gallery">
+
+    <figure class="memory">
+      <img src="images/memory1.jpg" alt="Our memory 1" loading="lazy">
+      <figcaption>My favorite moment ✦</figcaption>
+    </figure>
+
+    <figure class="memory">
+      <img src="images/memory2.jpg" alt="Our memory 2" loading="lazy">
+      <figcaption>A moment worth keeping ♥</figcaption>
+    </figure>
+
+    <figure class="memory">
+      <img src="images/memory3.jpg" alt="Our memory 3" loading="lazy">
+      <figcaption>Just you and me</figcaption>
+    </figure>
+
+    <figure class="memory">
+      <img src="images/memory4.jpg" alt="Our memory 4" loading="lazy">
+      <figcaption>My happy place</figcaption>
+    </figure>
+
+    <figure class="memory">
+      <img src="images/memory5.jpg" alt="Our memory 5" loading="lazy">
+      <figcaption>One for the stars ✧</figcaption>
+    </figure>
+
+    <figure class="memory">
+      <img src="images/memory6.jpg" alt="Our memory 6" loading="lazy">
+      <figcaption>Beautifully us</figcaption>
+    </figure>
+
+    <figure class="memory">
+      <img src="images/memory7.jpg" alt="Our memory 7" loading="lazy">
+      <figcaption>My favorite adventure</figcaption>
+    </figure>
+
+    <figure class="memory">
+      <img src="images/memory8.jpg" alt="Our memory 8" loading="lazy">
+      <figcaption>To many more memories ♥</figcaption>
+    </figure>
+
+  </div>
+</section>
+
+<!-- OUR STORY -->
+<section>
+  <div class="center">
+    <div class="eyebrow">WRITTEN IN THE STARS</div>
+    <h2 class="section-title">Our Little Story</h2>
+    <p class="section-subtitle">
+      Maybe the universe had its own beautiful way of bringing us together.
+    </p>
+  </div>
+
+  <div class="story-list">
+    <div class="story-item">
+      <h3>The Beginning</h3>
+      <p>
+        Every beautiful story starts somewhere.
+        And somehow, ours became one of my favorite things.
+      </p>
+    </div>
+
+    <div class="story-item">
+      <h3>The Little Things</h3>
+      <p>
+        The conversations, the laughter, the silly moments...
+        all those little things became precious to me.
+      </p>
+    </div>
+
+    <div class="story-item">
+      <h3>My Favorite Person</h3>
+      <p>
+        Somewhere along the way, you became the person
+        I want to share the little and big things with.
+      </p>
+    </div>
+
+    <div class="story-item">
+      <h3>To Be Continued...</h3>
+      <p>
+        This isn't the end of our story.
+        It's just another chapter in a universe full of possibilities.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- REASONS -->
+<section>
+  <div class="center">
+    <div class="eyebrow">A MILLION LITTLE REASONS</div>
+    <h2 class="section-title">Why You're Special</h2>
+    <p class="section-subtitle">
+      I could write a thousand reasons, but these are just a few.
+    </p>
+  </div>
+
+  <div class="reasons">
+
+    <div class="reason">
+      <div class="symbol">✧</div>
+      <h3>Your Smile</h3>
+      <p>Because somehow, it makes even the hardest days feel lighter.</p>
+    </div>
+
+    <div class="reason">
+      <div class="symbol">♡</div>
+      <h3>Your Heart</h3>
+      <p>The beautiful way you care, feel and make little things matter.</p>
+    </div>
+
+    <div class="reason">
+      <div class="symbol">☾</div>
+      <h3>Your Presence</h3>
+      <p>Because being with you makes ordinary moments feel magical.</p>
+    </div>
+
+    <div class="reason">
+      <div class="symbol">∞</div>
+      <h3>Simply You</h3>
+      <p>Not because you're perfect, but because you're you. And that's enough.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- DATE INVITATION -->
+<section id="date">
+  <div class="center">
+    <div class="eyebrow">A SPECIAL INVITATION</div>
+    <h2 class="section-title">One More Beautiful Memory?</h2>
+    <p class="section-subtitle">
+      I have a little question for you, Yoya...
+      Would you let me take you on a date?
+    </p>
+  </div>
+
+  <div class="date-box">
+    <div class="center">
+      <div style="font-size:35px;margin-bottom:15px">🌙</div>
+      <h2 style="font-family:'Cormorant Garamond';font-size:35px;font-weight:400">
+        Let's make a memory
+      </h2>
+      <p style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.8">
+        Pick the details, my love. The rest is on me.
+      </p>
+    </div>
+
+    <form id="dateForm">
+
+      <label for="dateDay">CHOOSE OUR DAY</label>
+      <input type="date" id="dateDay" required>
+
+      <label for="dateTime">CHOOSE THE TIME</label>
+      <input type="time" id="dateTime" required>
+
+      <label for="datePlace">WHERE SHOULD WE GO?</label>
+      <select id="datePlace" required>
+        <option value="">Choose our destination...</option>
+        <option>Somewhere romantic 🌹</option>
+        <option>A cozy cafe ☕</option>
+        <option>A walk under the stars ✨</option>
+        <option>A little adventure 🚀</option>
+        <option>Surprise me ❤️</option>
+      </select>
+
+      <label for="dateFood">WHAT SHOULD WE EAT?</label>
+      <select id="dateFood">
+        <option value="Your favorite food">Your favorite food ❤️</option>
+        <option>Pizza 🍕</option>
+        <option>Pasta 🍝</option>
+        <option>Burgers 🍔</option>
+        <option>Dessert & coffee 🍰</option>
+        <option>Anything you want!</option>
+      </select>
+
+      <label for="dateNote">A LITTLE MESSAGE FOR ME (OPTIONAL)</label>
+      <textarea id="dateNote" placeholder="Tell me what you're thinking..."></textarea>
+
+      <button class="date-submit" type="submit">
+        SEND MY ANSWER ON WHATSAPP ♥
+      </button>
+
+    </form>
+  </div>
+</section>
+
+<footer>
+  MADE WITH LOVE, JUST FOR <span>YOYA</span>
+  <br>
+  SOMEWHERE IN THIS INFINITE UNIVERSE, IT WILL ALWAYS BE YOU.
+  <br><br>
+  © OUR LITTLE UNIVERSE
+</footer>
+
 <script>
-const stars=document.getElementById('stars');
+// Create the stars
+const stars = document.getElementById('stars');
 
-for(let i=0;i<65;i++){
-  const s=document.createElement('i');
-  s.className='star';
-  s.style.left=Math.random()*100+'%';
-  s.style.top=Math.random()*100+'%';
-  s.style.animationDelay=Math.random()*4+'s';
-  s.style.animationDuration=2+Math.random()*3+'s';
-  stars.appendChild(s);
+for(let i=0; i<130; i++) {
+  const star = document.createElement('div');
+  star.className = 'star';
+  star.style.left = Math.random()*100 + '%';
+  star.style.top = Math.random()*100 + '%';
+  star.style.animationDelay = Math.random()*4 + 's';
+  star.style.animationDuration = (2+Math.random()*4) + 's';
+  stars.appendChild(star);
 }
 
-function makeHeart(){
-  const h=document.createElement('span');
-  h.className='float';
-  h.textContent=['♡','✧','♥'][Math.floor(Math.random()*3)];
-  h.style.left=Math.random()*100+'%';
-  h.style.fontSize=12+Math.random()*15+'px';
-  h.style.animationDuration=9+Math.random()*7+'s';
-  document.getElementById('hearts').appendChild(h);
-  setTimeout(()=>h.remove(),17000);
-}
+// Background music controls
+const music = document.getElementById('bgMusic');
+const musicToggle = document.getElementById('musicToggle');
+const musicBars = document.getElementById('musicBars');
 
-if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
-  setInterval(makeHeart,1300);
-}
-
-function sayYes(){
-  document.getElementById('answer').textContent=
-  'You just made my day. I knew I wanted to ask you. ♡';
-
-  document.getElementById('planner').hidden=false;
-
-  document.getElementById('planner').scrollIntoView({
-    behavior:'smooth',
-    block:'center'
-  });
-}
-
-function softNo(){
-  document.getElementById('answer').textContent=
-  'Take your time, my favorite person. There is no rush. ♡';
-}
-
-function sharePlan(){
-  const v=id=>document.getElementById(id).value;
-
-  const msg=
-  'Our little date plan ♡\n'+
-  'Day: '+(v('dateInput')||'Not decided yet')+'\n'+
-  'Time: '+(v('timeInput')||'Whenever works')+'\n'+
-  'Food: '+v('foodInput')+'\n'+
-  'Place: '+(v('placeInput')||'You choose')+
-  (v('noteInput')?'\nA note: '+v('noteInput'):'');
-
-  document.getElementById('modalText').textContent=msg;
-  document.getElementById('modal').classList.add('show');
-}
-
-function closeModal(){
-  document.getElementById('modal').classList.remove('show');
-}
-
-document.getElementById('modal').addEventListener('click',e=>{
-  if(e.target.id==='modal')closeModal();
+musicToggle.addEventListener('click', async () => {
+  if(music.paused) {
+    try {
+      await music.play();
+      musicToggle.textContent = 'Ⅱ';
+      musicBars.classList.add('playing');
+    } catch(error) {
+      alert('Please add your music file to the music folder first.');
+    }
+  } else {
+    music.pause();
+    musicToggle.textContent = '▶';
+    musicBars.classList.remove('playing');
+  }
 });
 
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape')closeModal();
+music.addEventListener('ended', () => {
+  musicToggle.textContent = '▶';
+  musicBars.classList.remove('playing');
+});
+
+// WhatsApp date invitation
+document.getElementById('dateForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const day = document.getElementById('dateDay').value;
+  const time = document.getElementById('dateTime').value;
+  const place = document.getElementById('datePlace').value;
+  const food = document.getElementById('dateFood').value;
+  const note = document.getElementById('dateNote').value;
+
+  if(!day || !time || !place) {
+    alert('Please fill in the required details ❤️');
+    return;
+  }
+
+  const message =
+`Hey Youssef! ❤️
+
+I have an answer to your invitation!
+
+Our Date:
+📅 Day: ${day}
+⏰ Time: ${time}
+📍 Place: ${place}
+🍰 Food: ${food}
+
+A little message:
+${note || 'I cannot wait to see you! ❤️'}
+
+From your Yoya, with love. 🌙`;
+
+  const phone = '201224745669';
+  const whatsappURL = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(message);
+
+  window.open(whatsappURL, '_blank');
 });
 </script>
 
