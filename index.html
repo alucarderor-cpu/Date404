@@ -488,13 +488,14 @@ function saveState(){
 }
 function loadState(){
   try{
-    const s=JSON.parse(localStorage.getItem(CONFIG.storageKey)||'null');
-    if(!s)return;
-    (s.planets||[]).forEach(i=>{if(i>=0&&i<planetPositions.length)openedPlanets.add(i)});
-    (s.stars||[]).forEach(i=>{if(i>=0&&i<starPositions.length)collectedStars.add(i)});
-    secretShown=!!s.secret;
-    pendingMemoriesOpen=!!s.pendingMemoriesOpen;
-    memoriesAutoOpened=!!s.memoriesAutoOpened;
+    localStorage.removeItem(CONFIG.storageKey);
+
+    openedPlanets.clear();
+    collectedStars.clear();
+    secretShown=false;
+    pendingMemoriesOpen=false;
+    memoriesAutoOpened=false;
+
   }catch(e){}
 }
 function applyState(){
