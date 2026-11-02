@@ -10,24 +10,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
 
 :root{
-  --bg:#100817;
   --pink:#ed9acb;
   --gold:#e8d3a1;
   --purple:#9b70cf;
   --white:#fff8ff;
 }
-
 *{box-sizing:border-box}
 html,body{
   margin:0;width:100%;min-height:100%;
-  background:var(--bg);color:var(--white);
+  background:#100817;color:var(--white);
   font-family:'DM Sans',sans-serif;
-  overflow-x:hidden;
+  overflow:hidden;
 }
-body{min-height:100dvh}
 button{font:inherit;cursor:pointer}
-button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
-
 #stars{
   position:fixed;inset:0;width:100%;height:100%;
   z-index:0;pointer-events:none;
@@ -35,23 +30,25 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
 .ambient{
   position:fixed;inset:0;pointer-events:none;z-index:0;
   background:
-  radial-gradient(ellipse at 50% 45%,rgba(100,35,105,.25),transparent 55%),
-  radial-gradient(ellipse at 15% 90%,rgba(56,30,100,.18),transparent 45%);
+    radial-gradient(ellipse at 50% 45%,#64236940,transparent 55%),
+    radial-gradient(ellipse at 15% 90%,#381e6430,transparent 45%);
 }
 .topbar{
   position:fixed;top:0;left:0;right:0;z-index:30;
-  padding:14px 16px;display:flex;justify-content:space-between;
-  align-items:center;pointer-events:none;
+  padding:14px 16px;display:flex;
+  justify-content:space-between;align-items:center;
+  pointer-events:none;
 }
 .brand{
-  color:var(--gold);font-family:'Cormorant Garamond',serif;
+  color:var(--gold);
+  font-family:'Cormorant Garamond',serif;
   letter-spacing:2px;font-size:16px;
 }
 .top-actions{display:flex;gap:8px;pointer-events:auto}
 .pill{
-  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
-  color:white;border-radius:30px;padding:7px 11px;font-size:10px;
-  backdrop-filter:blur(12px);
+  background:#ffffff12;border:1px solid #ffffff25;
+  color:white;border-radius:30px;padding:7px 11px;
+  font-size:10px;backdrop-filter:blur(12px);
 }
 .screen{
   display:none;position:relative;z-index:2;
@@ -61,48 +58,32 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
   flex-direction:column;text-align:center;
 }
 .screen.active{display:flex!important}
-#game{
-  display:none!important;
-  position:fixed!important;inset:0!important;
-  width:100%!important;height:100dvh!important;
-  min-height:100dvh!important;
-  padding:0!important;margin:0!important;
-  z-index:50!important;overflow:hidden!important;
-  background:#090611!important;
-  touch-action:none;
-}
-#game.active{display:block!important}
 .content{
   width:min(620px,100%);margin:auto;
   animation:fadeIn 1s ease both;
 }
 .eyebrow{
-  color:var(--gold);font-size:10px;letter-spacing:4px;
-  text-transform:uppercase;margin-bottom:18px;
+  color:var(--gold);font-size:10px;
+  letter-spacing:4px;text-transform:uppercase;
+  margin-bottom:18px;
 }
 h1,h2{
-  font-family:'Cormorant Garamond',serif;font-weight:500;
-  line-height:1.05;margin:0 0 20px;
+  font-family:'Cormorant Garamond',serif;
+  font-weight:500;line-height:1.05;margin:0 0 20px;
 }
 h1{font-size:clamp(44px,10vw,76px)}
 h2{font-size:clamp(34px,8vw,54px)}
 p{
-  color:rgba(255,248,255,.72);line-height:1.9;
-  font-size:14px;
+  color:#fff8ffb8;line-height:1.9;font-size:14px;
 }
 .accent{color:var(--pink)}
 .gold{color:var(--gold)}
 .main-btn{
-  border:1px solid rgba(232,211,161,.65);
-  color:#211324;background:linear-gradient(120deg,#f0dcae,#d99fc8);
+  border:1px solid #e8d3a1aa;color:#211324;
+  background:linear-gradient(120deg,#f0dcae,#d99fc8);
   border-radius:30px;padding:14px 27px;
   letter-spacing:1px;font-size:12px;font-weight:700;
   margin-top:20px;box-shadow:0 8px 35px #d99fc833;
-}
-.ghost-btn{
-  background:rgba(255,255,255,.06);
-  color:white;border:1px solid #ffffff35;
-  border-radius:30px;padding:12px 20px;margin:8px;
 }
 .heart{
   font-size:38px;color:var(--pink);
@@ -112,68 +93,125 @@ p{
 .small-note{font-size:10px;letter-spacing:2px;color:#a99aaa}
 
 /* GAME */
+#game{
+  display:none!important;
+  position:fixed!important;inset:0!important;
+  width:100%!important;height:100vh!important;
+  height:100dvh!important;min-height:0!important;
+  padding:0!important;margin:0!important;
+  z-index:50!important;overflow:hidden!important;
+  background:#090611!important;touch-action:none;
+}
+#game.active{display:block!important}
+
 #universe{
   position:absolute;inset:0;overflow:hidden;
   background:
-    radial-gradient(ellipse at 50% 50%,#27112f 0%,#120b20 48%,#080611 100%);
+    radial-gradient(ellipse at 50% 50%,#32163d 0%,#190d27 43%,#080611 100%);
   touch-action:none;
 }
 
-/* FIX: world now starts at the top-left corner */
+/* World is anchored to the actual center of the game viewport */
 #world{
   position:absolute;
   width:1800px;height:1800px;
-  left:0;top:0;
+  left:50%;top:50%;
   transform-origin:0 0;
   will-change:transform;
 }
-
 .nebula{
   position:absolute;inset:0;
   background:
-    radial-gradient(ellipse at 35% 40%,#8d397b22,transparent 35%),
-    radial-gradient(ellipse at 70% 60%,#593c9c22,transparent 35%);
+    radial-gradient(ellipse at 35% 40%,#a13c8c38,transparent 35%),
+    radial-gradient(ellipse at 70% 60%,#593c9c38,transparent 35%),
+    radial-gradient(ellipse at 50% 15%,#9c5d9230,transparent 30%),
+    radial-gradient(ellipse at 20% 80%,#375a9c25,transparent 35%);
+  filter:blur(3px);
+  pointer-events:none;
+}
+.nebula:after{
+  content:"";position:absolute;inset:0;
+  background-image:
+    radial-gradient(2px 2px at 20% 25%,#ffffff88,transparent),
+    radial-gradient(2px 2px at 70% 35%,#ffffff77,transparent),
+    radial-gradient(2px 2px at 55% 75%,#ffffff88,transparent),
+    radial-gradient(1px 1px at 85% 85%,#ffffff99,transparent);
+  background-size:350px 350px;
+  opacity:.8;
+}
+
+/* Decorative cosmic dust */
+.dust{
+  position:absolute;border-radius:50%;
+  background:#fff8dc;
+  box-shadow:0 0 8px #fff;
+  pointer-events:none;
+  animation:twinkle 2.5s infinite alternate;
 }
 .ship{
   position:absolute;left:900px;top:900px;
   width:55px;height:75px;
   transform:translate(-50%,-50%);
-  z-index:5;filter:drop-shadow(0 0 14px #ed9acb);
+  z-index:8;filter:drop-shadow(0 0 14px #ed9acb);
   pointer-events:none;
 }
 .ship svg{width:100%;height:100%;overflow:visible}
-
+.ship-engine{
+  position:absolute;left:50%;bottom:-17px;
+  width:12px;height:25px;transform:translateX(-50%);
+  background:linear-gradient(#fff0,#ffca80,#ed78c9,#7652cf00);
+  filter:blur(3px);border-radius:50%;
+  animation:flame .18s infinite alternate;
+}
 .planet{
   position:absolute;border:0;background:none;color:white;
-  display:flex;flex-direction:column;align-items:center;gap:10px;
-  transform:translate(-50%,-50%);z-index:3;padding:10px;
+  display:flex;flex-direction:column;
+  align-items:center;gap:10px;
+  transform:translate(-50%,-50%);
+  z-index:5;padding:10px;
 }
 .planet-ball{
-  width:var(--size);height:var(--size);border-radius:50%;
-  display:block;box-shadow:inset -15px -10px 25px #0008,
-    0 0 35px var(--glow);
+  width:var(--size);height:var(--size);
+  border-radius:50%;display:block;
+  box-shadow:inset -15px -10px 25px #0008,
+    0 0 35px var(--glow),0 0 70px var(--glow);
   background:var(--planet);
-  border:1px solid #ffffff35;position:relative;
+  border:1px solid #ffffff50;
+  position:relative;
 }
 .planet-ball:after{
-  content:"";position:absolute;inset:20% 0;
-  border-top:2px solid #ffffff30;border-bottom:2px solid #ffffff20;
+  content:"";position:absolute;inset:20% -12%;
+  border-top:3px solid #ffffff40;
+  border-bottom:3px solid #ffffff30;
   transform:rotate(-25deg);border-radius:50%;
 }
 .planet-name{
-  font-family:'Cormorant Garamond',serif;font-size:17px;
-  white-space:nowrap;color:#f9e6f6;
+  font-family:'Cormorant Garamond',serif;
+  font-size:17px;white-space:nowrap;color:#f9e6f6;
   text-shadow:0 2px 8px black;
 }
-.star{
-  position:absolute;color:#fff3c8;
-  text-shadow:0 0 10px #fff;z-index:1;
-  animation:twinkle 3s infinite alternate;
+.planet.discovered .planet-ball{
+  box-shadow:0 0 45px var(--glow),0 0 90px var(--glow);
+}
+.planet.discovered .planet-name{color:var(--gold)}
+
+/* Collectible stars */
+.collectible{
+  position:absolute;z-index:6;
+  width:30px;height:30px;
+  display:grid;place-items:center;
+  color:#fff3a8;font-size:23px;
+  text-shadow:0 0 9px #ffe8a3,0 0 22px #f7c96a;
+  animation:starFloat 2s ease-in-out infinite alternate;
+  pointer-events:none;
+}
+.collectible.collected{
+  animation:collectFlash .35s forwards;
 }
 #hud{
   position:absolute;top:62px;left:15px;right:15px;
-  display:flex;justify-content:space-between;align-items:center;
-  z-index:80;pointer-events:none;
+  display:flex;justify-content:space-between;
+  align-items:center;z-index:80;pointer-events:none;
 }
 .hud-label{
   font-size:10px;letter-spacing:2px;color:#f3d9ec;
@@ -182,8 +220,9 @@ p{
 .hud-buttons{display:flex;gap:7px;pointer-events:auto}
 .hud-btn{
   border:1px solid #ffffff38;color:white;
-  background:#170d22cc;padding:9px 12px;border-radius:22px;
-  font-size:10px;backdrop-filter:blur(8px);
+  background:#170d22cc;padding:9px 12px;
+  border-radius:22px;font-size:10px;
+  backdrop-filter:blur(8px);
 }
 #mapPanel{
   display:none;position:absolute;z-index:100;
@@ -229,7 +268,7 @@ p{
   user-select:none;-webkit-user-select:none;
 }
 #boostBtn.pressed{
-  background:#c47acb;color:white;transform:scale(.95)
+  background:#c47acb;color:white;transform:scale(.95);
 }
 #gameHint{
   position:absolute;bottom:12px;left:50%;
@@ -238,12 +277,26 @@ p{
   white-space:nowrap;text-shadow:0 2px 6px black;
   pointer-events:none;
 }
+#toast{
+  position:absolute;left:50%;top:115px;
+  transform:translateX(-50%) translateY(-10px);
+  opacity:0;pointer-events:none;
+  background:#24142ddd;border:1px solid #edc5df66;
+  color:#ffe7f5;padding:11px 19px;
+  border-radius:30px;z-index:150;
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;white-space:nowrap;
+  transition:.3s;
+}
+#toast.show{
+  opacity:1;transform:translateX(-50%) translateY(0);
+}
 
 /* MODALS */
 .overlay{
   display:none;position:fixed;inset:0;z-index:200;
-  background:#08040deF;align-items:center;justify-content:center;
-  padding:20px;
+  background:#08040def;align-items:center;
+  justify-content:center;padding:20px;
 }
 .overlay.open{display:flex}
 .modal{
@@ -274,8 +327,8 @@ p{
 }
 .gallery-card p{font-size:11px;margin:8px}
 #lightbox img{
-  max-width:90vw;max-height:75dvh;object-fit:contain;
-  border-radius:12px;
+  max-width:90vw;max-height:75dvh;
+  object-fit:contain;border-radius:12px;
 }
 input,textarea{
   width:100%;padding:13px;margin:7px 0;
@@ -284,16 +337,28 @@ input,textarea{
 }
 footer{
   position:fixed;bottom:12px;left:0;right:0;
-  text-align:center;z-index:5;
-  color:#857487;font-size:8px;letter-spacing:2px;
-  pointer-events:none;
+  text-align:center;z-index:5;color:#857487;
+  font-size:8px;letter-spacing:2px;pointer-events:none;
 }
 @keyframes fadeIn{
   from{opacity:0;transform:translateY(15px)}
   to{opacity:1;transform:translateY(0)}
 }
-@keyframes twinkle{from{opacity:.25}to{opacity:1}}
-
+@keyframes twinkle{
+  from{opacity:.2;transform:scale(.8)}
+  to{opacity:1;transform:scale(1.3)}
+}
+@keyframes starFloat{
+  from{transform:translateY(3px) rotate(-10deg)}
+  to{transform:translateY(-7px) rotate(15deg)}
+}
+@keyframes flame{
+  from{height:17px;opacity:.65}
+  to{height:29px;opacity:1}
+}
+@keyframes collectFlash{
+  to{transform:scale(2.5);opacity:0}
+}
 @media(min-width:700px){
   #joystick{width:145px;height:145px;left:35px;bottom:35px}
   #stick{width:62px;height:62px}
@@ -345,16 +410,12 @@ footer{
   <div class="content">
     <div class="eyebrow">A message from my heart</div>
     <h2>Dear <span class="accent">Yoya</span> ♡</h2>
-    <p>
-      If I could put everything I feel into words,
-      I would probably need a whole galaxy.
-    </p>
-    <p>
-      So I made you one instead.<br>
+    <p>If I could put everything I feel into words,
+      I would probably need a whole galaxy.</p>
+    <p>So I made you one instead.<br>
       A little place where every star holds a memory,
       every planet hides a reason,
-      and every road leads back to you.
-    </p>
+      and every road leads back to you.</p>
     <p class="gold">Ready to explore it with me?</p>
     <button class="main-btn" onclick="goTo('littleThings')">I'M READY ♡</button>
   </div>
@@ -364,11 +425,9 @@ footer{
   <div class="content">
     <div class="eyebrow">The little things</div>
     <h2>It's always <span class="accent">you.</span></h2>
-    <p>
-      Your smile. Your voice. The little details you don't even notice.
+    <p>Your smile. Your voice. The little details you don't even notice.
       The moments that seem ordinary but become unforgettable
-      just because you're in them.
-    </p>
+      just because you're in them.</p>
     <p>That's my favorite kind of magic.</p>
     <button class="main-btn" onclick="goTo('reasons')">ONE MORE THING ✦</button>
   </div>
@@ -392,6 +451,7 @@ footer{
       <div class="nebula"></div>
 
       <div class="ship" id="ship">
+        <div class="ship-engine"></div>
         <svg viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg">
           <path d="M30 3 C14 22 14 48 30 65 C46 48 46 22 30 3Z"
             fill="#f5d8ef" stroke="#fff" stroke-width="1.5"/>
@@ -403,23 +463,33 @@ footer{
         </svg>
       </div>
 
-      <button class="planet" style="left:900px;top:900px;--size:105px;--planet:linear-gradient(140deg,#f0a2cc,#8b477e);--glow:#ed8acb88" onclick="openPlanet(0)">
+      <button class="planet" id="planet0"
+        style="left:900px;top:900px;--size:105px;--planet:linear-gradient(140deg,#f0a2cc,#8b477e);--glow:#ed8acb88"
+        onclick="openPlanet(0)">
         <span class="planet-ball"></span><span class="planet-name">Our Beginning</span>
       </button>
 
-      <button class="planet" style="left:470px;top:490px;--size:82px;--planet:linear-gradient(140deg,#9fc5d9,#426eaa);--glow:#6b9bd988" onclick="openPlanet(1)">
+      <button class="planet" id="planet1"
+        style="left:470px;top:490px;--size:82px;--planet:linear-gradient(140deg,#9fc5d9,#426eaa);--glow:#6b9bd988"
+        onclick="openPlanet(1)">
         <span class="planet-ball"></span><span class="planet-name">Your Smile</span>
       </button>
 
-      <button class="planet" style="left:1320px;top:510px;--size:95px;--planet:linear-gradient(140deg,#e8bd8d,#9c603d);--glow:#d9a16a88" onclick="openPlanet(2)">
+      <button class="planet" id="planet2"
+        style="left:1320px;top:510px;--size:95px;--planet:linear-gradient(140deg,#e8bd8d,#9c603d);--glow:#d9a16a88"
+        onclick="openPlanet(2)">
         <span class="planet-ball"></span><span class="planet-name">Our Memories</span>
       </button>
 
-      <button class="planet" style="left:500px;top:1320px;--size:90px;--planet:linear-gradient(140deg,#b5a3e8,#6650a1);--glow:#a38be988" onclick="openPlanet(3)">
+      <button class="planet" id="planet3"
+        style="left:500px;top:1320px;--size:90px;--planet:linear-gradient(140deg,#b5a3e8,#6650a1);--glow:#a38be988"
+        onclick="openPlanet(3)">
         <span class="planet-ball"></span><span class="planet-name">My Favorite Person</span>
       </button>
 
-      <button class="planet" style="left:1370px;top:1300px;--size:110px;--planet:linear-gradient(140deg,#e9c68e,#a76b54);--glow:#e8bc8c88" onclick="openPlanet(4)">
+      <button class="planet" id="planet4"
+        style="left:1370px;top:1300px;--size:110px;--planet:linear-gradient(140deg,#e9c68e,#a76b54);--glow:#e8bc8c88"
+        onclick="openPlanet(4)">
         <span class="planet-ball"></span><span class="planet-name">To Our Future</span>
       </button>
     </div>
@@ -442,11 +512,13 @@ footer{
     <button class="map-item" onclick="goPlanet(4)">✦ To Our Future</button>
   </div>
 
+  <div id="toast"></div>
+
   <div id="controls">
     <div id="joystick"><div id="stick"></div></div>
     <button id="boostBtn">BOOST ✦</button>
   </div>
-  <div id="gameHint">USE THE JOYSTICK TO EXPLORE · TAP A PLANET</div>
+  <div id="gameHint">COLLECT THE STARS ✦ · EXPLORE THE PLANETS</div>
 </section>
 
 <!-- PLANET MODAL -->
@@ -485,10 +557,8 @@ footer{
     <div class="heart">♡</div>
     <div class="eyebrow">One last destination</div>
     <h2>Will you go on a <span class="accent">date</span> with me?</h2>
-    <p>
-      Every adventure is better with you.<br>
-      So here's my favorite question...
-    </p>
+    <p>Every adventure is better with you.<br>
+      So here's my favorite question...</p>
     <input id="datePlace" placeholder="Where should we go?">
     <input id="dateTime" placeholder="When would you like?">
     <button class="main-btn" onclick="sendDate()">YES, LET'S MAKE A MEMORY ♡</button>
@@ -505,25 +575,27 @@ const starCtx=starCanvas.getContext('2d');
 let starDots=[];
 
 function resizeStars(){
-  const dpr=Math.min(window.devicePixelRatio||1,2);
+  const dpr=Math.min(devicePixelRatio||1,2);
   starCanvas.width=innerWidth*dpr;
   starCanvas.height=innerHeight*dpr;
   starCanvas.style.width=innerWidth+'px';
   starCanvas.style.height=innerHeight+'px';
   starCtx.setTransform(dpr,0,0,dpr,0,0);
 
-  starDots=Array.from({length:150},()=>({
+  starDots=Array.from({length:180},()=>({
     x:Math.random()*innerWidth,
     y:Math.random()*innerHeight,
-    r:Math.random()*1.2+.2,
-    a:Math.random()*.7+.2
+    r:Math.random()*1.4+.2,
+    a:Math.random()*.7+.2,
+    phase:Math.random()*6
   }));
 }
 
-function drawStars(){
+function drawStars(t=0){
   starCtx.clearRect(0,0,innerWidth,innerHeight);
   starDots.forEach(s=>{
-    starCtx.fillStyle=`rgba(255,245,255,${s.a})`;
+    const alpha=s.a*(.65+.35*Math.sin(t*.001+s.phase));
+    starCtx.fillStyle=`rgba(255,245,255,${alpha})`;
     starCtx.beginPath();
     starCtx.arc(s.x,s.y,s.r,0,Math.PI*2);
     starCtx.fill();
@@ -548,20 +620,16 @@ async function startMusic(){
     musicBtn.textContent='♫ Tap for Music';
   }
 }
-
 function toggleMusic(){
-  if(music.paused){
-    startMusic();
-  }else{
+  if(music.paused)startMusic();
+  else{
     music.pause();
     musicBtn.textContent='♫ Music OFF';
   }
 }
-
 musicBtn.addEventListener('click',toggleMusic);
-
 document.addEventListener('pointerdown',()=>{
-  if(!musicStarted && music.paused)startMusic();
+  if(!musicStarted&&music.paused)startMusic();
 },{once:true});
 
 /* SCREENS */
@@ -571,14 +639,16 @@ function goTo(id){
   window.scrollTo(0,0);
 }
 
-/* GAME STATE */
+/* GAME REFERENCES */
 const game=document.getElementById('game');
+const universe=document.getElementById('universe');
 const world=document.getElementById('world');
 const ship=document.getElementById('ship');
 const joystick=document.getElementById('joystick');
 const stick=document.getElementById('stick');
 const boostBtn=document.getElementById('boostBtn');
 const starCounter=document.getElementById('starCounter');
+const toast=document.getElementById('toast');
 
 let shipX=900,shipY=900;
 let joyX=0,joyY=0;
@@ -586,23 +656,98 @@ let boostActive=false;
 let starsCollected=0;
 let gameRunning=false;
 let lastTime=0;
+let toastTimer=null;
+let currentScale=1;
+let openedPlanets=new Set();
+
+/* Planet coordinates */
+const planetPositions=[
+  [900,900],
+  [470,490],
+  [1320,510],
+  [500,1320],
+  [1370,1300]
+];
+
+/* Collectible star coordinates */
+const starPositions=[
+  [690,760],[1080,680],[1190,920],[720,1090],
+  [350,800],[600,350],[1020,360],[1490,760],
+  [1550,1100],[1100,1450],[800,1500],[320,1180],
+  [850,500],[1250,1150],[400,1020],[1450,350]
+];
+
+let collectibleElements=[];
+
+function createGalaxy(){
+  /* Decorative cosmic dust */
+  const nebula=document.querySelector('.nebula');
+  for(let i=0;i<100;i++){
+    const d=document.createElement('i');
+    d.className='dust';
+    d.style.left=Math.random()*1780+'px';
+    d.style.top=Math.random()*1780+'px';
+    const size=Math.random()*2.5+1;
+    d.style.width=size+'px';
+    d.style.height=size+'px';
+    d.style.animationDelay=Math.random()*3+'s';
+    nebula.appendChild(d);
+  }
+
+  /* Actual collectible stars */
+  starPositions.forEach((pos,i)=>{
+    const el=document.createElement('div');
+    el.className='collectible';
+    el.textContent='✦';
+    el.style.left=pos[0]+'px';
+    el.style.top=pos[1]+'px';
+    el.dataset.index=i;
+    world.appendChild(el);
+    collectibleElements.push(el);
+  });
+}
+createGalaxy();
 
 /*
   CAMERA FIX:
-  The world starts at (0,0).
-  The camera translates the ship's coordinates
-  so the ship stays at the center of the screen.
+  Anchor world to the center of #universe.
+  Read the actual game rectangle, not window dimensions.
+  This keeps the ship centered on phones and desktops.
 */
 function updateCamera(){
-  const scale=innerWidth<600?0.78:1;
+  const rect=universe.getBoundingClientRect();
 
-  const cameraX=(innerWidth/2)-(shipX*scale);
-  const cameraY=(innerHeight/2)-(shipY*scale);
+  const vw=rect.width;
+  const vh=rect.height;
+
+  currentScale=vw<600?.68:1;
+
+  const tx=-shipX*currentScale;
+  const ty=-shipY*currentScale;
 
   world.style.transform=
-    `translate3d(${cameraX}px,${cameraY}px,0) scale(${scale})`;
+    `translate3d(${tx}px,${ty}px,0) scale(${currentScale})`;
 }
 
+function refreshViewport(){
+  const vv=window.visualViewport;
+  if(vv){
+    game.style.height=vv.height+'px';
+    game.style.top=vv.offsetTop+'px';
+  }
+  if(gameRunning)updateCamera();
+}
+
+window.addEventListener('resize',refreshViewport);
+window.addEventListener('orientationchange',()=>{
+  setTimeout(refreshViewport,250);
+});
+if(window.visualViewport){
+  window.visualViewport.addEventListener('resize',refreshViewport);
+  window.visualViewport.addEventListener('scroll',refreshViewport);
+}
+
+/* START GAME */
 function startGame(){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
 
@@ -614,6 +759,17 @@ function startGame(){
   joyX=0;
   joyY=0;
   boostActive=false;
+  starsCollected=0;
+  openedPlanets.clear();
+
+  collectibleElements.forEach(el=>{
+    el.style.display='grid';
+    el.classList.remove('collected');
+  });
+
+  document.querySelectorAll('.planet').forEach(p=>p.classList.remove('discovered'));
+
+  starCounter.textContent='✦ 0 stars';
 
   ship.style.left=shipX+'px';
   ship.style.top=shipY+'px';
@@ -622,23 +778,68 @@ function startGame(){
   gameRunning=true;
   lastTime=0;
 
+  refreshViewport();
   updateCamera();
   requestAnimationFrame(gameLoop);
   startMusic();
 }
 
-window.addEventListener('resize',()=>{
-  if(gameRunning)updateCamera();
-});
+/* TOAST */
+function showToast(message){
+  toast.textContent=message;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>toast.classList.remove('show'),1900);
+}
+
+/* COLLECT STARS */
+function collectStar(index){
+  const el=collectibleElements[index];
+  if(!el||el.style.display==='none')return;
+
+  el.style.display='none';
+  el.classList.add('collected');
+
+  starsCollected++;
+  starCounter.textContent='✦ '+starsCollected+' stars';
+
+  showToast('You found a little piece of starlight ✦');
+}
+
+/* PLANET COLLISION */
+function checkPlanetCollision(){
+  for(let i=0;i<planetPositions.length;i++){
+    if(openedPlanets.has(i))continue;
+
+    const [px,py]=planetPositions[i];
+    const distance=Math.hypot(shipX-px,shipY-py);
+
+    /* Open planet when ship gets close */
+    if(distance<75){
+      openPlanet(i,true);
+      break;
+    }
+  }
+}
+
+/* STAR COLLISION */
+function checkStarCollision(){
+  starPositions.forEach((pos,i)=>{
+    const el=collectibleElements[i];
+    if(!el||el.style.display==='none')return;
+
+    const distance=Math.hypot(shipX-pos[0],shipY-pos[1]);
+    if(distance<32)collectStar(i);
+  });
+}
 
 /* MAIN GAME LOOP */
 function gameLoop(timestamp){
   if(!gameRunning)return;
 
   const dt=lastTime
-    ? Math.min((timestamp-lastTime)/16.67,2)
-    : 1;
-
+    ?Math.min((timestamp-lastTime)/16.67,2)
+    :1;
   lastTime=timestamp;
 
   const speed=(boostActive?5.2:2.7)*dt;
@@ -646,8 +847,8 @@ function gameLoop(timestamp){
   shipX+=joyX*speed;
   shipY+=joyY*speed;
 
-  shipX=Math.max(80,Math.min(1720,shipX));
-  shipY=Math.max(80,Math.min(1720,shipY));
+  shipX=Math.max(50,Math.min(1750,shipX));
+  shipY=Math.max(50,Math.min(1750,shipY));
 
   ship.style.left=shipX+'px';
   ship.style.top=shipY+'px';
@@ -659,7 +860,10 @@ function gameLoop(timestamp){
     ship.style.transform='translate(-50%,-50%)';
   }
 
+  checkStarCollision();
+  checkPlanetCollision();
   updateCamera();
+
   requestAnimationFrame(gameLoop);
 }
 
@@ -703,7 +907,6 @@ joystick.addEventListener('pointerdown',e=>{
   joystick.setPointerCapture(e.pointerId);
   moveStick(e);
 });
-
 joystick.addEventListener('pointermove',moveStick);
 joystick.addEventListener('pointerup',resetStick);
 joystick.addEventListener('pointercancel',resetStick);
@@ -715,30 +918,23 @@ boostBtn.addEventListener('pointerdown',e=>{
   boostActive=true;
   boostBtn.classList.add('pressed');
 });
-
 function stopBoost(){
   boostActive=false;
   boostBtn.classList.remove('pressed');
 }
-
 boostBtn.addEventListener('pointerup',stopBoost);
 boostBtn.addEventListener('pointercancel',stopBoost);
 boostBtn.addEventListener('lostpointercapture',stopBoost);
 
 /* KEYBOARD */
 const keys={};
-
 document.addEventListener('keydown',e=>{
   keys[e.key.toLowerCase()]=true;
-
   if(['arrowup','arrowdown','arrowleft','arrowright',' '].includes(e.key.toLowerCase())){
     e.preventDefault();
   }
 });
-
-document.addEventListener('keyup',e=>{
-  keys[e.key.toLowerCase()]=false;
-});
+document.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
 
 function keyboardLoop(){
   if(keys.arrowleft||keys.a)joyX=-1;
@@ -765,26 +961,27 @@ const planetData=[
   ['To Our Future','There are so many places we have not seen and memories we have not made yet. I hope we explore them together.']
 ];
 
-function openPlanet(i){
+function openPlanet(i,fromCollision=false){
+  if(openedPlanets.has(i))return;
+
+  openedPlanets.add(i);
+
   document.getElementById('planetTitle').textContent=planetData[i][0];
   document.getElementById('planetText').textContent=planetData[i][1];
   document.getElementById('planetModal').classList.add('open');
 
-  starsCollected++;
-  starCounter.textContent='✦ '+starsCollected+' stars';
+  const planet=document.getElementById('planet'+i);
+  planet.classList.add('discovered');
+
+  if(fromCollision){
+    showToast('A new world discovered ✦');
+  }
 }
 
 function goPlanet(i){
-  const positions=[
-    [900,900],
-    [470,490],
-    [1320,510],
-    [500,1320],
-    [1370,1300]
-  ];
-
-  shipX=positions[i][0]-100;
-  shipY=positions[i][1]+100;
+  const positions=planetPositions;
+  shipX=positions[i][0]-110;
+  shipY=positions[i][1]+110;
 
   document.getElementById('mapPanel').classList.remove('open');
   updateCamera();
@@ -846,8 +1043,7 @@ function sendDate(){
   const place=document.getElementById('datePlace').value.trim()||'Anywhere with you';
   const time=document.getElementById('dateTime').value.trim()||'Whenever you like';
 
-  const message=
-`Hey Yoya ♡
+  const message=`Hey Yoya ♡
 I have a date invitation for you!
 Place: ${place}
 Time: ${time}
@@ -860,7 +1056,7 @@ From your favorite astronaut 🚀`;
   );
 }
 
-/* OPTIONAL ENDING FUNCTION */
+/* ENDING */
 function finishAdventure(){
   gameRunning=false;
   game.classList.remove('active');
