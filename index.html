@@ -2,285 +2,448 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Date Invite 💖</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10090e">
+<title>Date404 — Just for Yoya ♥</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
 <style>
-body {
-  margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
-  text-align:center;
-  overflow:hidden;
+:root {
+  --bg:#10090e;
+  --panel:#21131c;
+  --rose:#d98b9e;
+  --light:#f2c2cd;
+  --cream:#f8eae6;
+  --muted:#bba8af;
+  --gold:#c9a879;
+  --line:rgba(240,183,196,.17);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
 }
-
-.container {
-  margin-top:60px;
-  padding:15px;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--cream);
+  font-family:var(--sans);overflow-x:hidden;
 }
-
-button {
-  padding:12px 20px;
-  margin:10px;
-  border:none;
-  border-radius:25px;
-  font-size:16px;
+body:before{
+  content:"";position:fixed;inset:0;z-index:-1;
+  background:radial-gradient(ellipse at 15% 10%,#69253d55,transparent 40%),
+  radial-gradient(ellipse at 85% 70%,#69314533,transparent 42%),
+  linear-gradient(145deg,#10090e,#190d14 55%,#0c080b);
 }
-
-.yes { background:#ff4d6d; color:white; }
-.no { background:#aaa; color:white; position:absolute; }
-
-input, select {
-  padding:10px;
-  border-radius:10px;
-  border:1px solid #ddd;
-  margin:10px;
-  width:80%;
+.stars,.hearts{
+  position:fixed;inset:0;overflow:hidden;pointer-events:none;
 }
-
-.hidden { display:none; }
-
-.avatar {
-  position:fixed;
-  bottom:15px;
-  right:15px;
-  background:white;
-  padding:12px;
-  border-radius:15px;
-  width:180px;
-  font-size:13px;
-  box-shadow:0 0 10px rgba(0,0,0,0.2);
+.star{
+  position:absolute;width:2px;height:2px;border-radius:50%;
+  background:#ffe4eb;opacity:.45;
+  animation:twinkle 3s infinite ease-in-out;
 }
-
-/* قلوب */
-.heart {
-  position: fixed;
-  font-size:20px;
-  animation: float 4s linear infinite;
+@keyframes twinkle{
+  50%{opacity:1;transform:scale(1.8)}
 }
-
-@keyframes float {
-  0% {transform: translateY(0);}
-  100% {transform: translateY(-600px); opacity:0;}
+.float{
+  position:absolute;bottom:-30px;color:var(--rose);
+  opacity:0;animation:rise 13s linear forwards;
+}
+@keyframes rise{
+  10%{opacity:.35}
+  100%{transform:translateY(-110vh) rotate(25deg);opacity:0}
+}
+.wrap{width:min(1050px,calc(100% - 36px));margin:auto}
+.nav{
+  height:72px;display:flex;align-items:center;
+  justify-content:space-between;border-bottom:1px solid var(--line);
+}
+.brand{font:24px var(--serif)}
+.brand span{color:var(--light)}
+.nav small{
+  font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);
+}
+.hero{
+  min-height:calc(100svh - 72px);
+  display:grid;place-items:center;text-align:center;
+  position:relative;padding:65px 0 85px;
+}
+.hero-inner{max-width:750px}
+.eyebrow,.kicker{
+  font-size:10px;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--gold);
+}
+h1{
+  font:500 clamp(52px,10vw,100px)/.98 var(--serif);
+  letter-spacing:-.04em;margin:25px 0;
+}
+h1 em{color:var(--light);font-weight:500}
+.hero p{
+  max-width:510px;margin:0 auto 32px;
+  color:var(--muted);font-size:15px;line-height:1.9;
+}
+.ornament{color:var(--gold);letter-spacing:.2em}
+.btn{
+  border:1px solid #e4a8b866;
+  background:linear-gradient(135deg,#b9637d,#8e405c);
+  color:white;padding:14px 24px;border-radius:99px;
+  box-shadow:0 10px 35px #a046642e;transition:.25s;
+}
+.btn:hover{transform:translateY(-3px)}
+.btn.ghost{background:transparent;color:var(--light);box-shadow:none}
+.scroll{
+  position:absolute;bottom:25px;color:#927e87;
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+}
+section{padding:90px 0;border-top:1px solid var(--line)}
+.head{text-align:center;max-width:600px;margin:0 auto 42px}
+.head h2{
+  font:500 clamp(34px,6vw,54px)/1.1 var(--serif);
+  margin:14px 0;
+}
+.head p{font-size:14px;color:var(--muted);line-height:1.8}
+.letter{
+  max-width:760px;margin:auto;
+  padding:clamp(28px,6vw,55px);
+  background:linear-gradient(145deg,#2a1722e8,#180e14e8);
+  border:1px solid var(--line);position:relative;
+}
+.letter:after{
+  content:"✦";position:absolute;right:22px;top:18px;color:var(--gold);
+}
+.letter p{
+  font:italic 19px/1.9 var(--serif);color:#ead7dc;
+}
+.letter .sign{
+  text-align:right;color:var(--light);
+  font-size:24px;margin-bottom:0;
+}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.card{
+  min-height:190px;padding:24px;
+  background:linear-gradient(145deg,#291723,#170e14);
+  border:1px solid var(--line);
+  display:flex;flex-direction:column;justify-content:space-between;
+  transition:.25s;
+}
+.card:hover{transform:translateY(-5px);border-color:#e4a8b866}
+.symbol{font-size:25px;color:var(--light)}
+.card h3{font:23px var(--serif);margin:15px 0 8px}
+.card p{font-size:13px;line-height:1.7;color:var(--muted);margin:0}
+.reasons{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:12px;max-width:760px;margin:auto;
+}
+.reason{
+  padding:17px 19px;border:1px solid var(--line);
+  background:#24131d88;color:#ead9de;
+  font:italic 17px var(--serif);
+}
+.reason span{font:11px var(--sans);color:var(--rose);margin-right:12px}
+.question{
+  max-width:680px;margin:auto;text-align:center;
+  padding:clamp(28px,7vw,60px) 22px;
+  border:1px solid #c9a87955;
+  background:radial-gradient(ellipse at top,#7e374d38,transparent 70%),#1a1016;
+}
+.question h2{font:500 clamp(34px,6vw,52px) var(--serif);margin:17px 0}
+.question p{color:var(--muted);line-height:1.8}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:25px}
+.answer{min-height:28px;color:var(--light);font:italic 18px var(--serif);margin-top:20px}
+.planner{
+  max-width:600px;margin:28px auto 0;
+  display:grid;grid-template-columns:1fr 1fr;gap:13px;text-align:left;
+}
+.field{display:flex;flex-direction:column;gap:8px}
+.field.full{grid-column:1/-1}
+.field label{
+  font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--gold);
+}
+.field input,.field select,.field textarea{
+  width:100%;padding:13px;background:#100a0e;
+  color:var(--cream);border:1px solid var(--line);
+  border-radius:3px;outline:none;
+}
+.field textarea{min-height:80px;resize:vertical}
+.planner .btn{grid-column:1/-1;justify-self:center;margin-top:5px}
+footer{
+  text-align:center;padding:48px 15px 60px;
+  color:#927e87;font-size:10px;letter-spacing:.13em;
+}
+footer strong{
+  display:block;font:italic 23px var(--serif);
+  color:var(--light);letter-spacing:0;margin-bottom:12px;
+}
+.modal{
+  position:fixed;inset:0;background:#050305d9;
+  backdrop-filter:blur(10px);display:none;
+  place-items:center;z-index:5;padding:20px;
+}
+.modal.show{display:grid}
+.modalbox{
+  width:min(460px,100%);padding:35px 25px;
+  text-align:center;background:#1b1017;border:1px solid var(--line);
+}
+.modalbox h2{font:34px var(--serif)}
+.modalbox p{white-space:pre-line;color:var(--muted);line-height:1.8}
+@media(max-width:680px){
+  .nav{height:62px}
+  .nav small{font-size:8px}
+  .hero{min-height:88svh}
+  .cards{grid-template-columns:1fr}
+  .card{min-height:155px}
+  .reasons{grid-template-columns:1fr}
+  section{padding:72px 0}
+  .planner{grid-template-columns:1fr}
+  .field.full,.planner .btn{grid-column:auto}
+  .letter p{font-size:17px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{
+    animation:none!important;
+    scroll-behavior:auto!important;
+    transition:none!important;
+  }
 }
 </style>
 </head>
-
 <body>
 
-<div class="avatar" id="ai">Hey… I'm watching 😏</div>
+<div class="stars" id="stars"></div>
+<div class="hearts" id="hearts"></div>
 
-<!-- اسم -->
-<div class="container" id="step0">
-  <h2>Hey you 💖</h2>
-  <p>What's your name?</p>
-  <input id="name">
-  <br>
-  <button class="yes" onclick="nextStep(1)">Continue</button>
-</div>
+<header class="wrap nav">
+  <div class="brand">Date<span>404</span> ♥</div>
+  <small>A little universe for Yoya</small>
+</header>
 
-<!-- لعبة -->
-<div class="container hidden" id="game">
-  <h2>Catch the heart 💖</h2>
-  <div id="heartBtn" style="font-size:50px; cursor:pointer;">💖</div>
-</div>
+<main>
 
-<!-- السؤال -->
-<div class="container hidden" id="step1">
-  <h2 id="nameTitle"></h2>
-  <p>Would you go out with me? 💕</p>
-  <button class="yes" id="yesBtn" onclick="nextStep(3)">Yes 😍</button>
-  <button class="no" id="noBtn">No 😢</button>
-</div>
+<section class="hero" style="border:0">
+  <div class="hero-inner wrap">
+    <div class="ornament">✧ &nbsp; MADE WITH LOVE &nbsp; ✧</div>
+    <div class="eyebrow" style="margin-top:25px">To my favorite person</div>
+    <h1>Hey, <em>Yoya.</em><br>This is your place.</h1>
+    <p>
+      Out of all the pages on the internet, this little corner
+      was made for one person only. No algorithms, no random
+      stories — just a tiny universe with your name written all over it.
+    </p>
+    <button class="btn" onclick="document.getElementById('letter').scrollIntoView({behavior:'smooth'})">
+      Open your little universe ♡
+    </button>
+  </div>
+  <div class="scroll">A little further down ↓</div>
+</section>
 
-<!-- باقي الفورم -->
-<div class="container hidden" id="step2">
-  <h2>Pick a date 📅</h2>
-  <input type="date" id="date">
-  <br>
-  <button onclick="nextStep(4)">Next</button>
-</div>
+<section id="letter">
+  <div class="wrap">
+    <div class="head">
+      <div class="kicker">01 — A note for you</div>
+      <h2>Something I want you to know</h2>
+      <p>Not a perfect speech. Just a little piece of my heart.</p>
+    </div>
+    <article class="letter">
+      <p>Dear Yoya,</p>
+      <p>
+        If this website could hold every thought I have about you,
+        it would probably never finish loading. So I made it simple:
+        a quiet place, a few words, and a reminder that you are
+        someone worth celebrating — in the ordinary days, not just
+        the special ones.
+      </p>
+      <p>
+        I hope this makes you smile, even for a second. And whenever
+        life gets a little too loud, remember there's someone who
+        is always happy that you're in his world.
+      </p>
+      <p class="sign">Yours, Youssef ♡</p>
+    </article>
+  </div>
+</section>
 
-<div class="container hidden" id="step3">
-  <h2>Pick time ⏰</h2>
-  <input type="time" id="time">
-  <br>
-  <button onclick="nextStep(5)">Next</button>
-</div>
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div class="kicker">02 — The little things</div>
+      <h2>It's always the details.</h2>
+      <p>Some things don't need a big explanation. They just feel like you.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <div class="symbol">✧</div>
+        <div><h3>Your smile</h3><p>The kind of little moment that can turn an ordinary day around.</p></div>
+      </article>
+      <article class="card">
+        <div class="symbol">☾</div>
+        <div><h3>Your voice</h3><p>A familiar comfort I could recognize in the middle of a thousand sounds.</p></div>
+      </article>
+      <article class="card">
+        <div class="symbol">♡</div>
+        <div><h3>Being us</h3><p>Not perfect, not scripted. Just two people making their own story.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
 
-<div class="container hidden" id="step4">
-  <h2>Food 🍔</h2>
-  <select id="food">
-    <option>Burger 🍔</option>
-    <option>Pizza 🍕</option>
-    <option>Sushi 🍣</option>
-    <option>Pasta 🍝</option>
-  </select>
-  <br>
-  <input placeholder="Or type what you want 😏" id="customFood">
-  <br>
-  <button onclick="nextStep(6)">Next</button>
-</div>
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div class="kicker">03 — A tiny list</div>
+      <h2>Reasons? I lost count.</h2>
+      <p>Here are a few. The rest are for another day.</p>
+    </div>
+    <div class="reasons">
+      <div class="reason"><span>01</span>You make the little things matter.</div>
+      <div class="reason"><span>02</span>Your presence feels like home.</div>
+      <div class="reason"><span>03</span>You are wonderfully, unmistakably you.</div>
+      <div class="reason"><span>04</span>Even quiet moments feel special with you.</div>
+      <div class="reason"><span>05</span>You make me want to make more memories.</div>
+      <div class="reason"><span>06</span>Because simply… you're my Yoya.</div>
+    </div>
+  </div>
+</section>
 
-<div class="container hidden" id="step5">
-  <h2>Where? 📍</h2>
-  <input id="place">
-  <br>
-  <button onclick="showSummary()">Finish</button>
-</div>
+<section id="date">
+  <div class="wrap">
+    <div class="head">
+      <div class="kicker">04 — One little question</div>
+      <h2>Can I take you on a date?</h2>
+      <p>No pressure, no tricks. Just me hoping we can make another lovely memory together.</p>
+    </div>
+    <div class="question">
+      <div class="ornament">♡</div>
+      <h2>Will you be my favorite plan?</h2>
+      <p>Choose yes and let's make a little plan together.</p>
+      <div class="actions">
+        <button class="btn" onclick="sayYes()">Yes, my love ♡</button>
+        <button class="btn ghost" onclick="softNo()">Let me think ☺</button>
+      </div>
+      <div class="answer" id="answer" aria-live="polite"></div>
 
-<div class="container hidden" id="summary">
-  <h2>Done 💖</h2>
-  <p id="result"></p>
-  <button onclick="sendWhatsApp()">Send 💌</button>
+      <div id="planner" hidden>
+        <div class="planner">
+          <div class="field">
+            <label for="dateInput">Our day</label>
+            <input type="date" id="dateInput">
+          </div>
+          <div class="field">
+            <label for="timeInput">Our time</label>
+            <input type="time" id="timeInput">
+          </div>
+          <div class="field">
+            <label for="foodInput">Something delicious</label>
+            <select id="foodInput">
+              <option>Surprise me ✨</option>
+              <option>Burgers 🍔</option>
+              <option>Pizza 🍕</option>
+              <option>Pasta 🍝</option>
+              <option>Sushi 🍣</option>
+              <option>Dessert date 🍰</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="placeInput">Where to?</label>
+            <input id="placeInput" placeholder="Somewhere lovely...">
+          </div>
+          <div class="field full">
+            <label for="noteInput">A little note (optional)</label>
+            <textarea id="noteInput" placeholder="Anything you want me to know..."></textarea>
+          </div>
+          <button class="btn" onclick="sharePlan()">Save our little plan ♡</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>Made for you, Yooya.</strong>
+  DATE404 · A SMALL PLACE IN A BIG INTERNET
+  <br><br>Always a little more love than words can say ♥
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modalbox">
+    <div class="eyebrow">A little promise</div>
+    <h2 id="modalTitle">Our little plan ♡</h2>
+    <p id="modalText"></p>
+    <button class="btn" onclick="closeModal()">Close with a smile</button>
+  </div>
 </div>
 
 <script>
+const stars=document.getElementById('stars');
 
-// قلوب طايرة
-setInterval(()=>{
-  const heart = document.createElement("div");
-  heart.innerText = "💖";
-  heart.classList.add("heart");
-  heart.style.left = Math.random()*100 + "%";
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),4000);
-},500);
-
-// AI كلام
-function speak(text){
-  document.getElementById("ai").innerText = text;
+for(let i=0;i<65;i++){
+  const s=document.createElement('i');
+  s.className='star';
+  s.style.left=Math.random()*100+'%';
+  s.style.top=Math.random()*100+'%';
+  s.style.animationDelay=Math.random()*4+'s';
+  s.style.animationDuration=2+Math.random()*3+'s';
+  stars.appendChild(s);
 }
 
-// 🎮 لعبة القلب (سهلة)
-const heartBtn = document.getElementById("heartBtn");
-let tries = 0;
-
-heartBtn.style.transition = "0.3s";
-
-heartBtn.addEventListener("touchstart", moveHeart);
-heartBtn.addEventListener("mouseover", moveHeart);
-
-function moveHeart(){
-
-  tries++;
-
-  if(tries > 6){
-    speak("خلاص كسبتي 😍💖");
-    return;
-  }
-
-  setTimeout(()=>{
-    heartBtn.style.position="absolute";
-    heartBtn.style.left = (Math.random()*50 + 20) + "%";
-    heartBtn.style.top = (Math.random()*40 + 20) + "%";
-  },200);
+function makeHeart(){
+  const h=document.createElement('span');
+  h.className='float';
+  h.textContent=['♡','✧','♥'][Math.floor(Math.random()*3)];
+  h.style.left=Math.random()*100+'%';
+  h.style.fontSize=12+Math.random()*15+'px';
+  h.style.animationDuration=9+Math.random()*7+'s';
+  document.getElementById('hearts').appendChild(h);
+  setTimeout(()=>h.remove(),17000);
 }
 
-heartBtn.addEventListener("click", ()=>{
-  speak("شطورة 😍💘");
-  nextStep(2);
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  setInterval(makeHeart,1300);
+}
+
+function sayYes(){
+  document.getElementById('answer').textContent=
+  'You just made my day. I knew I wanted to ask you. ♡';
+
+  document.getElementById('planner').hidden=false;
+
+  document.getElementById('planner').scrollIntoView({
+    behavior:'smooth',
+    block:'center'
+  });
+}
+
+function softNo(){
+  document.getElementById('answer').textContent=
+  'Take your time, my favorite person. There is no rush. ♡';
+}
+
+function sharePlan(){
+  const v=id=>document.getElementById(id).value;
+
+  const msg=
+  'Our little date plan ♡\n'+
+  'Day: '+(v('dateInput')||'Not decided yet')+'\n'+
+  'Time: '+(v('timeInput')||'Whenever works')+'\n'+
+  'Food: '+v('foodInput')+'\n'+
+  'Place: '+(v('placeInput')||'You choose')+
+  (v('noteInput')?'\nA note: '+v('noteInput'):'');
+
+  document.getElementById('modalText').textContent=msg;
+  document.getElementById('modal').classList.add('show');
+}
+
+function closeModal(){
+  document.getElementById('modal').classList.remove('show');
+}
+
+document.getElementById('modal').addEventListener('click',e=>{
+  if(e.target.id==='modal')closeModal();
 });
 
-// زر NO
-const noBtn = document.getElementById("noBtn");
-
-const noMessages = [
-  "Are you sure? 😢",
-  "Think again 😏",
-  "Don't break my heart 💔",
-  "Try YES 😌"
-];
-
-function moveNo(){
-  noBtn.style.left = Math.random()*70+"%";
-  noBtn.style.top = Math.random()*60+"%";
-  speak(noMessages[Math.floor(Math.random()*noMessages.length)]);
-}
-
-noBtn.addEventListener("mouseover", moveNo);
-noBtn.addEventListener("touchstart", moveNo);
-
-// YES
-const yesBtn = document.getElementById("yesBtn");
-
-const yesMessages = [
-  "Click me 😍",
-  "Yesss 💖",
-  "Do it 😉",
-  "Good choice 😏"
-];
-
-yesBtn.addEventListener("mouseover", ()=>{
-  speak(yesMessages[Math.floor(Math.random()*yesMessages.length)]);
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')closeModal();
 });
-
-yesBtn.addEventListener("touchstart", ()=>{
-  speak("Tap it 😍");
-});
-
-// 🔥 التنقل (متظبط 100%)
-function nextStep(step){
-  document.querySelectorAll(".container").forEach(el=>el.classList.add("hidden"));
-
-  if(step === 1){
-    document.getElementById("game").classList.remove("hidden");
-    speak("Catch it first 😈");
-    return;
-  }
-
-  if(step === 2){
-    const name = document.getElementById("name").value;
-    document.getElementById("nameTitle").innerText = name + "... be honest 😏";
-    document.getElementById("step1").classList.remove("hidden");
-    return;
-  }
-
-  if(step === 3){
-    document.getElementById("step2").classList.remove("hidden");
-  }
-  else if(step === 4){
-    document.getElementById("step3").classList.remove("hidden");
-  }
-  else if(step === 5){
-    document.getElementById("step4").classList.remove("hidden");
-  }
-  else if(step === 6){
-    document.getElementById("step5").classList.remove("hidden");
-  }
-}
-
-// النتيجة
-function showSummary(){
-  const name = document.getElementById("name").value;
-  const date = document.getElementById("date").value;
-  const time = document.getElementById("time").value;
-  const food = document.getElementById("customFood").value || document.getElementById("food").value;
-  const place = document.getElementById("place").value;
-
-  const text = `
-Name: ${name}
-Date: ${date}
-Time: ${time}
-Food: ${food}
-Place: ${place}
-  `;
-
-  document.getElementById("result").innerText = text;
-
-  document.querySelectorAll(".container").forEach(el=>el.classList.add("hidden"));
-  document.getElementById("summary").classList.remove("hidden");
-
-  speak("Perfect 💖");
-}
-
-// واتساب
-function sendWhatsApp(){
-  const result = document.getElementById("result").innerText;
-  const url = "https://wa.me/+201224745669?text=" + encodeURIComponent(result);
-  window.open(url, "_blank");
-}
-
 </script>
 
 </body>
