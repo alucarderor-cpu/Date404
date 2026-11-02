@@ -912,6 +912,8 @@ let currentScale=1;
 const openedPlanets=new Set();
 const collectedStars=new Set();
 let secretShown=false;
+  let memoriesAutoOpened=false;
+let pendingMemoriesOpen=false;
 
 const planetPositions=[[900,900],[470,490],[1320,510],[500,1320],[1370,1300]];
 const starPositions=[
@@ -928,7 +930,8 @@ function saveState(){
     localStorage.setItem(CONFIG.storageKey,JSON.stringify({
       planets:[...openedPlanets],
       stars:[...collectedStars],
-      secret:secretShown
+      secret:secretShown,
+      memoriesAutoOpened:memoriesAutoOpened
     }));
   }catch(e){}
 }
@@ -939,6 +942,7 @@ function loadState(){
     (s.planets||[]).forEach(i=>{if(i>=0&&i<planetPositions.length)openedPlanets.add(i)});
     (s.stars||[]).forEach(i=>{if(i>=0&&i<starPositions.length)collectedStars.add(i)});
     secretShown=!!s.secret;
+    memoriesAutoOpened=!!s.memoriesAutoOpened;
   }catch(e){}
 }
 function applyState(){
@@ -1097,15 +1101,24 @@ function collectStar(i){
   updateStarCounter();
   saveState();
 
-  if(collectedStars.size===starPositions.length&&!secretShown){
-    secretShown=true;
-    saveState();
-    setTimeout(()=>{
-      sfx.secret();
-      showModal('A tiny secret',CONFIG.secret.title,CONFIG.secret.en,CONFIG.secret.ar,CONFIG.secret.memory);
-    },500);
-  }else{
-    showToast('You found a little piece of starlight ✦');
+ if(collectedStars.size===starPositions.length&&!secretShown){
+  secretShown=true;
+  pendingMemoriesOpen=true;
+  saveState();
+
+  setTimeout(()=>{
+    sfx.secret();
+    showModal(
+      'A tiny secret',
+      CONFIG.secret.title,
+      CONFIG.secret.en,
+      CONFIG.secret.ar,
+      CONFIG.secret.memory
+    );
+  },500);
+}else{
+  showToast('You found a little piece of starlight ✦');
+}
   }
 }
 
@@ -1269,8 +1282,27 @@ function closeInfo(){
     showToast('كل الكواكب اتفتحت ✦ في وجهة أخيرة');
   }
 }
-function closeModal(id){
-  document.getElementById(id).classList.remove('open');
+function closeInfo(){
+  closeModal('planetModal');
+  paused=false;
+
+  if(openedPlanets.size===planetPositions.length&&!finaleBtn.classList.contains('show')){
+    finaleBtn.classList.add('show');
+    showToast('كل الكواكب اتفتحت ✦ في وجهة أخيرة');
+  }
+
+  if(pendingMemoriesOpen){
+    pendingMemoriesOpen=false;
+
+    setTimeout(()=>{
+      if(!memoriesAutoOpened){
+        memoriesAutoOpened=true;
+        saveState();
+        openGallery();
+        showToast('All our memories are waiting for you ♡');
+      }
+    },350);
+  }
 }
 
 function goPlanet(i){
