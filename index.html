@@ -71,9 +71,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
   background:#090611!important;
   touch-action:none;
 }
-#game.active{
-  display:block!important;
-}
+#game.active{display:block!important}
 .content{
   width:min(620px,100%);margin:auto;
   animation:fadeIn 1s ease both;
@@ -113,18 +111,23 @@ p{
 }
 .small-note{font-size:10px;letter-spacing:2px;color:#a99aaa}
 
-/* Game */
+/* GAME */
 #universe{
   position:absolute;inset:0;overflow:hidden;
   background:
     radial-gradient(ellipse at 50% 50%,#27112f 0%,#120b20 48%,#080611 100%);
   touch-action:none;
 }
+
+/* FIX: world now starts at the top-left corner */
 #world{
-  position:absolute;width:1800px;height:1800px;
-  left:50%;top:50%;transform-origin:center center;
+  position:absolute;
+  width:1800px;height:1800px;
+  left:0;top:0;
+  transform-origin:0 0;
   will-change:transform;
 }
+
 .nebula{
   position:absolute;inset:0;
   background:
@@ -132,25 +135,25 @@ p{
     radial-gradient(ellipse at 70% 60%,#593c9c22,transparent 35%);
 }
 .ship{
-  position:absolute;left:50%;top:50%;
-  width:55px;height:75px;transform:translate(-50%,-50%);
+  position:absolute;left:900px;top:900px;
+  width:55px;height:75px;
+  transform:translate(-50%,-50%);
   z-index:5;filter:drop-shadow(0 0 14px #ed9acb);
   pointer-events:none;
 }
 .ship svg{width:100%;height:100%;overflow:visible}
+
 .planet{
   position:absolute;border:0;background:none;color:white;
   display:flex;flex-direction:column;align-items:center;gap:10px;
-  transform:translate(-50%,-50%);z-index:3;
-  padding:10px;
+  transform:translate(-50%,-50%);z-index:3;padding:10px;
 }
 .planet-ball{
   width:var(--size);height:var(--size);border-radius:50%;
   display:block;box-shadow:inset -15px -10px 25px #0008,
     0 0 35px var(--glow);
   background:var(--planet);
-  border:1px solid #ffffff35;
-  position:relative;
+  border:1px solid #ffffff35;position:relative;
 }
 .planet-ball:after{
   content:"";position:absolute;inset:20% 0;
@@ -225,7 +228,9 @@ p{
   pointer-events:auto;touch-action:none;
   user-select:none;-webkit-user-select:none;
 }
-#boostBtn.pressed{background:#c47acb;color:white;transform:scale(.95)}
+#boostBtn.pressed{
+  background:#c47acb;color:white;transform:scale(.95)
+}
 #gameHint{
   position:absolute;bottom:12px;left:50%;
   transform:translateX(-50%);z-index:90;
@@ -234,7 +239,7 @@ p{
   pointer-events:none;
 }
 
-/* Modal and gallery */
+/* MODALS */
 .overlay{
   display:none;position:fixed;inset:0;z-index:200;
   background:#08040deF;align-items:center;justify-content:center;
@@ -283,8 +288,12 @@ footer{
   color:#857487;font-size:8px;letter-spacing:2px;
   pointer-events:none;
 }
-@keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(15px)}
+  to{opacity:1;transform:translateY(0)}
+}
 @keyframes twinkle{from{opacity:.25}to{opacity:1}}
+
 @media(min-width:700px){
   #joystick{width:145px;height:145px;left:35px;bottom:35px}
   #stick{width:62px;height:62px}
@@ -394,28 +403,23 @@ footer{
         </svg>
       </div>
 
-      <button class="planet" style="left:900px;top:900px;--size:105px;--planet:linear-gradient(140deg,#f0a2cc,#8b477e);--glow:#ed8acb88"
-        onclick="openPlanet(0)">
+      <button class="planet" style="left:900px;top:900px;--size:105px;--planet:linear-gradient(140deg,#f0a2cc,#8b477e);--glow:#ed8acb88" onclick="openPlanet(0)">
         <span class="planet-ball"></span><span class="planet-name">Our Beginning</span>
       </button>
 
-      <button class="planet" style="left:470px;top:490px;--size:82px;--planet:linear-gradient(140deg,#9fc5d9,#426eaa);--glow:#6b9bd988"
-        onclick="openPlanet(1)">
+      <button class="planet" style="left:470px;top:490px;--size:82px;--planet:linear-gradient(140deg,#9fc5d9,#426eaa);--glow:#6b9bd988" onclick="openPlanet(1)">
         <span class="planet-ball"></span><span class="planet-name">Your Smile</span>
       </button>
 
-      <button class="planet" style="left:1320px;top:510px;--size:95px;--planet:linear-gradient(140deg,#e8bd8d,#9c603d);--glow:#d9a16a88"
-        onclick="openPlanet(2)">
+      <button class="planet" style="left:1320px;top:510px;--size:95px;--planet:linear-gradient(140deg,#e8bd8d,#9c603d);--glow:#d9a16a88" onclick="openPlanet(2)">
         <span class="planet-ball"></span><span class="planet-name">Our Memories</span>
       </button>
 
-      <button class="planet" style="left:500px;top:1320px;--size:90px;--planet:linear-gradient(140deg,#b5a3e8,#6650a1);--glow:#a38be988"
-        onclick="openPlanet(3)">
+      <button class="planet" style="left:500px;top:1320px;--size:90px;--planet:linear-gradient(140deg,#b5a3e8,#6650a1);--glow:#a38be988" onclick="openPlanet(3)">
         <span class="planet-ball"></span><span class="planet-name">My Favorite Person</span>
       </button>
 
-      <button class="planet" style="left:1370px;top:1300px;--size:110px;--planet:linear-gradient(140deg,#e9c68e,#a76b54);--glow:#e8bc8c88"
-        onclick="openPlanet(4)">
+      <button class="planet" style="left:1370px;top:1300px;--size:110px;--planet:linear-gradient(140deg,#e9c68e,#a76b54);--glow:#e8bc8c88" onclick="openPlanet(4)">
         <span class="planet-ball"></span><span class="planet-name">To Our Future</span>
       </button>
     </div>
@@ -495,7 +499,7 @@ footer{
 <footer>MADE WITH LOVE · IN EVERY UNIVERSE</footer>
 
 <script>
-/* Background stars */
+/* BACKGROUND STARS */
 const starCanvas=document.getElementById('stars');
 const starCtx=starCanvas.getContext('2d');
 let starDots=[];
@@ -507,6 +511,7 @@ function resizeStars(){
   starCanvas.style.width=innerWidth+'px';
   starCanvas.style.height=innerHeight+'px';
   starCtx.setTransform(dpr,0,0,dpr,0,0);
+
   starDots=Array.from({length:150},()=>({
     x:Math.random()*innerWidth,
     y:Math.random()*innerHeight,
@@ -514,18 +519,22 @@ function resizeStars(){
     a:Math.random()*.7+.2
   }));
 }
+
 function drawStars(){
   starCtx.clearRect(0,0,innerWidth,innerHeight);
   starDots.forEach(s=>{
     starCtx.fillStyle=`rgba(255,245,255,${s.a})`;
-    starCtx.beginPath();starCtx.arc(s.x,s.y,s.r,0,Math.PI*2);starCtx.fill();
+    starCtx.beginPath();
+    starCtx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    starCtx.fill();
   });
   requestAnimationFrame(drawStars);
 }
-resizeStars();drawStars();
+resizeStars();
+drawStars();
 window.addEventListener('resize',resizeStars);
 
-/* Music */
+/* MUSIC */
 const music=document.getElementById('bgMusic');
 const musicBtn=document.getElementById('musicBtn');
 let musicStarted=false;
@@ -539,28 +548,30 @@ async function startMusic(){
     musicBtn.textContent='♫ Tap for Music';
   }
 }
+
 function toggleMusic(){
-  if(music.paused)startMusic();
-  else{
+  if(music.paused){
+    startMusic();
+  }else{
     music.pause();
     musicBtn.textContent='♫ Music OFF';
   }
 }
+
 musicBtn.addEventListener('click',toggleMusic);
 
-/* Browser autoplay restrictions: retry on first user interaction */
 document.addEventListener('pointerdown',()=>{
   if(!musicStarted && music.paused)startMusic();
 },{once:true});
 
-/* Screens */
+/* SCREENS */
 function goTo(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
 }
 
-/* Game state */
+/* GAME STATE */
 const game=document.getElementById('game');
 const world=document.getElementById('world');
 const ship=document.getElementById('ship');
@@ -570,41 +581,68 @@ const boostBtn=document.getElementById('boostBtn');
 const starCounter=document.getElementById('starCounter');
 
 let shipX=900,shipY=900;
-let cameraX=0,cameraY=0;
-let joyX=0,joyY=0,boostActive=false;
-let starsCollected=0,gameRunning=false;
+let joyX=0,joyY=0;
+let boostActive=false;
+let starsCollected=0;
+let gameRunning=false;
 let lastTime=0;
+
+/*
+  CAMERA FIX:
+  The world starts at (0,0).
+  The camera translates the ship's coordinates
+  so the ship stays at the center of the screen.
+*/
+function updateCamera(){
+  const scale=innerWidth<600?0.78:1;
+
+  const cameraX=(innerWidth/2)-(shipX*scale);
+  const cameraY=(innerHeight/2)-(shipY*scale);
+
+  world.style.transform=
+    `translate3d(${cameraX}px,${cameraY}px,0) scale(${scale})`;
+}
 
 function startGame(){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  game.classList.add('active');
 
-  /* Force visible even if another CSS rule hides screens */
+  game.classList.add('active');
   game.style.setProperty('display','block','important');
 
-  shipX=900;shipY=900;
-  joyX=0;joyY=0;
+  shipX=900;
+  shipY=900;
+  joyX=0;
+  joyY=0;
+  boostActive=false;
+
+  ship.style.left=shipX+'px';
+  ship.style.top=shipY+'px';
+  ship.style.transform='translate(-50%,-50%)';
+
   gameRunning=true;
   lastTime=0;
+
   updateCamera();
   requestAnimationFrame(gameLoop);
   startMusic();
 }
 
-function updateCamera(){
-  const scale=innerWidth<600?0.78:1;
-  const x=innerWidth/2-shipX*scale;
-  const y=innerHeight/2-shipY*scale;
-  world.style.transform=`translate(${x}px,${y}px) scale(${scale})`;
-}
-window.addEventListener('resize',()=>{if(gameRunning)updateCamera()});
+window.addEventListener('resize',()=>{
+  if(gameRunning)updateCamera();
+});
 
+/* MAIN GAME LOOP */
 function gameLoop(timestamp){
   if(!gameRunning)return;
-  const dt=lastTime?Math.min((timestamp-lastTime)/16.67,2):1;
+
+  const dt=lastTime
+    ? Math.min((timestamp-lastTime)/16.67,2)
+    : 1;
+
   lastTime=timestamp;
 
   const speed=(boostActive?5.2:2.7)*dt;
+
   shipX+=joyX*speed;
   shipY+=joyY*speed;
 
@@ -615,7 +653,8 @@ function gameLoop(timestamp){
   ship.style.top=shipY+'px';
 
   if(Math.abs(joyX)+Math.abs(joyY)>.1){
-    ship.style.transform=`translate(-50%,-50%) rotate(${Math.atan2(joyX,-joyY)*180/Math.PI}deg)`;
+    const angle=Math.atan2(joyX,-joyY)*180/Math.PI;
+    ship.style.transform=`translate(-50%,-50%) rotate(${angle}deg)`;
   }else{
     ship.style.transform='translate(-50%,-50%)';
   }
@@ -624,56 +663,83 @@ function gameLoop(timestamp){
   requestAnimationFrame(gameLoop);
 }
 
-/* Joystick — Pointer Events for touch and mouse */
+/* JOYSTICK */
 let joyPointer=null;
+
 function moveStick(e){
   if(joyPointer!==e.pointerId)return;
+
   const rect=joystick.getBoundingClientRect();
   const cx=rect.left+rect.width/2;
   const cy=rect.top+rect.height/2;
+
   let dx=e.clientX-cx;
   let dy=e.clientY-cy;
+
   const max=rect.width*.34;
   const distance=Math.hypot(dx,dy);
-  if(distance>max){dx=dx/distance*max;dy=dy/distance*max}
+
+  if(distance>max){
+    dx=dx/distance*max;
+    dy=dy/distance*max;
+  }
+
   joyX=dx/max;
   joyY=dy/max;
+
   stick.style.transform=`translate(${dx}px,${dy}px)`;
 }
+
 function resetStick(){
-  joyPointer=null;joyX=0;joyY=0;
+  joyPointer=null;
+  joyX=0;
+  joyY=0;
   stick.style.transform='translate(0,0)';
 }
+
 joystick.addEventListener('pointerdown',e=>{
   e.preventDefault();
   joyPointer=e.pointerId;
   joystick.setPointerCapture(e.pointerId);
   moveStick(e);
 });
+
 joystick.addEventListener('pointermove',moveStick);
 joystick.addEventListener('pointerup',resetStick);
 joystick.addEventListener('pointercancel',resetStick);
 joystick.addEventListener('lostpointercapture',resetStick);
 
-/* Boost */
+/* BOOST */
 boostBtn.addEventListener('pointerdown',e=>{
-  e.preventDefault();boostActive=true;
+  e.preventDefault();
+  boostActive=true;
   boostBtn.classList.add('pressed');
 });
+
 function stopBoost(){
-  boostActive=false;boostBtn.classList.remove('pressed');
+  boostActive=false;
+  boostBtn.classList.remove('pressed');
 }
+
 boostBtn.addEventListener('pointerup',stopBoost);
 boostBtn.addEventListener('pointercancel',stopBoost);
 boostBtn.addEventListener('lostpointercapture',stopBoost);
 
-/* Keyboard support */
+/* KEYBOARD */
 const keys={};
+
 document.addEventListener('keydown',e=>{
   keys[e.key.toLowerCase()]=true;
-  if(['arrowup','arrowdown','arrowleft','arrowright',' '].includes(e.key.toLowerCase()))e.preventDefault();
+
+  if(['arrowup','arrowdown','arrowleft','arrowright',' '].includes(e.key.toLowerCase())){
+    e.preventDefault();
+  }
 });
-document.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
+
+document.addEventListener('keyup',e=>{
+  keys[e.key.toLowerCase()]=false;
+});
+
 function keyboardLoop(){
   if(keys.arrowleft||keys.a)joyX=-1;
   else if(keys.arrowright||keys.d)joyX=1;
@@ -684,13 +750,13 @@ function keyboardLoop(){
   else if(!joyPointer)joyY=0;
 
   if(keys[' '])boostActive=true;
-  else if(!boostBtn.matches(':active') && !boostBtn.classList.contains('pressed'))boostActive=false;
+  else if(!boostBtn.classList.contains('pressed'))boostActive=false;
 
   requestAnimationFrame(keyboardLoop);
 }
 keyboardLoop();
 
-/* Planets */
+/* PLANETS */
 const planetData=[
   ['Our Beginning','Every beautiful story has a beginning. And somehow, meeting you became one of my favorite chapters.'],
   ['Your Smile','There are a million stars in this galaxy, but your smile is still my favorite light.'],
@@ -698,26 +764,37 @@ const planetData=[
   ['My Favorite Person','You are not just a part of my world. You make my world feel different.'],
   ['To Our Future','There are so many places we have not seen and memories we have not made yet. I hope we explore them together.']
 ];
+
 function openPlanet(i){
   document.getElementById('planetTitle').textContent=planetData[i][0];
   document.getElementById('planetText').textContent=planetData[i][1];
   document.getElementById('planetModal').classList.add('open');
+
   starsCollected++;
   starCounter.textContent='✦ '+starsCollected+' stars';
 }
+
 function goPlanet(i){
   const positions=[
-    [900,900],[470,490],[1320,510],[500,1320],[1370,1300]
+    [900,900],
+    [470,490],
+    [1320,510],
+    [500,1320],
+    [1370,1300]
   ];
+
   shipX=positions[i][0]-100;
   shipY=positions[i][1]+100;
+
   document.getElementById('mapPanel').classList.remove('open');
+  updateCamera();
 }
+
 function toggleMap(){
   document.getElementById('mapPanel').classList.toggle('open');
 }
 
-/* Gallery */
+/* GALLERY */
 const captions=[
   'My little Yoya ✦',
   'A moment worth keeping ♥',
@@ -728,43 +805,62 @@ const captions=[
   'My favorite adventure',
   'To many more memories ♥'
 ];
+
 function openGallery(){
   const grid=document.getElementById('galleryGrid');
   grid.innerHTML='';
+
   captions.forEach((caption,i)=>{
     const card=document.createElement('div');
     card.className='gallery-card';
+
     const img=document.createElement('img');
     img.src=`images/memory${i+1}.jpeg`;
     img.alt=caption;
     img.loading='lazy';
     img.onerror=()=>{img.style.opacity='.15'};
     img.onclick=()=>showImage(i);
+
     const text=document.createElement('p');
     text.textContent=caption;
+
     card.append(img,text);
     grid.appendChild(card);
   });
+
   document.getElementById('galleryModal').classList.add('open');
 }
+
 function showImage(i){
   document.getElementById('lightboxImg').src=`images/memory${i+1}.jpeg`;
   document.getElementById('lightboxCaption').textContent=captions[i];
   document.getElementById('lightbox').classList.add('open');
 }
+
 function closeModal(id){
   document.getElementById(id).classList.remove('open');
 }
 
-/* Date invitation */
+/* DATE INVITATION */
 function sendDate(){
   const place=document.getElementById('datePlace').value.trim()||'Anywhere with you';
   const time=document.getElementById('dateTime').value.trim()||'Whenever you like';
-  const message=`Hey Yoya ♡\nI have a date invitation for you!\nPlace: ${place}\nTime: ${time}\n\nFrom your favorite astronaut 🚀`;
-  window.open('https://wa.me/201224745669?text='+encodeURIComponent(message),'_blank');
+
+  const message=
+`Hey Yoya ♡
+I have a date invitation for you!
+Place: ${place}
+Time: ${time}
+
+From your favorite astronaut 🚀`;
+
+  window.open(
+    'https://wa.me/201224745669?text='+encodeURIComponent(message),
+    '_blank'
+  );
 }
 
-/* Finish the adventure */
+/* OPTIONAL ENDING FUNCTION */
 function finishAdventure(){
   gameRunning=false;
   game.classList.remove('active');
